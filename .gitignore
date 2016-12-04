@@ -1,7 +1,17 @@
+# Laravel
 /node_modules
 /public/storage
 /vendor
-/.idea
+
+# env file
+.env
+
+# Homestead
 Homestead.json
 Homestead.yaml
-.env
+
+# JetBrains
+/.idea
+
+# Composer
+composer.lock
