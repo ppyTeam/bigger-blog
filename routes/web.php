@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/blog', 'PostController@index')->name('blog.list');
+
+Route::get('/blog/{id}','PostController@show')->name('blog.show')->where('id', '\d+');
