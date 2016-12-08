@@ -1,9 +1,18 @@
 <?php
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+
+    protected $seeders = [
+        PostSeeder::class,
+        CategorySeeder::class,
+        TagSeeder::class,
+        PostTagseeder::class,
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -12,5 +21,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UsersTableSeeder::class);
+        Model::unguard();
+        foreach ($this->seeders as $each_seeder) {
+            $this->call($each_seeder);
+        }
+
+        Model::unguard();
+
     }
 }
