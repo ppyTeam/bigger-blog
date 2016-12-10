@@ -13,9 +13,13 @@ Homestead.yaml
 # JetBrains
 /.idea
 
-#ide-helper
+# ide-helper
 .phpstorm.meta.php
 _ide_helper*.php
 
 # Composer
 composer.lock
+
+# public
+/public/css/*
+/public/js/*
