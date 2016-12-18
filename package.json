@@ -1,20 +1,39 @@
 {
   "private": true,
   "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch",
+    "prod": "cross-env NODE_ENV='production' webpack",
+    "dev": "webpack --watch",
     "dev-init": "sh ./developing/init.sh",
     "dev-update": "sh ./developing/update.sh"
   },
   "devDependencies": {
+    "autoprefixer": "^6.5.0",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-3": "^6.17.0",
     "bootstrap-sass": "^3.3.7",
+    "clean-webpack-plugin": "^0.1.0",
+    "cross-env": "^3.1.0",
+    "css-loader": "^0.26.0",
+    "extract-text-webpack-plugin": "^2.0.0-beta.0",
     "gulp": "^3.9.1",
     "jquery": "^3.1.0",
     "laravel-elixir": "^6.0.0-9",
     "laravel-elixir-vue-2": "^0.2.0",
     "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.16.2",
-    "vue": "^2.0.1",
-    "vue-resource": "^1.0.3"
+    "postcss-loader": "^1.2.0",
+    "sass-loader": "^4.1.0",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.0",
+    "vue-loader": "^10.0.0",
+    "webpack": "^2.1.0-beta.0"
+  },
+  "dependencies": {
+    "vue": "^2.1.0",
+    "vue-resource": "^1.0.0",
+    "vue-router": "^2.1.0",
+    "vuex": "^2.1.0"
   }
 }

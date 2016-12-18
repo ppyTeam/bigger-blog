@@ -6,7 +6,13 @@
  */
 
 require('./bootstrap');
+require('../sass/app.scss');
+let Vue = require('vue');
+let VueRouter = require('vue-router');
+let Vuex = require('vuex');
 
+Vue.use(VueRouter);
+Vue.use(Vuex);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the body of the page. From here, you may begin adding components to
