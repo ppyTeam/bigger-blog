@@ -5,8 +5,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 require('../sass/app.scss');
+
 let Vue = require('vue');
 let VueRouter = require('vue-router');
 let Vuex = require('vuex');

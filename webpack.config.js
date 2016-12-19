@@ -1,9 +1,10 @@
-const Webpack = require('webpack'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin'),
-    CleanWebpackPlugin = require('clean-webpack-plugin');
-
 const PATH = require('path'),
-    PROD = process.env.NODE_ENV === 'production',
+    Webpack = require('webpack'),
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    CleanWebpackPlugin = require('clean-webpack-plugin'),
+    WebpackMd5Hash = require(PATH.join(__dirname, 'libs', 'webpack-md5-hash.js'));
+
+const PROD = process.env.NODE_ENV === 'production',
     RES_PATH = PATH.join(__dirname, 'resources'),
     PUB_PATH = PATH.join(__dirname, 'public');
 
@@ -163,6 +164,9 @@ module.exports = {
       allChunks: true
     }),
 
+    // MD5 plugins, edit by ttionya
+    new WebpackMd5Hash(),
+
     // Uglify
     PROD ?
         new Webpack.optimize.UglifyJsPlugin({
@@ -179,7 +183,6 @@ module.exports = {
   //     jQuery: 'jquery',
   //     'window.jQuery': 'jquery'
   //   }),
-
   ],
 
 
