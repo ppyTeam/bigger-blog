@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ elixir('css/app.css') }}">
 </head>
 <body>
-<div id="app"></div>
+<div id="app">{{ $res['content'] }}</div>
 <script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>

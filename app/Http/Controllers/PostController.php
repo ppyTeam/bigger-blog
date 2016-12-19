@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ReturnDataEvent;
 use App\Repository\PostRepository;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,10 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->postRepository->simplePaginate(5);
-        return view('post.index', compact('posts'));
+//        $return_arr = $this->postRepository->simplePaginate(5);
+        $return_arr['content']='这是列表内容';
+        $res = event(new ReturnDataEvent($return_arr));
+        return $res[0];
     }
 
     public function show($id)
