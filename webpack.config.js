@@ -14,6 +14,7 @@ module.exports = {
 
 
   entry: {
+    // DO NOT change key name
     common: ['vue', 'vue-router', 'vue-resource', 'vuex'],
     app: PATH.join(RES_PATH, 'assets', 'js', 'app.js') // ./resources/assets/js/app.js
   },
@@ -22,13 +23,13 @@ module.exports = {
   output: {
     path: PUB_PATH,
     publicPath: '/',
-    filename: PATH.join('js', '[name]-[chunkhash:5].js')
+    filename: PATH.join('js', '[name]-[chunkhash:8].js')
   },
 
 
   resolve: {
     alias: {
-      // 'vue$': 'vue/dist/vue.common.js',
+      'vue$': 'vue/dist/vue.common.js',
       // style: './less',
       // plugins: './plugins',
       // // 别名可以是路径或文件
@@ -153,13 +154,13 @@ module.exports = {
     // 提取公共模块
     new Webpack.optimize.CommonsChunkPlugin({
       name: 'common',
-      filename: PATH.join('js', 'common-[chunkhash:5].js'),
+      filename: PATH.join('js', 'common-[chunkhash:8].js'),
       minChunks: Infinity
     }),
 
     // 提取CSS
     new ExtractTextPlugin({
-      filename: PATH.join('css', '[name]-[contenthash:5].css'),
+      filename: PATH.join('css', '[name]-[contenthash:8].css'),
       disable: false,
       allChunks: true
     }),

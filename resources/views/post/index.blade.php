@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>{{ config('app.name') }}</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div id="app">
 <div class="container">
     <h1>文章列表</h1>
     <h5>Page {{ $posts->currentPage() }} of {{ $posts->lastPage() }}</h5>
@@ -39,6 +41,7 @@
     </ul>
     <hr>
     {!! $posts->render() !!}
+</div>
 </div>
 </body>
 </html>

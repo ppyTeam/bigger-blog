@@ -12,13 +12,15 @@
 
 "use strict";
 
-const getHashDigest = require('loader-utils').getHashDigest;
+const getHashDigest = require('loader-utils').getHashDigest,
+    writeFileSync = require('fs').writeFileSync,
+    hashJSONFile = require('path').join(__dirname, '..', 'storage', 'app', 'assets-hash.json');
 
 let compareModules = (pre, aft) => pre.resource <= aft.resource ?  -1 : 1;
 
 let getModuleSource = module => {
-    let _source = module._source || {};
-    return _source._value || '';
+  let _source = module._source || {};
+  return _source._value || '';
 };
 
 function WebpackMd5Hash () { }
@@ -37,11 +39,27 @@ WebpackMd5Hash.prototype.apply = compiler => {
     });
 
     compilation.plugin("after-optimize-assets", assets => {
+      let hashObj = {
+        frontend: { },
+        management: { }
+      };
+
       for (let key in assets) {
         if (key !== 'extract-text-webpack-plugin-output-filename') {
-          // TODO
+          let keyArr = key.split(/[-.\/]/),
+              type = /^common$|^app$/.test(keyArr[1]) ? 'frontend' : 'management';
+
+          hashObj[type][keyArr[1] + keyArr[0]] = {
+            filename: key,
+            hash: keyArr[2]
+          };
         }
       }
+
+      let count = 0;
+      for (let key in hashObj.frontend) count++;
+      for (let key in hashObj.management) count++;
+      count && writeFileSync(hashJSONFile, JSON.stringify(hashObj));
     });
   });
 };

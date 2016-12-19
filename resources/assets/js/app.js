@@ -1,16 +1,10 @@
+"use strict";
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+const Vue = require('vue'),
+    VueRouter = require('vue-router'),
+    Vuex = require('vuex');
 
-// require('./bootstrap');
 require('../sass/app.scss');
-
-let Vue = require('vue');
-let VueRouter = require('vue-router');
-let Vuex = require('vuex');
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -20,8 +14,10 @@ Vue.use(Vuex);
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('my-example', require('./components/Example.vue'));
+Vue.component('my-nav', require('./components/navigation.vue'));
 
-const app = new Vue({
-    el: '#app'
+const root = new Vue({
+    el: '#app',
+    template: '<div><my-nav></my-nav></div>'
 });

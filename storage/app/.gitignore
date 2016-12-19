@@ -1,3 +1,6 @@
 *
 !public/
 !.gitignore
+
+# assets hash file
+!assets-hash.json
