@@ -2,5 +2,6 @@
 !public/
 !.gitignore
 
-# assets hash file
+# assets files
 !assets-hash.json
+!assets-getter.js
