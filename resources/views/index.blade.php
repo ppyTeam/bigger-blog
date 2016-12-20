@@ -7,11 +7,10 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- Styles -->
-    <link rel="stylesheet" type="text/css" href="{{ elixir('css/app.css') }}">
+    <!-- TODO 没有指定cookie则输出下列内容，否则输出<link><script> -->
+    <script>{!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-getter']) !!}</script>
 </head>
 <body>
 <div id="app">{{ $res['content'] }}</div>
-<script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>
