@@ -7,10 +7,20 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- TODO 没有指定cookie则输出下列内容，否则输出<link><script> -->
-    <script>{!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-getter']) !!}</script>
+    <!-- TODO 后端通过 1.判断UA为移动端；2.不存在提示不支持ls的cookie，则输出下列缓存ls的js，其余桌面端、蜘蛛和不支持ls的移动端（可能出现写满等情况）都默认引用<link>和<script>标签。**想办法使用绝对路径** -->
+    @if (true)
+        {!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-getter']) !!}
+    @else
+        <link href="css/app-43a490ad.css" rel="stylesheet">
+        <script src="js/common-fbdb3600.js"></script>
+        <script src="js/app-a423232b.js"></script>
+    @endif
 </head>
 <body>
 <div id="app">{{ $res['content'] }}</div>
+
+<script>
+
+</script>
 </body>
 </html>

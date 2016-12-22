@@ -1,0 +1,125 @@
+<style type="text/css">
+
+</style>
+<script>
+    (function () {
+        "use strict";
+
+        var assetsObj = '%replace(assetsObj)%',
+            assets, lsItem,
+            tmpAssetsItem, tmpAssetsItemName,
+            finAssets = { },
+            renewNames = [],
+            addRenewNames = function (name, isRemove) {
+                isRemove && localStorage.removeItem(name);
+
+                renewNames.push(name);
+            },
+
+            i,
+            responseCount = 0,
+            renewNamesLen,
+            exec = function () {
+                var order = {
+                    frontend: ['appcss', 'commonjs', 'appjs'],
+                    management: []
+                },
+                   tmpOrderItem, el;
+
+                order = order[assetsObj.type];                                 // Array
+                for (i = 0; i < order.length; i++) {
+                    tmpOrderItem = order[i];                                   // String
+
+                    el = document.createElement(tmpOrderItem.substr(-2, 2) === 'ss' ? 'style' : 'script');
+                    el.innerText = finAssets[tmpOrderItem] || '';              // String, undefined is trouble
+                    document.head.appendChild(el);
+                }
+            };
+
+        // have some error
+        typeof assetsObj !== 'object' && location.reload();
+
+        // support localStorage
+        if (typeof localStorage === 'object') {
+            assets = assetsObj.assets;
+
+            for (tmpAssetsItemName in assets) {
+                tmpAssetsItem = assets[tmpAssetsItemName];                     // { name: 'xx', hash: 'hex', url: 'xx' }
+
+                lsItem = localStorage.getItem(tmpAssetsItemName);              // json or null
+
+                if (lsItem) {
+                    try {
+                        lsItem = JSON.parse(lsItem);                           // { value: 'xx', hash: 'hex', url: 'xx' }
+
+                        // undefined will throw error
+                        lsItem.value.split;
+                        lsItem.hash.split;
+
+                        if (lsItem.hash === tmpAssetsItem.hash) {
+                            finAssets[tmpAssetsItemName] = lsItem.value;       // { appcss: 'xx', commonjs: 'xx' }
+                        }
+                        else {
+                            addRenewNames(tmpAssetsItemName, true);
+                        }
+                    }
+                    catch (err) {
+                        addRenewNames(tmpAssetsItemName, true);
+                    }
+                }
+                else {
+                    addRenewNames(tmpAssetsItemName);
+                }
+
+                lsItem = undefined;
+            }
+
+            // get new assets
+            renewNamesLen = renewNames.length;
+            if (renewNamesLen !== 0) {
+                for (i = 0; i < renewNamesLen; i++) {
+
+                    // closure
+                    (function () {
+                        return function () {
+                            var tmpAssetsItemName = renewNames[i],
+                                tmpAssetsItemValue = assets[tmpAssetsItemName],
+                                xhr = new XMLHttpRequest();
+
+                            xhr.open('GET', assetsObj.host + tmpAssetsItemValue.url);
+                            xhr.addEventListener('readystatechange', function(e) {
+                                var resObj;
+
+                                e = e.target;
+                                if (e.readyState === 4 && (e.status === 200 || e.status === 304)) {
+                                    resObj = {
+                                        value: e.responseText,
+                                        hash: tmpAssetsItemValue.hash
+                                    };
+
+                                    // insert into localStorage
+                                    localStorage.setItem(tmpAssetsItemName, JSON.stringify(resObj));
+
+                                    finAssets[tmpAssetsItemName] = e.responseText;
+
+                                    ++responseCount === renewNamesLen ? exec() : 0;
+                                }
+                            });
+                            xhr.send();
+                        }
+                    })()();
+                }
+            }
+            else {
+                exec();
+            }
+        }
+
+        // do not support localStorage
+        else {
+
+            // TODO set cookie
+            location.reload();
+        }
+    })();
+</script>

@@ -4,4 +4,4 @@
 
 # assets files
 !assets-hash.json
-!assets-getter.js
+!assets-mobile-getter.html
