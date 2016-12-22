@@ -3,5 +3,4 @@
 !.gitignore
 
 # assets files
-!assets-hash.json
-!assets-mobile-getter.html
+!assets-*

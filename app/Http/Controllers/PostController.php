@@ -22,11 +22,12 @@ class PostController extends Controller
         $return_arr['content']='这是列表内容';
 
         // TODO
-        $return_arr['assets-getter'] = Storage::get('assets-mobile-getter.html'); // assets mobile getter html
+        $return_arr['assets-mobile-head'] = Storage::get('assets-mobile-head.html'); // assets mobile head html
+        $return_arr['assets-mobile-body'] = Storage::get('assets-mobile-body.html'); // assets mobile body html
 
         // TODO 返回数据为object，要格式为字符串。如以下格式：{ type: 'frontend', host: '', assets: { appjs: { hash: 'xxxx', url: '能直接和host拼接的部分'}, commonjs: { hash: 'xxxxx', url: 'xx.js'}, {...} } }
         $assets_hash = json_decode(Storage::get('assets-hash.json'));
-        $assets_hash = "{" .
+        $return_arr['assets-hash'] = "{" .
             "host: '" . config('app.url') . "/'," .
             "type: 'frontend'," .
             "assets: {" .
@@ -35,7 +36,11 @@ class PostController extends Controller
                 "appcss: { hash: '" . $assets_hash -> frontend -> appcss -> hash ."', url: '" . $assets_hash -> frontend -> appcss -> filename . "' }," .
             "}" .
         "}";
-        $return_arr['assets-hash'] = $assets_hash;
+
+        // TODO <?php 希望能传入参数自动获取
+        $return_arr['assets-appcss'] = config('app.url') . '/' . $assets_hash -> frontend -> appcss -> filename;
+        $return_arr['assets-commonjs'] = config('app.url') . '/' . $assets_hash -> frontend -> commonjs -> filename;
+        $return_arr['assets-appjs'] = config('app.url') . '/' . $assets_hash -> frontend -> appjs -> filename;
 
         $res = event(new ReturnDataEvent($return_arr));
         return $res[0];

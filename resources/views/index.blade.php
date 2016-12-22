@@ -7,20 +7,37 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- TODO 后端通过 1.判断UA为移动端；2.不存在提示不支持ls的cookie，则输出下列缓存ls的js，其余桌面端、蜘蛛和不支持ls的移动端（可能出现写满等情况）都默认引用<link>和<script>标签。**想办法使用绝对路径** -->
-    @if (true)
-        {!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-getter']) !!}
+    <?php /*正常内容，即遮罩层相关css和js，无论如何都要加载，内联*/ ?>
+
+    <?php
+    // TODO
+    // 1.判断UA为移动端
+    // 2.不存在提示不支持ls的cookie
+    // 则输出用于缓存ls的js，其余桌面端、蜘蛛和不支持ls的移动端（可能出现写满等情况）都默认引用<link>和<script>标签。
+    // 为快照考虑，是否能使用绝对路径？
+
+    $desktop = false;
+    ?>
+
+    <!-- 这是第一部分，另一部分放在</body>前 -->
+    @if ($desktop)
+        <?php /*希望能传入参数自动获取*/ ?>
+        <link href="{{ $res['assets-appcss'] }}" rel="stylesheet">
     @else
-        <link href="css/app-43a490ad.css" rel="stylesheet">
-        <script src="js/common-fbdb3600.js"></script>
-        <script src="js/app-a423232b.js"></script>
+        {!! str_replace('\'%replace(assetsData)%\'', $res['assets-hash'], $res['assets-mobile-head']) !!}
     @endif
 </head>
 <body>
 <div id="app">{{ $res['content'] }}</div>
 
-<script>
 
-</script>
+    <!-- 这是第二部分 -->
+    @if ($desktop)
+        <?php /*希望能传入参数自动获取*/ ?>
+        <script src="{{ $res['assets-commonjs'] }}"></script>
+        <script src="{{ $res['assets-appjs'] }}"></script>
+    @else
+        {!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-mobile-body']) !!}
+    @endif
 </body>
 </html>
