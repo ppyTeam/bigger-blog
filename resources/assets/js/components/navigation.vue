@@ -1,9 +1,9 @@
 <template>
     <nav>
         <ul>
-            <li>233</li>
-            <li>测试</li>
-            <li>test</li>
+            <li><router-link to="/blog">Home</router-link></li>
+            <li><router-link to="/blog/1">1</router-link></li>
+            <li><router-link to="/blog/2">2</router-link></li>
         </ul>
     </nav>
 

@@ -16,7 +16,7 @@
     // 则输出用于缓存ls的js，其余桌面端、蜘蛛和不支持ls的移动端（可能出现写满等情况）都默认引用<link>和<script>标签。
     // 为快照考虑，是否能使用绝对路径？
 
-    $desktop = false;
+    $desktop = true;
     ?>
 
     <!-- 这是第一部分，另一部分放在</body>前 -->
@@ -27,9 +27,15 @@
         {!! str_replace('\'%replace(assetsData)%\'', $res['assets-hash'], $res['assets-mobile-head']) !!}
     @endif
 </head>
-<body>
-<div id="app">{{ $res['content'] }}</div>
 
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+
+<div id="html-seo-container">
+    {{ $res['content'] }}
+</div>
 
     <!-- 这是第二部分 -->
     @if ($desktop)

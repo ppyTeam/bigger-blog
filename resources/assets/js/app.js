@@ -2,19 +2,26 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Vuex from 'vuex';
-
+// import Vuex from 'vuex';
 
 require('../sass/app.scss');
 
+// Vue.use
+// Vue.use(Vuex);
 Vue.use(VueRouter);
-Vue.use(Vuex);
 
-
-Vue.component('my-example', require('./components/Example.vue'));
-Vue.component('my-nav', require('./components/navigation.vue'));
-
-const root = new Vue({
+// root
+new Vue({
     el: '#app',
-    template: '<div><my-nav></my-nav></div>'
+    router: new VueRouter(require('./app-router')),
+    created: function () {
+        const d = document,
+            htmlSEOContainer = d.getElementById('html-seo-container');
+
+        let contentEle = htmlSEOContainer.querySelector('content'),
+            content = contentEle && contentEle.innerHTML || '';
+        console.log(content);
+
+        htmlSEOContainer.parentNode.removeChild(htmlSEOContainer);
+    }
 });
