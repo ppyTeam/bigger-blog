@@ -1,3 +1,4 @@
+@include('layouts.assets')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,8 @@
         <?php /*希望能传入参数自动获取*/ ?>
         <link href="{{ $res['assets-appcss'] }}" rel="stylesheet">
     @else
-        {!! str_replace('\'%replace(assetsData)%\'', $res['assets-hash'], $res['assets-mobile-head']) !!}
+        @section('mobile-header')
+        @show
     @endif
 </head>
 
@@ -43,7 +45,8 @@
         <script src="{{ $res['assets-commonjs'] }}"></script>
         <script src="{{ $res['assets-appjs'] }}"></script>
     @else
-        {!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-mobile-body']) !!}
+        @section('mobile-body')
+        @show
     @endif
 </body>
 </html>
