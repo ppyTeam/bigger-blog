@@ -1,4 +1,4 @@
-@include('layouts.mobile')
+@include('layouts.assets')
 <!DOCTYPE html>
 <html lang="en">
 <head>
