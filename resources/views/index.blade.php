@@ -1,3 +1,4 @@
+@include('layouts.mobile')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,8 @@
         <?php /*希望能传入参数自动获取*/ ?>
         <link href="{{ $res['assets-appcss'] }}" rel="stylesheet">
     @else
-        @extends('layouts.mobile_head')
+        @section('mobile-header')
+        @show
     @endif
 </head>
 <body>
@@ -37,7 +39,8 @@
         <script src="{{ $res['assets-commonjs'] }}"></script>
         <script src="{{ $res['assets-appjs'] }}"></script>
     @else
-        @extends('layouts.mobile_body')
+        @section('mobile-body')
+        @show
     @endif
 </body>
 </html>
