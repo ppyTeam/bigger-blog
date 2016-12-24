@@ -24,7 +24,7 @@
         <?php /*希望能传入参数自动获取*/ ?>
         <link href="{{ $res['assets-appcss'] }}" rel="stylesheet">
     @else
-        {!! str_replace('\'%replace(assetsData)%\'', $res['assets-hash'], $res['assets-mobile-head']) !!}
+        @extends('layouts.mobile_head')
     @endif
 </head>
 <body>
@@ -37,7 +37,7 @@
         <script src="{{ $res['assets-commonjs'] }}"></script>
         <script src="{{ $res['assets-appjs'] }}"></script>
     @else
-        {!! str_replace('\'%replace(assetsObj)%\'', $res['assets-hash'], $res['assets-mobile-body']) !!}
+        @extends('layouts.mobile_body')
     @endif
 </body>
 </html>
