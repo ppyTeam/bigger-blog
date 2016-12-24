@@ -2,13 +2,12 @@
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+Vue.use(VueRouter);
 // import Vuex from 'vuex';
+// Vue.use(Vuex);
 
 require('../sass/app.scss');
 
-// Vue.use
-// Vue.use(Vuex);
-Vue.use(VueRouter);
 
 // root
 new Vue({
@@ -20,7 +19,6 @@ new Vue({
 
         let contentEle = htmlSEOContainer.querySelector('content'),
             content = contentEle && contentEle.innerHTML || '';
-        console.log(content);
 
         htmlSEOContainer.parentNode.removeChild(htmlSEOContainer);
     }

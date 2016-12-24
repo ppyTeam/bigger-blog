@@ -1,4 +1,5 @@
 import indexVue from './components/index';
+import listVue from './components/list';
 import postVue from './components/post';
 
 module.exports = {
@@ -7,22 +8,17 @@ module.exports = {
     routes: [
         {
             path:'/',
-            component: indexVue
-        },
-        {
-            path: '/blog',
-            component: indexVue,
-        },
-        {
-            path: '/blog/:id',
             component: indexVue,
             children: [
                 {
-                    path: '',
+                    path: 'blog',
+                    component: listVue
+                },
+                {
+                    path: 'blog/:id',
                     component: postVue
                 }
             ]
         }
-
     ]
 };

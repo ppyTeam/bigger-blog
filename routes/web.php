@@ -11,9 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+//Route::get('/', function () {
+//    return view('index');
+//});
+Route::get('/', 'PostController@index');
 
 Route::get('/blog', 'PostController@index')->name('blog.list');
 

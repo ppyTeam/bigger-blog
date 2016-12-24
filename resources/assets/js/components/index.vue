@@ -1,16 +1,16 @@
 <template>
     <div>
-        <vue-nav></vue-nav>
+        <bb-nav></bb-nav>
 
-        <router-view></router-view>
+        <div class="content">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <style>
-body {
-  background-image: url(http://blog.ttionya.com/wp-content/uploads/2016/05/201605151132121234.jpg);
-  background-size: cover;
-  background-position-y: -100px;
-  background-repeat: no-repeat;
+.content {
+  margin-left: 350px;
+  padding: 50px 20px 0 20px;
 }
 </style>
 <script>
@@ -18,7 +18,7 @@ body {
 
     export default{
         components:{
-            'vue-nav': navVue,
+            'bb-nav': navVue,
         }
     }
 </script>

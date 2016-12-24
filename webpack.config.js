@@ -66,7 +66,26 @@ module.exports = {
       {
         test: /\.vue$/,
         exclude: /node_modules/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: ExtractTextPlugin.extract({
+              fallbackLoader: 'vue-style-loader',
+              loader: [
+                'css-loader',
+                'postcss-loader'
+              ]
+            }),
+            scss: ExtractTextPlugin.extract({
+              fallbackLoader: 'vue-style-loader',
+              loader: [
+                'css-loader',
+                'postcss-loader',
+                'sass-loader'
+              ]
+            }),
+          }
+        }
       },
 
       {

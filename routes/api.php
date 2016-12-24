@@ -19,3 +19,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('blog', 'PostController@index')->name('api.blog.list');
 
+Route::get('blog/{id}','PostController@show')->name('api.blog.show')->where('id', '\d+');

@@ -1,9 +1,10 @@
 <template>
     <div>
-post
+        Post {{ $route.params.id }}
     </div>
 </template>
-<style>
+<style lang="scss">
+
 
 </style>
 <script>
