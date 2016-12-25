@@ -7,9 +7,16 @@
             <ul>
                 <li><router-link to="/">Home</router-link></li>
                 <li><router-link to="/blog">List</router-link></li>
-                <li><router-link to="/blog/1">Post 1</router-link></li>
-                <li><router-link to="/blog/2">Post 2</router-link></li>
+                <li><router-link to="/blog/page/2">Page 2</router-link></li>
                 <li><router-link to="/blog/3">Post 3</router-link></li>
+                <li><router-link to="/categories">Categories</router-link></li>
+                <li><router-link to="/category/games">Category Game</router-link></li>
+                <li><router-link to="/tags">Tags</router-link></li>
+                <li><router-link to="/tag/steam">Tag Steam</router-link></li>
+                <li><router-link to="/archives">Archives</router-link></li>
+                <li><router-link to="/about">about</router-link></li>
+
+
             </ul>
         </nav>
     </div>
