@@ -1,7 +1,9 @@
-@include('layouts.assets')
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    @if ($is_mobile)
+        @include('layouts.assets',['type'=>'frontend'])
+    @endif
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,23 +12,13 @@
 
     <?php /*正常内容，即遮罩层相关css和js，无论如何都要加载，内联*/ ?>
 
-    <?php
-    // TODO
-    // 1.判断UA为移动端
-    // 2.不存在提示不支持ls的cookie
-    // 则输出用于缓存ls的js，其余桌面端、蜘蛛和不支持ls的移动端（可能出现写满等情况）都默认引用<link>和<script>标签。
-    // 为快照考虑，是否能使用绝对路径？
 
-    $desktop = true;
-    ?>
-
-    <!-- 这是第一部分，另一部分放在</body>前 -->
-    @if ($desktop)
-        <?php /*希望能传入参数自动获取*/ ?>
-        <link href="{{ $res['assets-appcss'] }}" rel="stylesheet">
+<!-- 这是第一部分，另一部分放在</body>前 -->
+    @if ($is_mobile)
+    @section('mobile-header')
+    @show
     @else
-        @section('mobile-header')
-        @show
+        <link href="{{ $assets['url'].$assets['frontend']['appcss']['filename'] }}" rel="stylesheet">
     @endif
 </head>
 
@@ -36,17 +28,16 @@
 </div>
 
 <div id="html-seo-container">
-    {{ $res['content'] }}
+    {{ $content }}
 </div>
 
-    <!-- 这是第二部分 -->
-    @if ($desktop)
-        <?php /*希望能传入参数自动获取*/ ?>
-        <script src="{{ $res['assets-commonjs'] }}"></script>
-        <script src="{{ $res['assets-appjs'] }}"></script>
-    @else
-        @section('mobile-body')
-        @show
-    @endif
+<!-- 这是第二部分 -->
+@if ($is_mobile)
+@section('mobile-body')
+@show
+@else
+    <script src="{{ $assets['url'] . $assets['frontend']['commonjs']['filename'] }}"></script>
+    <script src="{{ $assets['url'] . $assets['frontend']['appjs']['filename'] }}"></script>
+@endif
 </body>
 </html>
