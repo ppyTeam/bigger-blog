@@ -19,11 +19,11 @@
         }
 
         window.assetsData ={
-            host: '{{ $res['assets-hash']['host'] }}/',
-            type: '{{ $res['assets-hash']['type'] }}',
+            host: '{{ $assets['url'] }}',
+            type: '{{$type}}',
             assets: {
-            @foreach ($res['assets-hash']['assets'] as $assets_key => $each_assets )
-            {{ $assets_key }}: { hash: '{{$each_assets['hash']}}', url: '{{$each_assets['url']}}' },
+            @foreach ($assets[$type] as $assets_key => $each_assets )
+            {{ $assets_key }}: { hash: '{{$each_assets['hash']}}', url: '{{$each_assets['filename']}}' },
             @endforeach
             }
         };

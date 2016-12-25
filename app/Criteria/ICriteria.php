@@ -1,7 +1,6 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: chenyi
  * Date: 2016/12/8 0008
  * Time: 23:11
  */
