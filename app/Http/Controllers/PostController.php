@@ -23,7 +23,14 @@ class PostController extends Controller
     public function index()
     {
         $is_mobile = true;
-        $this->returnData['main'] = $this->postRepository->simplePaginate(5);
+        $posts = $this->postRepository->simplePaginate(5);
+        foreach ($posts as $post) {
+            $post->category->category_name;
+            foreach ($post->tags as $each_tag) {
+                $each_tag->tag_name;
+            }
+        }
+        $this->returnData['main'] = $posts;
         return $this->dataHelper->handler($this->returnData, config('app.url'), $is_mobile, 'blog.list');
     }
 
@@ -31,6 +38,10 @@ class PostController extends Controller
     {
         $is_mobile = true;
         $show_post = $this->postRepository->findOneBy('id', $id);
+        $show_post->category->category_name;
+        foreach ($show_post->tags as $each_tag) {
+            $each_tag->tag_name;
+        }
         if (empty($show_post)) {
             abort(404);
         }
