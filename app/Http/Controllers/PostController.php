@@ -2,38 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\ReturnDataEvent;
-use App\Helpers\AssetsData;
+use App\Helpers\ReturnDataHelper;
 use App\Repository\PostRepository;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     protected $postRepository;
     protected $returnData;
+    /**
+     * @var ReturnDataHelper
+     */
+    protected $dataHelper;
 
-    public function __construct(PostRepository $postRepository, AssetsData $assetsData)
+    public function __construct(PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
         $this->postRepository = $postRepository;
-        $this->returnData['assets'] = $assetsData->get_config(config('app.url'));
-        $this->returnData['is_mobile'] = true;
+        $this->dataHelper = $dataHelper;
     }
 
     public function index()
     {
-//      $return_arr = $this->postRepository->simplePaginate(5);
-        $this->returnData['content'] = '这是列表内容';
-        $res = view('index', $this->returnData);
-        return $res;
-
+        $is_mobile = true;
+        $this->returnData['main'] = $this->postRepository->simplePaginate(5);
+        return $this->dataHelper->handler($this->returnData, config('app.url'), $is_mobile, 'blog.list');
     }
 
     public function show($id)
     {
+        $is_mobile = true;
         $show_post = $this->postRepository->findOneBy('id', $id);
         if (empty($show_post)) {
             abort(404);
         }
-        return view('post.show', compact('show_post'));
+        $this->returnData['main'] = $show_post;
+        return $this->dataHelper->handler($this->returnData, config('app.url'), $is_mobile, 'blog.show');
     }
 }
