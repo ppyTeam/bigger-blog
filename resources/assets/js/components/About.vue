@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="about">
         <h1>这是 About 页面</h1>
         <h4>路由位置：{{ $route.fullPath }}</h4>
 
@@ -10,8 +10,8 @@
         <a href="https://github.com/ppyTeam/bigger-blog/tree/dev" target="_blank">Github</a>
     </div>
 </template>
-<style scoped>
-div {
+<style>
+#about {
     text-align: center;
 }
 </style>
