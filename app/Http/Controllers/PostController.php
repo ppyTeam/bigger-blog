@@ -22,7 +22,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $is_mobile = true;
+        $is_mobile = false;
         $posts = $this->postRepository->simplePaginate(5);
         foreach ($posts as $post) {
             $post->category->category_name;
@@ -36,7 +36,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $is_mobile = true;
+        $is_mobile = false;
         $show_post = $this->postRepository->findOneBy('id', $id);
         $show_post->category->category_name;
         foreach ($show_post->tags as $each_tag) {

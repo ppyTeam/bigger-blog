@@ -2,21 +2,20 @@
     <div>
         <bb-nav></bb-nav>
 
-        <div class="content">
+        <div class="content-box">
             <router-view></router-view>
         </div>
     </div>
 </template>
-<style>
-.content {
-  margin-left: 350px;
-  padding: 50px 20px 0 20px;
+<style lang="scss">
+.content-box {
+    margin: 40px 30px 0 380px;
 }
 </style>
 <script>
-    import navVue from './navigation';
+    import navVue from './Navigation';
 
-    export default{
+    export default {
         components:{
             'bb-nav': navVue,
         }
