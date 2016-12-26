@@ -5,7 +5,8 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 // import Vuex from 'vuex';
 // Vue.use(Vuex);
-
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 require('../sass/app.scss');
 
 

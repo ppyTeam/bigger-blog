@@ -20,10 +20,7 @@ module.exports = {
             children: [
                 {
                     path: '',
-                    components: {
-                        default: listVue,
-                        nav: require('./components/Navigation')
-                    }
+                    component: listVue
                 },
                 {
                     path: 'page/:page',

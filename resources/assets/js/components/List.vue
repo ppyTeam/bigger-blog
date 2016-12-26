@@ -1,15 +1,21 @@
 <template>
-    <bb-nav></bb-nav>
+    <div class="content">
+23
+    </div>
 </template>
 <style>
 
 </style>
 <script>
-    import navVue from './navigation';
 
-    export default{
+    export default {
+        data() {
+            return {
+                emptyList: true,
+            }
+        },
         components:{
-            'bb-nav': navVue
+
         }
     }
 </script>

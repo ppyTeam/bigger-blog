@@ -1,17 +1,15 @@
 <template>
     <div>
         <bb-nav></bb-nav>
+
+        <div class="content-box">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
-<style lang="scss" scoped>
-.container {
-  margin-top: 150px;
-  text-align: center;
-
-  img {
-    height: 240px;
-    opacity: .3;
-  }
+<style lang="scss">
+.content-box {
+    margin: 40px 30px 0 380px;
 }
 </style>
 <script>
