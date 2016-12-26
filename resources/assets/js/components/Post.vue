@@ -41,6 +41,9 @@
                     .catch(error => this.error = error);
             },
         },
+        watch: {
+            '$route': 'getPost'
+        },
         computed: {
             title: function() {
                 return this.mainData.title;
@@ -54,6 +57,7 @@
             category: function() {
 
                 // TODO 再往下取报错
+                console.log(this.mainData.category)
                 return this.mainData.category;
             },
             tags: function() {
