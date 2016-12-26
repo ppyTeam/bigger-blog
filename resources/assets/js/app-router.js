@@ -1,3 +1,4 @@
+import homeVue from './components/Home';
 import indexVue from './components/Index';
 import listVue from './components/List';
 import postVue from './components/Post';
@@ -11,19 +12,17 @@ module.exports = {
     routes: [
         {
             path: '/',
-            component: indexVue
+            component: homeVue
         },
         {
             path: '/blog',
-            component: {
-                template: '<div><router-view name="nav"></router-view></div>'
-            },
+            component: indexVue,
             children: [
                 {
                     path: '',
                     components: {
                         default: listVue,
-                        nav: require('./components/navigation')
+                        nav: require('./components/Navigation')
                     }
                 },
                 {
