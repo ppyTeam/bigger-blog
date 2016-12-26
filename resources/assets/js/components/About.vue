@@ -4,9 +4,10 @@
         <h4>路由位置：{{ $route.fullPath }}</h4>
 
         <hr>
-        <a href="#" @click.prevent="goBack">后退</a>
+        <a href="#" @click.prevent="goBack">Go Back</a>
         <router-link to="/">Home</router-link>
         <router-link to="/blog">Blog</router-link>
+        <a href="https://github.com/ppyTeam/bigger-blog/tree/dev" target="_blank">Github</a>
     </div>
 </template>
 <style scoped>
