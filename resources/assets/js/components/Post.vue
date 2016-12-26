@@ -9,6 +9,7 @@
                 <p>更新时间：{{ time }}</p>
                 <p>作者：{{ author }}</p>
                 <p>分类（取里面的内容报错）：{{ category }}</p>
+                <p>标签：{{ tags }}</p>
                 <p>上一篇文章：无数据</p>
                 <p>下一篇文章：无数据</p>
             </div>
@@ -54,6 +55,15 @@
 
                 // TODO 再往下取报错
                 return this.mainData.category;
+            },
+            tags: function() {
+                let tags = [];
+
+                for (let tag in this.mainData.tags) {
+                    tags.push(this.mainData.tags[tag].tag_name);
+                }
+
+                return tags.join();
             },
             content: function() {
                 return this.mainData.content;
