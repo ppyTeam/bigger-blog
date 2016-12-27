@@ -38,12 +38,12 @@ class PostController extends Controller
     {
         $is_mobile = false;
         $show_post = $this->postRepository->findOneBy('id', $id);
+        if (empty($show_post)) {
+            abort(404);
+        }
         $show_post->category->category_name;
         foreach ($show_post->tags as $each_tag) {
             $each_tag->tag_name;
-        }
-        if (empty($show_post)) {
-            abort(404);
         }
         $this->returnData['main'] = $show_post;
         return $this->dataHelper->handler($this->returnData, config('app.url'), $is_mobile, 'blog.show');
