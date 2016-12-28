@@ -1,8 +1,8 @@
 @section('mobile-header')
+    @if ($is_mobile)
 <script type="text/javascript">
     (function () {
         "use strict";
-
         // test LocalStorage
         try {
             localStorage.setItem('_test', 0);
@@ -60,9 +60,13 @@
         };
     })();
 </script>
+    @else
+        <link href="{{ $assets['url'].$assets['frontend']['appcss']['filename'] }}" rel="stylesheet">
+    @endif
 @endsection
 
 @section('mobile-body')
+    @if ($is_mobile)
 <script type="text/javascript">
     (function () {
         "use strict";
@@ -156,4 +160,8 @@
         }
     })();
 </script>
+    @else
+        <script src="{{ $assets['url'] . $assets['frontend']['commonjs']['filename'] }}"></script>
+        <script src="{{ $assets['url'] . $assets['frontend']['appjs']['filename'] }}"></script>
+    @endif
 @endsection
