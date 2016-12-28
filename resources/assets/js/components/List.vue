@@ -41,7 +41,7 @@ article {
         },
         methods: {
             getList: function() {
-                this.$http.get(baseRoute + '/api' + this.$route.path)
+                this.$http.get('/api' + this.$route.path)
                     .then(data => this.mainData = data.body.main)
                     .catch(error => this.error = error);
             },

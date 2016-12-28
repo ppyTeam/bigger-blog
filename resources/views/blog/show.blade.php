@@ -10,11 +10,6 @@
 
     <title> {{$main->title}} - {{ config('app.name') }}</title>
 
-    <?php // TODO 以下对象仅用于开发调试，上线时移除
-        $baseRoute = preg_replace('/^http(s)?:\/\/(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(?=\/)|^http(s)?:\/\/(([a-zA-Z0-9]*|[a-zA-Z0-9]([a-zA-Z0-9\-][a-zA-Z0-9])*[a-zA-Z0-9]?|xn--[A-Za-z0-9]+)\.)*(xn--[A-Za-z0-9]+|[A-Za-z]+)(?=\/)/', '', config('app.url'));
-    ?>
-    <script>var baseRoute = '{{ $baseRoute }}';</script>
-
     <?php /*正常内容，即遮罩层相关css和js，无论如何都要加载，内联*/ ?>
 
 

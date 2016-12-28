@@ -8,7 +8,6 @@ import aboutVue from './components/About';
 
 module.exports = {
     mode: 'history',
-    base: baseRoute, // TODO base 仅用于开发调试，上线时移除
     routes: [
         {
             path: '/',
