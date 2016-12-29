@@ -22,7 +22,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $is_mobile = false;
+        $is_mobile = true;
         $posts = $this->postRepository->simplePaginate(5);
         foreach ($posts as $post) {
             $post->category->category_name;
