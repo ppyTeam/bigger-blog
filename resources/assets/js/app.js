@@ -7,6 +7,9 @@ Vue.use(VueRouter);
 // Vue.use(Vuex);
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
+
+// import css
+require('normalize.css');
 require('../sass/app.scss');
 
 
