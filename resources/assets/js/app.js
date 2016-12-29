@@ -22,9 +22,5 @@ new Vue({
             content = contentEle && contentEle.innerHTML || '';
 
         htmlSEOContainer.parentNode.removeChild(htmlSEOContainer);
-
-
-        // LocalStorage Test
-        console.timeEnd('lsload');
     }
 });
