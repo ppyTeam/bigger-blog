@@ -7,6 +7,9 @@ html {
 // Variables
 @import "variables";
 
+// Common
+@import "scrollbar";
+
 body {
   margin: 0;
   padding: 0;
@@ -20,3 +23,4 @@ body {
 
 // Bootstrap
 // @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
