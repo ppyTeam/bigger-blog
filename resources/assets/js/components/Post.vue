@@ -1,77 +1,71 @@
 <template>
-    <div class="content">
-        <p class="error" v-if="error">
-            Error: {{ error }}
-        </p>
-        <article v-else>
-            <div class="post-header">
-                <h2>标题：{{ title }}</h2>
-                <p>更新时间：{{ time }}</p>
-                <p>作者：{{ author }}</p>
-                <p>分类（取里面的内容报错）：{{ category }}</p>
-                <p>标签：{{ tags }}</p>
-                <p>上一篇文章：无数据</p>
-                <p>下一篇文章：无数据</p>
+    <div class="content-box">
+        <div class="content">
+            <div class="error post" v-if="error.code">
+                <h2>Error: {{ error.Text }}</h2>
+                <p>Try to <a href="" @click.prevent="fetchPost">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
-
-            <div class="post-content" v-html="content"></div>
-        </article>
+            <article v-else class="post">
+                <header class="post-header">
+                    <h2>{{ mainData.title }}</h2>
+                </header>
+                <div class="post-content" v-html="mainData.content"></div>
+                <hr>
+                <footer class="post-footer">
+                    <span>{{ mainData.updated_at }} Posted by {{ mainData.user_id }}</span>
+                    <br>
+                    <span>{{ mainData.category && mainData.category.category_name }}</span>
+                    <br>
+                    <template v-for="tag in mainData.tags">
+                        <router-link :to="'/tag/' + tag.tag_name">
+                            {{ tag.tag_name }}
+                        </router-link>
+                    </template>
+                </footer>
+            </article>
+            <aside v-if="mainData.neighbour">
+                <p v-if="mainData.neighbour.prev">上一篇：<router-link :to="'/blog/' + mainData.neighbour.prev.id">{{ mainData.neighbour.prev.title }}</router-link></p>
+                <p v-if="mainData.neighbour.next">下一篇：<router-link :to="'/blog/' + mainData.neighbour.next.id">{{ mainData.neighbour.next.title }}</router-link></p>
+            </aside>
+        </div>
     </div>
 </template>
 <style>
-.error {
-    color: red;
-}
 </style>
 <script>
     export default{
         data() {
             return{
-                error: '',
-                mainData: ''
+                error: { },
+                mainData: []
             }
         },
         mounted: function() {
-            this.getPost();
-        },
-        methods: {
-            getPost: function() {
-                this.$http.get('/api' + this.$route.path)
-                    .then(data => this.mainData = data.body.main)
-                    .catch(error => this.error = error);
-            },
+            this.fetchPost();
         },
         watch: {
-            '$route': 'getPost'
+            '$route': 'fetchPost'
+        },
+        methods: {
+            fetchPost: function() {
+                let self = this;
+
+                self.$http.get('/api' + self.$route.path)
+                    .then(data => {
+                        self.error = { };
+                        self.mainData = data.body.main;
+                    })
+                    .catch(error => {
+                        self.error = {
+                            code: error.status,
+                            Text: error.statusText
+                        }
+                    });
+            },
+            goBack: () => history.go(-1)
         },
         computed: {
-            title: function() {
-                return this.mainData.title;
-            },
-            time: function() {
-                return this.mainData.updated_at;
-            },
-            author: function() {
-                return this.mainData.user_id;
-            },
-            category: function() {
 
-                // TODO 再往下取报错
-                console.log(this.mainData.category)
-                return this.mainData.category;
-            },
-            tags: function() {
-                let tags = [];
-
-                for (let tag in this.mainData.tags) {
-                    tags.push(this.mainData.tags[tag].tag_name);
-                }
-
-                return tags.join();
-            },
-            content: function() {
-                return this.mainData.content;
-            }
         }
     }
 </script>

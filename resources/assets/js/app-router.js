@@ -5,6 +5,7 @@ import postVue from './components/Post';
 import categoriesVue from './components/Categories';
 import tagsVue from './components/Tags';
 import aboutVue from './components/About';
+import _404Vue from './components/NotFound';
 
 module.exports = {
     mode: 'history',
@@ -55,6 +56,10 @@ module.exports = {
             path: '/about',
             component: aboutVue
         },
+        {
+            path: '*',
+            component: _404Vue
+        }
     ]
 };
 // 首页 /

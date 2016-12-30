@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name') }}</title>
-<script>console.time('lsload');</script>
+
     <!-- 正常内容，即遮罩层相关css和js，无论如何都要加载，内联 -->
 
     <!-- 这是第一部分，另一部分放在</body>前 -->

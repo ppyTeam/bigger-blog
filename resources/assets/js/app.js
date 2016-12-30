@@ -7,8 +7,12 @@ Vue.use(VueRouter);
 // Vue.use(Vuex);
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
+
+// import css
+require('normalize.css');
 require('../sass/app.scss');
 
+Vue.http.options.emulateHTTP = true;
 
 // root
 new Vue({
@@ -22,9 +26,5 @@ new Vue({
             content = contentEle && contentEle.innerHTML || '';
 
         htmlSEOContainer.parentNode.removeChild(htmlSEOContainer);
-
-
-        // LocalStorage Test
-        console.timeEnd('lsload');
     }
 });
