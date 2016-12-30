@@ -12,6 +12,7 @@ Vue.use(VueResource);
 require('normalize.css');
 require('../sass/app.scss');
 
+Vue.http.options.emulateHTTP = true;
 
 // root
 new Vue({
