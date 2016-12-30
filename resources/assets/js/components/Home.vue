@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="home container">
         <h1>从很久以前就喜欢你了。～告白实行委员会～</h1>
         <p>
             <a href="http://bangumi.bilibili.com/anime/v/96536" target="_blank">

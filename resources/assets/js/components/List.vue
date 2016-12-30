@@ -1,30 +1,88 @@
 <template>
-    <div class="content">
-        <p class="error" v-if="error">
-            Error: {{ error }}
-        </p>
-        <template v-else v-for="item in mainData.data">
-            <article>
-                {{ item.category.category_name }} > <router-link :to="'/blog/' + item.id"><h2>{{ item.title }}</h2></router-link>
-                <p>{{ item.updated_at }} Posted by {{ item.user_id }}</p>
-                <div>
-                    {{ item.content }}
-                </div>
-            </article>
-            <hr>
-        </template>
+    <div class="content-box">
+        <div class="content">
+            <div class="error post" v-if="error.code">
+                <h2>Error: {{ error.Text }}</h2>
+                <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
+            </div>
+            <template v-else v-for="post in mainData.data">
+                <article class="post">
+                    <header class="post-header">
+                        <h2><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
+                    </header>
+                    <div class="post-content">
+                        {{ post.content }}
+                        <p class="post-more" v-if="more">
+                            <router-link class="post-more-link" :to="'/blog/' + post.id">More >></router-link>
+                        </p>
+                        <hr>
+                    </div>
+                    <footer class="post-footer">
+                        <span>{{ post.updated_at }} Posted by {{ post.user_id }}</span>
+                        <br>
+                        <span>{{ post.category.category_name }}</span>
+                        <br>
+                        <template v-for="tag in post.tags">
+                            <router-link :to="'/tag/' + tag.tag_name">
+                                {{ tag.tag_name }}
+                            </router-link>
+                        </template>
+                    </footer>
+                </article>
+            </template>
+        </div>
     </div>
 </template>
 <style lang="scss">
-article {
-    h2 {
-        display: inline;
-        word-break: break-all;
-        word-wrap: break-word;
+header {
+    margin: 0;
+    padding: 0;
+}
+
+.content-box {
+    position: absolute;
+    right: 0;
+    left: 300px;
+
+    .content {
+        max-width: 1040px;
+        margin: 0 auto;
     }
 
-    p {
-        margin: 0;
+    .post {
+        margin: 40px;
+        padding: 40px 60px;
+
+        border: 1px solid #ddd;
+        background-color: #fff;
+
+        h2 {
+            line-height: 3rem;
+        }
+
+        .post-content {
+            line-height: 1.8rem
+        }
+
+        .post-more {
+            margin-top: 10px;
+
+            .post-more-link {
+                padding: 2px 8px 4px;
+                color: #fff;
+                line-height: 1.6rem;
+                font-size: 1.2rem;
+                text-decoration: none;
+                border-radius: 2px;
+                background-color: #4d4d4d;
+            }
+        }
+    }
+
+    .error {
+        h2 {
+            color: red;
+        }
     }
 }
 </style>
@@ -32,25 +90,32 @@ article {
     export default {
         data() {
             return {
-                error: '',
-                mainData: ''
+                error: { },
+                mainData: '',
+                more: true
             }
         },
         mounted: function() {
-            this.getList();
+            this.fetchList();
+        },
+        watch: {
+            '$route': 'fetchList'
         },
         methods: {
-            getList: function() {
+            fetchList: function() {
                 this.$http.get('/api' + this.$route.path)
-                    .then(data => this.mainData = data.body.main)
-                    .catch(error => this.error = error);
+                    .then(data => {
+                        this.error = { };
+                        this.mainData = data.body.main;
+                    })
+                    .catch(error => {
+                        this.error = {
+                            code: error.status,
+                            Text: error.statusText
+                        }
+                    });
             },
-        },
-        computed: {
-
-        },
-        components:{
-
+            goBack: () => history.go(-1)
         }
     }
 </script>

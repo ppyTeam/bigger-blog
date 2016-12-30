@@ -19,9 +19,6 @@
     </div>
 </template>
 <style>
-.error {
-    color: red;
-}
 </style>
 <script>
     export default{

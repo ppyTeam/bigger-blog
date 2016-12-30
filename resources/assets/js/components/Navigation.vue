@@ -1,5 +1,5 @@
 <template>
-    <div class="sidebar left-sidebar">
+    <div class="sidebar nav-sidebar">
         <router-link to="/">
             <img class="logo" src="http://ttionya.qiniudn.com/LOGO.gif" />
         </router-link>
@@ -23,12 +23,11 @@
 .sidebar {
     position: fixed;
     height: 100%;
-    width: 350px;
-    top: 0;
-    background-color: #f5f5f5;
-    filter: opacity(.8);
+    width: 300px;
+    background-color: #fff;
+    opacity: .8;
 }
-.left-sidebar {
+.nav-sidebar {
     .logo {
         display: block;
         width: 112px;
