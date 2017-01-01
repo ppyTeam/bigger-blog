@@ -1,9 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * Date: 2016/12/8 0008
- * Time: 23:17
- */
 
 namespace App\Repository;
 

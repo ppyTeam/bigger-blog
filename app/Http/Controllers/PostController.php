@@ -8,6 +8,9 @@ use App\Transformers;
 
 class PostController extends Controller
 {
+    /**
+     * @var PostRepository
+     */
     protected $postRepository;
     protected $returnData;
 
@@ -24,18 +27,19 @@ class PostController extends Controller
     }
 
     /**
-     * 文章列表控制器
+     * 文章列表
      */
     public function index()
     {
         $posts = $this->postRepository->simplePaginate(5);
-        $this->returnData['main'] = $posts;
-        return $this->returnHelper->handlerItem($this->returnData, new Transformers\PostListTransformer(), 'blog.list');
+        $this->returnData['main'] = $this->returnHelper->transform($posts, new Transformers\PostListTransformer());
+        return $this->returnHelper->handler($this->returnData, 'blog.list');
     }
 
     /**
+     * 文章详情
      * @param $id
-     * @return
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -43,7 +47,7 @@ class PostController extends Controller
         if (empty($show_post)) {
             abort(404);
         }
-        $this->returnData['main'] = $show_post;
-        return $this->returnHelper->handlerItem($this->returnData, new Transformers\PostTransformer(), 'blog.show');
+        $this->returnData['main'] = $this->returnHelper->transform($show_post, new Transformers\PostTransformer());
+        return $this->returnHelper->handler($this->returnData, 'blog.show');
     }
 }

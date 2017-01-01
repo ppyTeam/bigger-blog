@@ -42,20 +42,34 @@ class ReturnDataHelper
     }
 
     /**
-     * 返回数据处理
+     * 返回接口数据或模板
      * @param $return_data
-     * @param TransformerInterface $transformer
      * @param null $view_blade
      * @return \Illuminate\Contracts\View\Factory | \Illuminate\View\View
      */
-    public function handlerItem(&$return_data, TransformerInterface $transformer, $view_blade = null)
+    public function handler(&$return_data, $view_blade = null)
     {
         if (request()->headers->get('return_type') == 'api') {
-            return $transformer->transform($return_data['main']);
+            return $return_data;
         } else {
             $return_data['assets'] = $this->get_config($this->prefix_url);
             $return_data['is_mobile'] = $this->is_mobile;
             return view($view_blade, $return_data);
+        }
+    }
+
+    /**
+     * 返回Transformer处理后的接口数据
+     * @param $source
+     * @param TransformerInterface|null $transformer
+     * @return mixed
+     */
+    public function transform($source, TransformerInterface $transformer = null)
+    {
+        if (request()->headers->get('return_type') == 'api' && $transformer !== null) {
+            return $transformer->transform($source);
+        } else {
+            return $source;
         }
     }
 

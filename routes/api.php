@@ -18,5 +18,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('blog', 'PostController@index')->name('api.blog.list');
+Route::get('blog/{id}', 'PostController@show')->name('api.blog.show')->where('id', '\d+');
 
-Route::get('blog/{id}','PostController@show')->name('api.blog.show')->where('id', '\d+');
+Route::get('categories', 'CategoryController@index')->name('api.categories.list');
+Route::get('categories/{id}', 'CategoryController@show')->name('api.categories.show')->where('id', '\d+');
