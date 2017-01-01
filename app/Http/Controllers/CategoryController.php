@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Criteria;
 use App\Helpers\ReturnDataHelper;
 use App\Repository\CategoryRepository;
 use App\Transformers\PostListTransformer;
@@ -23,6 +24,7 @@ class CategoryController extends Controller
     public function __construct(CategoryRepository $categoryRepository, ReturnDataHelper $dataHelper)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryRepository->pushCriteria(app(Criteria\ShowInSite::class));
         $dataHelper->initConfig(config('app.url'), false);
         $this->returnHelper = $dataHelper;
     }

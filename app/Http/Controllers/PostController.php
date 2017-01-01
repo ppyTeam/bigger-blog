@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ReturnDataHelper;
 use App\Repository\PostRepository;
 use App\Transformers;
+use App\Criteria;
 
 class PostController extends Controller
 {
@@ -22,6 +23,7 @@ class PostController extends Controller
     public function __construct(PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
         $this->postRepository = $postRepository;
+        $this->postRepository->pushCriteria(app(Criteria\ShowInSite::class));
         $dataHelper->initConfig(config('app.url'), false);
         $this->returnHelper = $dataHelper;
     }
