@@ -33,4 +33,20 @@ class PostListTransformer implements TransformerInterface
         }
         return $posts;
     }
+
+    /**
+     * 返回文章的大致信息
+     * @param $posts
+     * @return mixed
+     */
+    public function transformOutline($posts)
+    {
+        foreach ($posts as $collection_key => $post) {
+            $posts[$collection_key] = [
+                'id' => $post->id,
+                'title' => $post->title,
+            ];
+        }
+        return $posts;
+    }
 }

@@ -62,12 +62,14 @@ class ReturnDataHelper
      * 返回Transformer处理后的接口数据
      * @param $source
      * @param TransformerInterface|null $transformer
+     * @param string|null $callback
      * @return mixed
      */
-    public function transform($source, TransformerInterface $transformer = null)
+    public function transform($source, TransformerInterface $transformer = null, $callback = null)
     {
         if (request()->headers->get('return_type') == 'api' && $transformer !== null) {
-            return $transformer->transform($source);
+            $callback = $callback === null ? 'transform' : $callback;
+            return $transformer->$callback($source);
         } else {
             return $source;
         }
