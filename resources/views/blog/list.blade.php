@@ -20,7 +20,7 @@
                 &nbsp;最后更新:{{ $post->updated_at }}
             </p>
             <p>
-                {{ str_limit($post->content) }}
+                {{ str_limit($post->content, 50, '...') }}
             </p>
         </li>
         <hr>

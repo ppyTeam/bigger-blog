@@ -20,7 +20,6 @@ class Post extends Model
         'vote_count',
         'status',
     ];
-    protected $appends = ['neighbour'];
 
     public function setTitleAttribute($value)
     {

@@ -4,48 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ReturnDataHelper;
 use App\Repository\PostRepository;
+use App\Transformers;
 
 class PostController extends Controller
 {
     protected $postRepository;
     protected $returnData;
+
     /**
      * @var ReturnDataHelper
      */
-    protected $dataHelper;
+    protected $returnHelper;
 
     public function __construct(PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
         $this->postRepository = $postRepository;
-        $this->dataHelper = $dataHelper;
+        $dataHelper->initConfig(config('app.url'), false);
+        $this->returnHelper = $dataHelper;
     }
 
+    /**
+     * 文章列表控制器
+     */
     public function index()
     {
-        $is_mobile = false;
         $posts = $this->postRepository->simplePaginate(5);
-        foreach ($posts as $post) {
-            $post->category->category_name;
-            foreach ($post->tags as $each_tag) {
-                $each_tag->tag_name;
-            }
-        }
         $this->returnData['main'] = $posts;
-        return $this->dataHelper->handler($this->returnData, config('app.url'), $is_mobile, 'blog.list');
+        return $this->returnHelper->handlerItem($this->returnData, new Transformers\PostListTransformer(), 'blog.list');
     }
 
+    /**
+     * @param $id
+     * @return
+     */
     public function show($id)
     {
-        $is_mobile = false;
         $show_post = $this->postRepository->findOneBy('id', $id);
         if (empty($show_post)) {
             abort(404);
         }
-        $show_post->category->category_name;
-        foreach ($show_post->tags as $each_tag) {
-            $each_tag->tag_name;
-        }
         $this->returnData['main'] = $show_post;
-        return $this->dataHelper->handler($this->returnData, config('app.url'), $is_mobile, 'blog.show');
+        return $this->returnHelper->handlerItem($this->returnData, new Transformers\PostTransformer(), 'blog.show');
     }
 }
