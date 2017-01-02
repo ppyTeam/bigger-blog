@@ -5,6 +5,7 @@
                 <h2>Error: {{ error.Text }}</h2>
                 <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
+            <!-- TODO 判断无文章 -->
             <template v-else v-for="post in mainData.data">
                 <article class="post">
                     <header class="post-header">
@@ -20,7 +21,7 @@
                     <footer class="post-footer">
                         <span>{{ post.updated_at }} Posted by {{ post.user_id }}</span>
                         <br>
-                        <span>{{ post.category.category_name }}</span>
+                        <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
                         <br>
                         <template v-for="tag in post.tags">
                             <router-link :to="'/tag/' + tag.tag_name">

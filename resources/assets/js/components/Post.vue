@@ -14,7 +14,7 @@
                 <footer class="post-footer">
                     <span>{{ mainData.updated_at }} Posted by {{ mainData.user_id }}</span>
                     <br>
-                    <span>{{ mainData.category && mainData.category.category_name }}</span>
+                    <router-link :to="'/category/' + mainData.category_name">{{ mainData.category_name }}</router-link>
                     <br>
                     <template v-for="tag in mainData.tags">
                         <router-link :to="'/tag/' + tag.tag_name">
@@ -37,7 +37,7 @@
         data() {
             return{
                 error: { },
-                mainData: []
+                mainData: ''
             }
         },
         mounted: function() {

@@ -1,18 +1,24 @@
 @extends('layouts.app')
 @section('content')
-    <a class="category" href="#">
-        {{$main->category->category_name}}
-    </a>
-    @if ($main->tags->count() )
-        &nbsp;标签:
-        @foreach ($main->tags as $each_tag)
-            <a class="tag" href="#">{{$each_tag->tag_name}}</a>
-            @if ($main->tags->last() !== $each_tag)
-                ,
+    <header>
+        <h2 class="title">{{ $main->title }}</h2>
+        <p>Post at <span class="date">{{ $main->updated_at }}</span></p>
+        <p>
+            <a class="category" href="#">
+                {{ $main->category->category_name }}
+            </a>
+            @if ($main->tags->count() )
+                &nbsp;标签:
+                @foreach ($main->tags as $each_tag)
+                    <a class="tag" href="#">{{$each_tag->tag_name}}</a>
+                    @if ($main->tags->last() !== $each_tag)
+                        ,
+                    @endif
+                @endforeach
             @endif
-        @endforeach
-    @endif
-    &nbsp;最后更新:{{ $main->updated_at }}
-    <hr>
-    {{$main->content}}
+        </p>
+    </header>
+    <div id="content">
+        {{ $main->content }}
+    </div>
 @endsection
