@@ -24,5 +24,5 @@ Route::get('blog/{id}', 'PostController@show')->name('api.blog.show')->where('id
 
 Route::get('categories', 'CategoryController@index')->name('api.categories.list');
 
-Route::get('category/{id}', 'CategoryController@show')->name('api.categories.show.default');
-Route::get('category/{id}/page/{page?}', 'CategoryController@show')->name('api.categories.show')->where('page','\d+');
+Route::get('category/{name}', 'CategoryController@show')->name('api.categories.show.default');
+Route::get('category/{name}/page/{page?}', 'CategoryController@show')->name('api.categories.show')->where('page','\d+');
