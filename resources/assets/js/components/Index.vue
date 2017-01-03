@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-    import navVue from './Navigation';
+    import navVue from './layout/Navigation';
 
     export default {
         components:{

@@ -1,38 +1,53 @@
 <template>
     <div class="content-box">
         <div class="content">
+            <!-- Something wrong -->
             <div class="error post" v-if="error.code">
                 <h2>{{ errorMsg }}</h2>
                 <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
-            <!-- TODO 判断无文章 -->
-            <template v-else v-for="post in mainData.data">
-                <article class="post">
-                    <header class="post-header">
-                        <h2><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
-                    </header>
-                    <div class="post-content">
-                        {{ post.content }}
-                        <p class="post-more" v-if="more">
-                            <router-link class="post-more-link" :to="'/blog/' + post.id">More >></router-link>
-                        </p>
-                        <hr>
-                    </div>
-                    <footer class="post-footer">
-                        <p>
-                            <span>Posted by {{ post.user_id }}</span>
-                            &nbsp;<span v-html="getDate(post.created_at, post.updated_at)"></span>
-                        </p>
-                        <p>
-                            <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
-                        </p>
-                        <template v-for="tag in post.tags">
-                            <router-link :to="'/tag/' + tag.tag_name">
-                                {{ tag.tag_name }}
-                            </router-link>
-                        </template>
-                    </footer>
-                </article>
+
+            <!-- Everything is fire -->
+            <template v-else>
+                <!-- Empty post list -->
+                <div class="post" v-if="emptyList">
+                    <h2>没有任何内容哦~</h2>
+                    <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
+                </div>
+                <!-- NOT empty post list -->
+                <template v-else v-for="post in mainData.data">
+                    <article class="post">
+                        <header class="post-header">
+                            <h2><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
+                        </header>
+                        <div class="post-content">
+                            {{ post.content }}
+                            <p class="post-more" v-if="more">
+                                <router-link class="post-more-link" :to="'/blog/' + post.id">More >></router-link>
+                            </p>
+                            <hr>
+                        </div>
+                        <footer class="post-footer">
+                            <p>
+                                <span>Posted by {{ post.user_id }}</span>
+                                &nbsp;<span v-html="getDate(post.created_at, post.updated_at)"></span>
+                            </p>
+                            <p>
+                                <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
+                            </p>
+                            <template v-for="tag in post.tags">
+                                <router-link :to="'/tag/' + tag.tag_name">
+                                    {{ tag.tag_name }}
+                                </router-link>
+                            </template>
+                        </footer>
+                    </article>
+                </template>
+
+                <b-pagination
+                        :current-page="mainData.current_page"
+                        :last-page="mainData.last_page"
+                ></b-pagination>
             </template>
         </div>
     </div>
@@ -49,8 +64,7 @@ header {
     left: 300px;
 
     .content {
-        max-width: 1040px;
-        margin: 0 auto;
+
     }
 
     .post {
@@ -88,19 +102,29 @@ header {
             color: red;
         }
     }
+
+    .pagination {
+        @extend .post;
+    }
 }
 </style>
 <script>
+    import pageVue from './layout/Pagination';
+
     export default {
-        data() {
+        components: {
+            'b-pagination': pageVue
+        },
+
+        data () {
             return {
                 error: { },
                 mainData: '',
-                more: true
-            }
+                more: ''
+            };
         },
 
-        mounted () {
+        created () {
             this.fetchList();
         },
 
@@ -139,7 +163,12 @@ header {
             errorMsg () {
                 let self = this;
 
-                return self.error.code + ' ' + self.error.text;
+                return self.error.code ?
+                    self.error.code + ' ' + self.error.text :
+                    '';
+            },
+            emptyList () {
+                return !(this.mainData.data && this.mainData.data.length);
             }
         }
     }

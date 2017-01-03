@@ -15,7 +15,7 @@ module.exports = {
             component: homeVue
         },
         {
-            path: '/blog',
+            path: '/:name(blog)',
             component: indexVue,
             children: [
                 {
@@ -24,6 +24,7 @@ module.exports = {
                 },
                 {
                     path: 'page/:page',
+                    name: 'blog',
                     component: listVue
                 },
                 {
@@ -37,7 +38,8 @@ module.exports = {
             component: categoriesVue
         },
         {
-            path: '/category/:category',
+            path: '/:name(category)/:category',
+            name: 'category',
             component: listVue
         },
         {
@@ -45,7 +47,8 @@ module.exports = {
             component: tagsVue
         },
         {
-            path: '/tag/:tag',
+            path: '/:name(tag)/:tag',
+            name: 'tag',
             component: listVue
         },
         {

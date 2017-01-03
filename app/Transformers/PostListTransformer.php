@@ -17,7 +17,7 @@ class PostListTransformer implements TransformerInterface
             $posts[$collection_key] = [
                 'id' => $post->id,
                 'title' => $post->title,
-                'content' => str_limit($post->content, 50, '...'),
+                'content' => str_limit($post->content, 1000, '...'),
                 'slug' => $post->slug,
                 'user_id' => $post->user_id,
                 'category_id' => $post->category_id,
