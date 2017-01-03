@@ -46,7 +46,7 @@ class CategoryController extends Controller
         $this->returnData = [
             'category_id' => $category->id,
             'category_name' => $category->category_name,
-            'main' => $this->returnHelper->transform($posts, new PostListTransformer(), 'transformOutline'),
+            'main' => $this->returnHelper->transform($posts, new PostListTransformer()),
         ];
         return $this->returnHelper->handler($this->returnData, 'category.show');
     }
