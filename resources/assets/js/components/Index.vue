@@ -1,5 +1,5 @@
 <template>
-    <div class="index container">
+    <div class="container">
         <b-nav></b-nav>
 
         <router-view></router-view>

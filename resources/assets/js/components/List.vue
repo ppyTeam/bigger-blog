@@ -2,7 +2,7 @@
     <div class="content-box">
         <div class="content">
             <div class="error post" v-if="error.code">
-                <h2>Error: {{ error.Text }}</h2>
+                <h2>{{ errorMsg }}</h2>
                 <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
             <!-- TODO 判断无文章 -->
@@ -19,10 +19,13 @@
                         <hr>
                     </div>
                     <footer class="post-footer">
-                        <span>{{ post.updated_at }} Posted by {{ post.user_id }}</span>
-                        <br>
-                        <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
-                        <br>
+                        <p>
+                            <span>Posted by {{ post.user_id }}</span>
+                            &nbsp;<span v-html="getDate(post.created_at, post.updated_at)"></span>
+                        </p>
+                        <p>
+                            <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
+                        </p>
                         <template v-for="tag in post.tags">
                             <router-link :to="'/tag/' + tag.tag_name">
                                 {{ tag.tag_name }}
@@ -96,27 +99,48 @@ header {
                 more: true
             }
         },
-        mounted: function() {
+
+        mounted () {
             this.fetchList();
         },
+
         watch: {
             '$route': 'fetchList'
         },
+
         methods: {
-            fetchList: function() {
-                this.$http.get('/api' + this.$route.path)
+            fetchList () {
+                let self = this;
+
+                self.$http.get('/api' + self.$route.path)
                     .then(data => {
-                        this.error = { };
-                        this.mainData = data.body.main;
+                        self.error = { };
+                        self.mainData = data.body.main;
                     })
                     .catch(error => {
-                        this.error = {
+                        self.error = {
                             code: error.status,
-                            Text: error.statusText
+                            text: error.statusText
                         }
                     });
             },
+            getDate (created_at, updated_at) {
+                if (updated_at) {
+                    return '<span title="Created at ' + created_at + '">Updated at ' + updated_at + '</span>';
+                }
+                else {
+                    return '<span>Created at ' + created_at + '</span>';
+                }
+            },
             goBack: () => history.go(-1)
+        },
+
+        computed: {
+            errorMsg () {
+                let self = this;
+
+                return self.error.code + ' ' + self.error.text;
+            }
         }
     }
 </script>
