@@ -16,8 +16,11 @@
 //});
 Route::get('/', 'PostController@index');
 
-Route::get('/blog', 'PostController@index')->name('blog.list');
+Route::get('/blog', 'PostController@index')->name('blog.list.default');
+Route::get('/blog/page/{page?}', 'PostController@index')->name('blog.list')->where('page','\d+');
+
 Route::get('/blog/{id}', 'PostController@show')->name('blog.show')->where('id', '\d+');
 
 Route::get('/categories', 'CategoryController@index')->name('categories.list');
-Route::get('/categories/{id}', 'CategoryController@show')->name('categories.show')->where('id', '\d+');
+
+Route::get('/category/{id}', 'CategoryController@show')->name('categories.show')->where('id', '\d+');

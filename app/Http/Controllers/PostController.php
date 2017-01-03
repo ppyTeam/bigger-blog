@@ -30,10 +30,12 @@ class PostController extends Controller
 
     /**
      * 文章列表
+     * @param int $page 分页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index($page = 1)
     {
-        $posts = $this->postRepository->simplePaginate(5);
+        $posts = $this->postRepository->simplePaginate(5, $page);
         $this->returnData['main'] = $this->returnHelper->transform($posts, new Transformers\PostListTransformer());
         return $this->returnHelper->handler($this->returnData, 'blog.list');
     }

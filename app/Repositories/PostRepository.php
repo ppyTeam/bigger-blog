@@ -21,15 +21,16 @@ class PostRepository extends IRepository
     /**
      * 文章分页
      * @param int $limit
+     * @param int $page
      * @param array $columns
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function simplePaginate($limit = 10, $columns = ['*'])
+    public function simplePaginate($limit = 10, $page = 1, $columns = ['*'])
     {
         //$this->applyCriteria();
         //查询文章并分页
         //$posts = Post::where('updated_at', '<=', Carbon::now())
-        $posts = $this->orderBy('id', 'desc')->paginate($limit, $columns);
+        $posts = $this->orderBy('id', 'desc')->paginate($limit, $columns, $page);
         $posts = $this->getPostOtherInfo($posts);
         return $posts;
 

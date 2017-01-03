@@ -93,12 +93,13 @@ abstract class IRepository implements RepositoryInterface, RepositoryCriteriaInt
      * 分页查询
      * @param int $perPage
      * @param array $columns
+     * @param int $page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($perPage = 25, $columns = array('*'))
+    public function paginate($perPage = 25, $columns = array('*'), $page = 1)
     {
         $this->applyCriteria();
-        return $this->model->paginate($perPage, $columns);
+        return $this->model->paginate($perPage, $columns, 'page', $page);
     }
 
     /**
