@@ -10,9 +10,9 @@
                 <li><router-link to="/blog/page/2">Page 2</router-link></li>
                 <li><router-link to="/blog/3">Post 3</router-link></li>
                 <li><router-link to="/categories">Categories</router-link></li>
-                <li><router-link to="/category/games">Category Game</router-link></li>
+                <li><router-link to="/category/test">Category Test</router-link></li>
                 <li><router-link to="/tags">Tags</router-link></li>
-                <li><router-link to="/tag/steam">Tag Steam</router-link></li>
+                <li><router-link to="/tag/tag1">Tag Tag1</router-link></li>
                 <li><router-link to="/archives">Archives</router-link></li>
                 <li><router-link to="/about">About</router-link></li>
             </ul>

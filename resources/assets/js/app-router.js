@@ -9,6 +9,7 @@ import _404Vue from './components/NotFound';
 
 module.exports = {
     mode: 'history',
+    linkActiveClass: 'current-page',
     routes: [
         {
             path: '/',
@@ -20,6 +21,7 @@ module.exports = {
             children: [
                 {
                     path: '',
+                    alias: 'page',
                     component: listVue
                 },
                 {
