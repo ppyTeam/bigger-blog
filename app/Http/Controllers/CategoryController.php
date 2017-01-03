@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Criteria;
 use App\Helpers\ReturnDataHelper;
 use App\Repository\CategoryRepository;
+use App\Repository\PostRepository;
 use App\Transformers\PostListTransformer;
 use Illuminate\Http\Request;
 
@@ -14,6 +15,10 @@ class CategoryController extends Controller
      * @var CategoryRepository
      */
     protected $categoryRepository;
+    /**
+     * @var PostRepository
+     */
+    protected $postRepository;
     protected $returnData;
 
     /**
@@ -21,10 +26,12 @@ class CategoryController extends Controller
      */
     protected $returnHelper;
 
-    public function __construct(CategoryRepository $categoryRepository, ReturnDataHelper $dataHelper)
+    public function __construct(CategoryRepository $categoryRepository, PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
         $this->categoryRepository = $categoryRepository;
         $this->categoryRepository->pushCriteria(app(Criteria\ShowInSite::class));
+        $this->postRepository = $postRepository;
+        $this->postRepository->pushCriteria(app(Criteria\ShowInSite::class));
         $dataHelper->initConfig(config('app.url'), false);
         $this->returnHelper = $dataHelper;
     }
@@ -42,7 +49,7 @@ class CategoryController extends Controller
         if (empty($category)) {
             abort(404);
         }
-        $posts = $category->posts()->paginate(10, ['*'], 'page', $page);
+        $posts = $this->postRepository->findWhere(['category_id' => $category->id], null)->simplePaginate(10, $page);
         $this->returnData = [
             'category_id' => $category->id,
             'category_name' => $category->category_name,
