@@ -15,7 +15,7 @@ module.exports = {
             component: homeVue
         },
         {
-            path: '/blog',
+            path: '/:name(blog)',
             component: indexVue,
             children: [
                 {
@@ -24,6 +24,7 @@ module.exports = {
                 },
                 {
                     path: 'page/:page',
+                    name: 'blog',
                     component: listVue
                 },
                 {
@@ -34,19 +35,53 @@ module.exports = {
         },
         {
             path: '/categories',
-            component: categoriesVue
+            component: indexVue,
+            children: [
+                {
+                    path: '',
+                    component: categoriesVue
+                }
+            ]
         },
         {
-            path: '/category/:category',
-            component: listVue
+            path: '/:name(category)/:category',
+            component: indexVue,
+            children: [
+                {
+                    path: '',
+                    component: listVue
+                },
+                {
+                    path: 'page/:page',
+                    name: 'category',
+                    component: listVue
+                }
+            ]
         },
         {
             path: '/tags',
-            component: tagsVue
+            component: indexVue,
+            children: [
+                {
+                    path: '',
+                    component: tagsVue
+                }
+            ]
         },
         {
-            path: '/tag/:tag',
-            component: listVue
+            path: '/:name(tag)/:tag',
+            component: indexVue,
+            children: [
+                {
+                    path: '',
+                    component: listVue
+                },
+                {
+                    path: 'page/:page',
+                    name: 'tag',
+                    component: listVue
+                }
+            ]
         },
         {
             path: '/archives',
