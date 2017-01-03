@@ -23,4 +23,5 @@ Route::get('/blog/{id}', 'PostController@show')->name('blog.show')->where('id', 
 
 Route::get('/categories', 'CategoryController@index')->name('categories.list');
 
-Route::get('/category/{id}', 'CategoryController@show')->name('categories.show')->where('id', '\d+');
+Route::get('/category/{name}', 'CategoryController@show')->name('categories.show.default');
+Route::get('/category/{name}/page/{page?}', 'CategoryController@show')->name('categories.show')->where('page','\d+');

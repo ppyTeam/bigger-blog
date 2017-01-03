@@ -36,13 +36,13 @@ class CategoryController extends Controller
         return $this->returnHelper->handler($this->returnData, 'category.index');
     }
 
-    public function show($categoryId)
+    public function show($categoryName, $page = 1)
     {
-        $category = $this->categoryRepository->find($categoryId, ['id', 'category_name']);
+        $category = $this->categoryRepository->findOneBy('category_name', $categoryName, '=', ['id', 'category_name']);
         if (empty($category)) {
             abort(404);
         }
-        $posts = $category->posts;
+        $posts = $category->posts()->paginate(10, ['*'], 'page', $page);
         $this->returnData = [
             'category_id' => $category->id,
             'category_name' => $category->category_name,
