@@ -25,4 +25,14 @@ class TagRepository extends IRepository
     }
 
 
+    /**
+     * 获取一个标签下的所有文章
+     * @param $tag
+     * @return mixed
+     */
+    public function getTagPosts($tag)
+    {
+        return $tag->posts()->wherePivot('tag_id', $tag->id);
+    }
+
 }
