@@ -32,7 +32,7 @@ class TagRepository extends IRepository
      */
     public function getTagPosts($tag)
     {
-        return $tag->posts()->wherePivot('tag_id', $tag->id);
+        return $tag->posts();
     }
 
 }
