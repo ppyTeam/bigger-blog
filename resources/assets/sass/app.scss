@@ -1,31 +1,54 @@
-html {
-  font-size: 10px;
-}
-// Fonts
-//@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
-// Variables
+// Core variables and mixins
 @import "variables";
+@import "mixins";
+
+// Reset
+@import "normalize";
+@import "reset";
+// @import "icons";
+
+// Core CSS
+//@import "reboot";
+//@import "type";
+//@import "images";
+//@import "code";
+//@import "grid";
+//@import "tables";
+//@import "forms";
+//@import "buttons";
+
+// Components
+@import "layout";
+@import "sidebar";
+@import "header";
+//@import "animation";
+//@import "dropdown";
+//@import "button-group";
+//@import "input-group";
+//@import "custom-forms";
+//@import "nav";
+//@import "navbar";
+//@import "card";
+//@import "breadcrumb";
+//@import "pagination";
+//@import "tags";
+//@import "jumbotron";
+//@import "alert";
+//@import "progress";
+//@import "media";
+//@import "list-group";
+//@import "responsive-embed";
+//@import "close";
+//
+//// Components w/ JavaScript
+//@import "modal";
+//@import "tooltip";
+//@import "popover";
+//@import "carousel";
+//
+//// Utility classes
+//@import "utilities";
+
 
 // Common
 @import "scrollbar";
-
-body {
-  padding: 0;
-  margin: 0;
-  font-size: 1.6rem;
-  word-break: break-all;
-  word-wrap: break-word;
-  background: {
-    color: #eee;
-  };
-  //background-image: url(http://blog.ttionya.com/wp-content/uploads/2016/05/201605151132121234.jpg);
-  //background-size: cover;
-  //background-attachment: fixed;
-  //background-position-y: -100px;
-  //background-repeat: no-repeat;
-}
-
-// Bootstrap
-// @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-

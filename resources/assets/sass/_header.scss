@@ -1,0 +1,46 @@
+// Header
+// 名为头部的边栏，外层容器见 sidebar.scss
+
+.header-sidebar-panel {
+  a {
+    color: $header-link-color;
+  }
+
+  .header-panel {
+    display: table-cell;
+    padding: 0 30px;
+    text-align: center;
+    color: $header-font-color;
+    vertical-align: middle;
+  }
+
+  .logo {
+    height: 128px;
+    width: 128px;
+    margin-bottom: 20px;
+    border: 5px $header-logo-border-color solid;
+    border-radius: $header-logo-border-radius;
+    background-color: #fff;
+
+    &:hover {
+      box-shadow: 0 0 1.5rem $header-logo-hover-border-color;
+      border-color: $header-logo-hover-border-color;
+    }
+  }
+
+  .header-title {
+    margin: 1.6rem 0;
+    font-family: $header-title-font-family;
+  }
+
+  // nav
+  .nav-ul {
+    padding: 0;
+    font-size: 2rem;
+
+
+    li {
+      margin: 5px;
+    }
+  }
+}
