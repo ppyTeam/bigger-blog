@@ -61,7 +61,7 @@ header {
 .content-box {
     position: absolute;
     right: 0;
-    left: 300px;
+    left: 350px;
 
     .content {
 
@@ -79,7 +79,7 @@ header {
         }
 
         .post-content {
-            line-height: 1.8rem
+            // line-height: 1.8rem
         }
 
         .post-more {

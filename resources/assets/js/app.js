@@ -9,7 +9,6 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
 // import css
-require('normalize.css');
 require('../sass/app.scss');
 
 Vue.http.options.emulateHTTP = true;

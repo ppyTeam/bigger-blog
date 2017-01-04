@@ -1,0 +1,25 @@
+// Sidebar
+// 边栏，针对 header 等
+
+.sidebar {
+  position: fixed;
+  background-color: $sidebar-bg-color;
+}
+
+.header-sidebar {
+  height: 100%;
+  width: $sidebar-header-width;
+  max-width: $sidebar-header-max-width;
+  background: {
+    image: $sidebar-header-bg-image;
+    repeat: no-repeat;
+    size: cover;
+  }
+}
+
+.header-sidebar-panel {
+  display: table;
+  height: 100%;
+  width: 100%;
+  background-image: $sidebar-header-bg-cover;
+}

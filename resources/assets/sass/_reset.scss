@@ -1,0 +1,247 @@
+// Reset (Edit by BootStrap v4)
+// 重置基础样式，涉及 Bug 修复、统一样式等
+
+
+// Reset the box-sizing
+// -------------------------------------------------
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+// Reset HTML, body, and more
+// -------------------------------------------------
+
+html {
+  font-size: $font-size-root;
+  -webkit-tap-highlight-color: rgba(0,0,0,0); // For iOS
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $body-color;
+  background-color: $body-bg;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+
+// Typography and Figures
+// -------------------------------------------------
+
+// Remove top margins from headings
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+h2 {
+  font-size: $font-size-h2;
+}
+h3 {
+  font-size: $font-size-h3;
+}
+h4 {
+  font-size: $font-size-h4;
+}
+h5 {
+  font-size: $font-size-h5;
+}
+h6 {
+  font-size: $font-size-h6;
+}
+
+// Reset margins on paragraphs
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit;
+}
+
+ol, ul, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-bottom: 0;
+}
+
+dt {
+  font-weight: $dt-font-weight;
+}
+
+dd {
+  margin-bottom: .5rem;
+  margin-left: 0;
+}
+
+blockquote,
+figure {
+  margin: 0 0 1rem;
+}
+
+
+// Links
+// -------------------------------------------------
+
+a {
+  color: $link-color;
+  text-decoration: $link-decoration;
+
+  &:hover,
+  &:focus {
+    color: $link-hover-color;
+  }
+
+  &:focus {
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+  }
+}
+
+a:not([href]):not([tabindex]) {
+  color: inherit;
+
+  &:hover,
+  &:focus {
+    color: inherit;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+
+// Code
+// -------------------------------------------------
+
+pre {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+
+
+// Images
+// -------------------------------------------------
+
+img {
+  vertical-align: middle;
+}
+
+
+// Tables
+// -------------------------------------------------
+
+table {
+  border-collapse: collapse;
+  background-color: transparent;
+}
+
+caption {
+  padding-top: $table-cell-padding;
+  padding-bottom: $table-cell-padding;
+  color: $text-muted;
+  text-align: left;
+  caption-side: bottom;
+}
+
+
+// Forms
+// -------------------------------------------------
+
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+input,
+button,
+select,
+textarea {
+  line-height: inherit;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  &:disabled {
+    cursor: $cursor-disabled;
+  }
+}
+
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  -webkit-appearance: listbox;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+textarea {
+  resize: vertical;
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: 1.5rem;
+  line-height: inherit;
+}
+
+
+// Bug fixed
+// -------------------------------------------------
+
+// Fixed iOS bug
+[role="button"] {
+  cursor: pointer;
+}
+
+// Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.
+a, area, button, [role="button"], input, label, select, summary, textarea {
+  touch-action: manipulation;
+}
