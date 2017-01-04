@@ -35,7 +35,7 @@ class PostController extends Controller
      */
     public function index($page = 1)
     {
-        $posts = $this->postRepository->simplePaginate(5, $page);
+        $posts = $this->postRepository->postPaginate(5, $page);
         $this->returnData['main'] = $this->returnHelper->transform($posts, new Transformers\PostListTransformer());
         return $this->returnHelper->handler($this->returnData, 'blog.list');
     }

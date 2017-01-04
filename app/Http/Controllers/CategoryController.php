@@ -49,7 +49,7 @@ class CategoryController extends Controller
         if (empty($category)) {
             abort(404);
         }
-        $posts = $this->postRepository->findWhere(['category_id' => $category->id], null)->simplePaginate(10, $page);
+        $posts = $this->postRepository->findWhere(['category_id' => $category->id], null)->postPaginate(10, $page);
         $this->returnData = [
             'category_id' => $category->id,
             'category_name' => $category->category_name,

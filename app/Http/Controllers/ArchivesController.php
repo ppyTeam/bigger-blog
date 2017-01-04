@@ -34,7 +34,7 @@ class ArchivesController extends Controller
      */
     public function index($page = 1)
     {
-        $posts = $this->postRepository->simplePaginate(50, $page, ['id', 'title', 'created_at']);
+        $posts = $this->postRepository->postSimplePaginate(50, $page, ['id', 'title', 'created_at']);
         $this->returnData['main'] = $this->returnHelper->transform($posts, new PostListTransformer(),'transformOutline');
         return $this->returnHelper->handler($this->returnData, 'archives.index');
     }

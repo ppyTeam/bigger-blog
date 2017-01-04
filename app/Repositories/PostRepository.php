@@ -25,7 +25,7 @@ class PostRepository extends IRepository
      * @param array $columns
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function simplePaginate($limit = 10, $page = 1, $columns = ['*'])
+    public function postPaginate($limit = 10, $page = 1, $columns = ['*'])
     {
         //$this->applyCriteria();
         //查询文章并分页
@@ -33,7 +33,18 @@ class PostRepository extends IRepository
         $posts = $this->orderBy('id', 'desc')->paginate($limit, $columns, $page);
         $posts = $this->getPostOtherInfo($posts);
         return $posts;
+    }
 
+    /**
+     * 文章简单分页(伪)
+     * @param int $limit
+     * @param int $page
+     * @param array $columns
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function postSimplePaginate($limit = 10, $page = 1, $columns = ['*'])
+    {
+        return $this->orderBy('id', 'desc')->paginate($limit, $columns, $page);
     }
 
     /**
