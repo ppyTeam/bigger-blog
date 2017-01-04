@@ -35,7 +35,7 @@ class PostListTransformer implements TransformerInterface
     }
 
     /**
-     * 返回文章的大致信息
+     * 返回文章的概要信息
      * @param $posts
      * @return mixed
      */
@@ -45,6 +45,7 @@ class PostListTransformer implements TransformerInterface
             $posts[$collection_key] = [
                 'id' => $post->id,
                 'title' => $post->title,
+                'created_at' => $post->created_at->toDateTimeString(),
             ];
         }
         return $posts;

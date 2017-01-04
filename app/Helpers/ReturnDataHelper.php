@@ -45,7 +45,7 @@ class ReturnDataHelper
      * 返回接口数据或模板
      * @param $return_data
      * @param null $view_blade
-     * @return \Illuminate\Contracts\View\Factory | \Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory | \Illuminate\View\View | \Illuminate\Http\Response
      */
     public function handler(&$return_data, $view_blade = null)
     {
