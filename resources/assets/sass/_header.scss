@@ -12,6 +12,7 @@
     text-align: center;
     color: $header-font-color;
     vertical-align: middle;
+    word-break: break-all; // 强行换行
   }
 
   .logo {
