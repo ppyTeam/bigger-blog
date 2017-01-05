@@ -2,7 +2,7 @@
 @section('content')
     @forelse($main as $tag)
         <li>
-            <a href="/tags/{{ $tag->id }}">{{ $tag->tag_name }}</a>
+            <a href="{{ route('tags.show.default',$tag->tag_name) }}">{{ $tag->tag_name }}</a>
         </li>
         <hr>
     @empty

@@ -2,7 +2,7 @@
 @section('content')
     @forelse($main as $category)
         <li>
-            <a href="/categories/{{ $category->id }}">{{ $category->category_name }}</a>
+            <a href="{{ route('categories.show.default',$category->category_name) }}">{{ $category->category_name }}</a>
         </li>
         <hr>
     @empty

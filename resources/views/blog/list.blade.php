@@ -2,16 +2,16 @@
 @section('content')
     @forelse($main as $post)
         <li>
-            <a href="/blog/{{ $post->id }}">{{ $post->title }}</a>
+            <a href="{{ route('blog.show',$post->id) }}">{{ $post->title }}</a>
             <p>
                 &nbsp;分类:
-                <a class="category" href="#">
+                <a class="category" href="{{ route('categories.show.default',$post->category->category_name) }}">
                     {{$post->category->category_name}}
                 </a>
                 @if ($post->tags->count() )
                     &nbsp;标签:
                     @foreach ($post->tags as $each_tag)
-                        <a class="tag" href="#">{{$each_tag->tag_name}}</a>
+                        <a class="tag" href="{{ route('tags.show.default',$each_tag->tag_name) }}">{{$each_tag->tag_name}}</a>
                         @if ($post->tags->last() !== $each_tag)
                             ,
                         @endif

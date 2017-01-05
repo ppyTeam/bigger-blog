@@ -2,7 +2,7 @@
 @section('content')
     @forelse($main as $post)
         <li>
-            <a href="/blog/{{ $post->id }}">{{ $post->title }}</a>
+            <a href="{{ route('blog.show',$post->id) }}">{{ $post->title }}</a>
             <p>创建时间:{{ $post->created_at }}</p>
         </li>
         <hr>

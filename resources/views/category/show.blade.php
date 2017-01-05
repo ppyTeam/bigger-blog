@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
     <h4>
-        <a href="/categories/{{$category_id}}">
+        <a href="{{ route('categories.show.default',$category->category_name) }}">
             {{$category_name}}
         </a>
     </h4>
     @forelse($main as $post)
         <li>
-            <a href="/blog/{{ $post->id }}">{{ $post->title }}</a>
+            <a href="{{ route('blog.show',$post->id) }}">{{ $post->title }}</a>
         </li>
         <hr>
     @empty
