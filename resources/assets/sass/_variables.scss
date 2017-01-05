@@ -46,12 +46,12 @@ $font-size-xs:   1.2rem !default;
 
 $line-height-base: 1.5 !default;
 
-$font-size-h1: 2.5rem !default;
-$font-size-h2: 2rem !default;
-$font-size-h3: 1.75rem !default;
-$font-size-h4: 1.5rem !default;
-$font-size-h5: 1.25rem !default;
-$font-size-h6: 1rem !default;
+$font-size-h1: 2.8rem !default;
+$font-size-h2: 2.4rem !default;
+$font-size-h3: 2rem !default;
+$font-size-h4: 1.8rem !default;
+$font-size-h5: 1.6rem !default;
+$font-size-h6: 1.4rem !default;
 
 $headings-font-family:   inherit !default;
 $headings-font-weight:   500 !default;
@@ -284,7 +284,7 @@ $sidebar-header-min-width:               300px !default;
 // Header && Logo
 
 $header-font-color:                      #fff !default;
-$header-link-color:                      #ccc !default;
+$header-hover-font-color:                #ccc !default;
 
 $header-logo-border-radius:              $border-radius-round !default;
 $header-logo-border-color:               #ddd !default;

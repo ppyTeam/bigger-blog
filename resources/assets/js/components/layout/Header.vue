@@ -5,20 +5,26 @@
         </router-link>
 
         <h1 class="header-title">
-            <router-link to="/blog">这是一个 Title</router-link>
+            <router-link class="header-link" to="/blog">我要搞一个大标题</router-link>
         </h1>
-        <h2 class="header-title">
-            这里是有一点点长的副标题哟~一行不够要两行的哟やだよ
-        </h2>
+        <h4 class="header-title">
+            副标题的最佳体验是十三个字
+            多了要换行，最好少于13个字
+        </h4>
 
-        <nav>
+        <hr>
+
+        <nav class="header-nav">
             <ul class="nav-ul">
                 <li class="nav-item" v-for="item in nav">
-                    <router-link :to="item.path">{{ item.name }}</router-link>
+                    <router-link class="header-link" :to="item.url" v-if="item.flag">{{ item.name }}</router-link>
+                    <a class="header-link" :href="item.url" target="_blank" v-else>{{ item.name }}</a>
                 </li>
             </ul>
+        </nav>
 
-            <ul class="nav-ul socially">
+        <nav class="header-socially">
+            <ul class="nav-ul">
                 到时候放社交链接，没做
             </ul>
         </nav>
@@ -37,13 +43,21 @@
         computed: {
             nav () {
                 return [
-                    { path: '/', name: 'Home' },
-                    { path: '/blog', name: 'Blog' },
-                    { path: '/blog/page/2', name: 'Page 2' },
-                    { path: '/blog/3', name: 'Post 3' },
-                    { path: '/categories', name: 'Categories' },
-                    { path: '/tags', name: 'Tags' },
-                    { path: '/archives', name: 'Archives' }
+                    { url: '/', name: 'Home', flag: true },
+                    { url: '/blog', name: 'Blog', flag: true },
+                    //{ url: '/blog/page/2', name: 'Page 2', flag: true },
+                    //{ url: '/blog/3', name: 'Post 3', flag: true },
+                    //{ url: '/categories', name: 'Categories', flag: true },
+                    //{ url: '/tags', name: 'Tags', flag: true },
+                    { url: '/archives', name: 'Archives', flag: true },
+                    { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', flag: false }
+                ];
+            },
+            socially () {
+                return [
+                    { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', type: 'github' },
+                    { url: 'http://weibo.com/', name: 'Weibo', type: 'weibo' },
+                    { url: 'http://steamcommunity.com/id/ttionya/', name: 'Steam', type: 'steam' }
                 ];
             }
         }
