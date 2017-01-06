@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h4>
-        <a href="{{ route('categories.show.default',$category->category_name) }}">
+        <a href="{{ route('categories.show.default',$category_name) }}">
             {{$category_name}}
         </a>
     </h4>
