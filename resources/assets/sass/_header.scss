@@ -56,10 +56,6 @@
   .nav-ul {
     padding: 0;
     font-size: 2rem;
-
-    li {
-      margin: 8px 0;
-    }
   }
 
 
@@ -69,9 +65,18 @@
     min-height: 250px;
     flex-direction: column;
     justify-content: center;
+
+    .nav-item {
+      margin: 8px 0;
+    }
   }
 
   .header-socially {
     margin-top: 60px;
+
+    .socially-item {
+      display: inline-block;
+      padding: 6px 8px;
+    }
   }
 }

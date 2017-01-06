@@ -25,7 +25,11 @@
 
         <nav class="header-socially">
             <ul class="nav-ul">
-                到时候放社交链接，没做
+                <li class="socially-item" v-for="item in socially">
+                    <a class="header-link" :href="item.url" :title="item.name" target="_blank">
+                        <i class="fa fa-lg" :class="'fa-' + item.type"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
