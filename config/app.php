@@ -229,6 +229,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //Laravel-DebugBar
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        //Blog Setting Facade
+        'Setting' => App\Facades\Setting::class,
     ],
 
 ];
