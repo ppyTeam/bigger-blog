@@ -1,6 +1,7 @@
 // Core variables and mixins
 @import "variables";
 @import "mixins";
+// @import "custom"; // 创建文件并且取消注释，可以覆盖默认变量
 
 // Reset
 @import "normalize";
@@ -18,9 +19,10 @@
 //@import "buttons";
 
 // Components
-@import "layout";
 @import "sidebar";
 @import "header";
+@import "layout";
+@import "list";
 //@import "animation";
 //@import "dropdown";
 //@import "button-group";
@@ -49,6 +51,10 @@
 //// Utility classes
 //@import "utilities";
 
-
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    //display: none;
+  }
+}
 // Common
 @import "scrollbar";
