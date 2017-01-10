@@ -2,6 +2,7 @@
 
 
 // Colors
+// =======================================
 
 $gray-dark:                 #373a3c !default;
 $gray:                      #55595c !default;
@@ -18,14 +19,16 @@ $brand-inverse:             $gray-dark !default;
 
 
 // Body
+// =======================================
 
 $body-bg:    #eee !default;
 $body-color: $gray-dark !default;
 
 
 // Links
+// =======================================
 
-$link-color:            $brand-primary !default;
+$link-color:            #696969 !default;
 $link-decoration:       none !default;
 $link-hover-color:      darken($link-color, 15%) !default;
 
@@ -92,9 +95,9 @@ $list-inline-padding: 5px !default;
 $line-height-lg:         (4 / 3) !default;
 $line-height-sm:         1.5 !default;
 
-$border-radius:          .25rem !default;
-$border-radius-lg:       .3rem !default;
-$border-radius-sm:       .2rem !default;
+$border-radius:          .4rem !default;
+$border-radius-lg:       .5rem !default;
+$border-radius-sm:       .3rem !default;
 $border-radius-round:    50% !default;
 
 $component-active-color: #fff !default;
@@ -266,7 +269,14 @@ $zindex-modal-bg:          1040 !default;
 $zindex-modal:             1050 !default;
 
 
-// Sidebar, Header, Logo, Navbar, Nav
+// Layout
+// =======================================
+
+$layout-left-width:                      350px !default;
+
+
+// Sidebar, Header, Logo, Nav
+// =======================================
 
 // Sidebar
 
@@ -277,9 +287,7 @@ $sidebar-bg-color:                       #fff !default;
 $sidebar-header-bg-image:                url('http://o9evx54l5.bkt.clouddn.com/background-cover.jpg') !default;
 $sidebar-header-bg-cover:                linear-gradient(140deg,rgba(73, 50, 82, 0.6) 20%, rgba(17, 11, 19, 0.8)) !default; // linear-gradient(140deg,rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8))
 
-$sidebar-header-width:                   30% !default;
-$sidebar-header-max-width:               350px !default;
-$sidebar-header-min-width:               300px !default;
+$sidebar-header-width:                   $layout-left-width !default;
 
 // Header && Logo
 
@@ -292,59 +300,40 @@ $header-logo-hover-border-color:         #88acdb !default;
 
 $header-title-font-family:               Roboto, serif !default;
 
-// Nav
 
+// Article
+// =======================================
 
-$navbar-border-radius:              $border-radius !default;
+$post-bg-color:                         #fff !default;
 
-$navbar-brand-padding-y:            .25rem !default;
+$post-border-top:                       0 !default;
+$post-border-right:                     1px solid #ddd !default;
+$post-border-bottom:                    0 !default;
+$post-border-left:                      1px solid #ddd !default;
 
-$navbar-divider-padding-y:          .425rem !default;
+// Padding && Margin
 
-$navbar-toggler-padding-x:           .75rem !default;
-$navbar-toggler-padding-y:           .5rem !default;
-$navbar-toggler-font-size:           $font-size-lg !default;
-$navbar-toggler-border-radius:       $btn-border-radius !default;
-$navbar-toggler-padding-x:           .75rem !default;
-$navbar-toggler-padding-y:           .5rem !default;
+$post-padding-left:                     7.5% !default;
+$post-view-count-margin-right:          $post-padding-left !default;
+$post-content-padding-lr:               $post-padding-left !default;
+$post-more-link-padding-lr:             $post-padding-left !default;
+$post-footer-margin-lr:                 $post-padding-left !default;
 
-$navbar-dark-color:                 rgba(255,255,255,.5) !default;
-$navbar-dark-hover-color:           rgba(255,255,255,.75) !default;
-$navbar-dark-active-color:          rgba(255,255,255,1) !default;
-$navbar-dark-disabled-color:        rgba(255,255,255,.25) !default;
-$navbar-dark-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
-$navbar-dark-toggler-border:        rgba(255,255,255,.1) !default;
+$post-content-line-height:              calc(1.75 * #{$font-size-base}) !default;
 
-$navbar-light-color:                rgba(0,0,0,.5) !default;
-$navbar-light-hover-color:          rgba(0,0,0,.7) !default;
-$navbar-light-active-color:         rgba(0,0,0,.9) !default;
-$navbar-light-disabled-color:       rgba(0,0,0,.3) !default;
-$navbar-light-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
-$navbar-light-toggler-border:       rgba(0,0,0,.1) !default;
+// More Link
 
+$post-more-link-padding:                2px 8px 4px !default;
+$post-more-link-font-size:              1.2rem !default;
+$post-more-link-border-radius:          $border-radius-sm !default;
+$post-more-link-font-color:             #fff !default;
+$post-more-link-bg-color:               #4d4d4d !default;
+$post-more-link-hover-bg-color:         #3c3c3c !default;
 
-$nav-item-margin:               .2rem !default;
-$nav-item-inline-spacer:        1rem !default;
-$nav-link-padding:              .5em 1em !default;
-$nav-link-hover-bg:             $gray-lighter !default;
-$nav-disabled-link-color:       $gray-light !default;
-$nav-disabled-link-hover-color: $gray-light !default;
-$nav-disabled-link-hover-bg:    transparent !default;
+// Footer
 
-$nav-tabs-border-color:                       #ddd !default;
-$nav-tabs-border-width:                       $border-width !default;
-$nav-tabs-border-radius:                      $border-radius !default;
-$nav-tabs-link-hover-border-color:            $gray-lighter !default;
-$nav-tabs-active-link-hover-color:            $gray !default;
-$nav-tabs-active-link-hover-bg:               $body-bg !default;
-$nav-tabs-active-link-hover-border-color:     #ddd !default;
-$nav-tabs-justified-link-border-color:        #ddd !default;
-$nav-tabs-justified-active-link-border-color: $body-bg !default;
-
-$nav-pills-border-radius:     $border-radius !default;
-$nav-pills-active-link-color: $component-active-color !default;
-$nav-pills-active-link-bg:    $component-active-bg !default;
-
+$post-footer-border-top-color:          #ddd !default;
+$post-footer-font-color:                #999 !default;
 
 // Pagination
 
@@ -655,3 +644,57 @@ $pre-bg:                      #f7f7f9 !default;
 $pre-color:                   $gray-dark !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
+
+// Nav
+
+//
+//$navbar-border-radius:              $border-radius !default;
+//
+//$navbar-brand-padding-y:            .25rem !default;
+//
+//$navbar-divider-padding-y:          .425rem !default;
+//
+//$navbar-toggler-padding-x:           .75rem !default;
+//$navbar-toggler-padding-y:           .5rem !default;
+//$navbar-toggler-font-size:           $font-size-lg !default;
+//$navbar-toggler-border-radius:       $btn-border-radius !default;
+//$navbar-toggler-padding-x:           .75rem !default;
+//$navbar-toggler-padding-y:           .5rem !default;
+//
+//$navbar-dark-color:                 rgba(255,255,255,.5) !default;
+//$navbar-dark-hover-color:           rgba(255,255,255,.75) !default;
+//$navbar-dark-active-color:          rgba(255,255,255,1) !default;
+//$navbar-dark-disabled-color:        rgba(255,255,255,.25) !default;
+//$navbar-dark-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
+//$navbar-dark-toggler-border:        rgba(255,255,255,.1) !default;
+//
+//$navbar-light-color:                rgba(0,0,0,.5) !default;
+//$navbar-light-hover-color:          rgba(0,0,0,.7) !default;
+//$navbar-light-active-color:         rgba(0,0,0,.9) !default;
+//$navbar-light-disabled-color:       rgba(0,0,0,.3) !default;
+//$navbar-light-toggler-bg: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-light-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !default;
+//$navbar-light-toggler-border:       rgba(0,0,0,.1) !default;
+//
+//
+//$nav-item-margin:               .2rem !default;
+//$nav-item-inline-spacer:        1rem !default;
+//$nav-link-padding:              .5em 1em !default;
+//$nav-link-hover-bg:             $gray-lighter !default;
+//$nav-disabled-link-color:       $gray-light !default;
+//$nav-disabled-link-hover-color: $gray-light !default;
+//$nav-disabled-link-hover-bg:    transparent !default;
+//
+//$nav-tabs-border-color:                       #ddd !default;
+//$nav-tabs-border-width:                       $border-width !default;
+//$nav-tabs-border-radius:                      $border-radius !default;
+//$nav-tabs-link-hover-border-color:            $gray-lighter !default;
+//$nav-tabs-active-link-hover-color:            $gray !default;
+//$nav-tabs-active-link-hover-bg:               $body-bg !default;
+//$nav-tabs-active-link-hover-border-color:     #ddd !default;
+//$nav-tabs-justified-link-border-color:        #ddd !default;
+//$nav-tabs-justified-active-link-border-color: $body-bg !default;
+//
+//$nav-pills-border-radius:     $border-radius !default;
+//$nav-pills-active-link-color: $component-active-color !default;
+//$nav-pills-active-link-bg:    $component-active-bg !default;
+//

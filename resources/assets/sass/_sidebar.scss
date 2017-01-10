@@ -9,13 +9,12 @@
 .header-sidebar {
   height: 100%;
   width: $sidebar-header-width;
-  max-width: $sidebar-header-max-width;
-  min-width: $sidebar-header-min-width;
   background: {
     image: $sidebar-header-bg-image;
     repeat: no-repeat;
     size: cover;
   }
+  word-break: break-all;
 }
 
 .header-sidebar-panel {

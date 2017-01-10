@@ -8,8 +8,8 @@
             <router-link class="header-link" to="/blog">我要搞一个大标题</router-link>
         </h1>
         <h4 class="header-title">
-            副标题的最佳体验是十三个字
-            多了要换行，最好少于13个字
+            副标题的最佳体验是十五个中国字
+            多了要换行，最好少于15个字
         </h4>
 
         <hr>

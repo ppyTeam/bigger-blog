@@ -1,45 +1,51 @@
 <template>
     <div class="content-box">
         <div class="content">
-            <!-- Something wrong -->
+            <!-- TODO Something wrong 移至 loading -->
             <div class="error post" v-if="error.code">
                 <h2>{{ errorMsg }}</h2>
                 <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
 
-            <!-- Everything is fire -->
             <template v-else>
                 <!-- Empty post list -->
                 <div class="post" v-if="emptyList">
                     <h2>没有任何内容哦~</h2>
                     <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
                 </div>
+
                 <!-- NOT empty post list -->
                 <template v-else v-for="post in mainData.data">
                     <article class="post">
+
+                        <!-- header -->
                         <header class="post-header">
-                            <h2><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
+                            <h2 class="post-title"><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
+                            <span class="post-view-count fa fa-eye">{{ post.view_count }}</span>
                         </header>
-                        <div class="post-content">
-                            {{ post.content }}
-                            <p class="post-more" v-if="more">
-                                <router-link class="post-more-link" :to="'/blog/' + post.id">More >></router-link>
-                            </p>
-                            <hr>
-                        </div>
+
+                        <!-- content -->
+                        <div class="post-content" v-html="post.content"></div>
+
+                        <!-- more link -->
+                        <p class="post-more" v-if="post.more_link">
+                            <router-link class="post-more-link" :to="'/blog/' + post.id">More >></router-link>
+                        </p>
+
+                        <!-- footer -->
                         <footer class="post-footer">
-                            <p>
-                                <span>Posted by {{ post.user_id }}</span>
-                                &nbsp;<span v-html="getDate(post.created_at, post.updated_at)"></span>
-                            </p>
-                            <p>
-                                <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
-                            </p>
-                            <template v-for="tag in post.tags">
-                                <router-link :to="'/tag/' + tag.tag_name">
-                                    {{ tag.tag_name }}
-                                </router-link>
-                            </template>
+                            <span class="post-footer-item fa fa-clock-o" :title="getDateTitle(post.updated_at, post.created_at)">
+                                {{ getDate(post.updated_at || post.created_at) }}
+                            </span>
+                            <span class="post-footer-item fa fa-user">
+                                {{ post.user_id }}
+                            </span>
+                            <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>-->
+                            <ul class="post-footer-item fa fa-tags" v-if="post.tags.length">
+                                <li class="tag-item" v-for="tag in post.tags">
+                                    <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
+                                </li>
+                            </ul>
                         </footer>
                     </article>
                 </template>
@@ -52,62 +58,6 @@
         </div>
     </div>
 </template>
-<style lang="scss">
-header {
-    margin: 0;
-    padding: 0;
-}
-
-.content-box {
-    position: absolute;
-    right: 0;
-    left: 350px;
-
-    .content {
-
-    }
-
-    .post {
-        margin: 40px;
-        padding: 40px 60px;
-
-        border: 1px solid #ddd;
-        background-color: #fff;
-
-        h2 {
-            line-height: 3rem;
-        }
-
-        .post-content {
-            // line-height: 1.8rem
-        }
-
-        .post-more {
-            margin-top: 10px;
-
-            .post-more-link {
-                padding: 2px 8px 4px;
-                color: #fff;
-                line-height: 1.6rem;
-                font-size: 1.2rem;
-                text-decoration: none;
-                border-radius: 2px;
-                background-color: #4d4d4d;
-            }
-        }
-    }
-
-    .error {
-        h2 {
-            color: red;
-        }
-    }
-
-    .pagination {
-        @extend .post;
-    }
-}
-</style>
 <script>
     import pageVue from './layout/Pagination';
 
@@ -119,8 +69,7 @@ header {
         data () {
             return {
                 error: { },
-                mainData: '',
-                more: ''
+                mainData: ''
             };
         },
 
@@ -148,15 +97,24 @@ header {
                         }
                     });
             },
-            getDate (created_at, updated_at) {
+            getDateTitle (created_at, updated_at) {
                 if (updated_at) {
-                    return '<span title="Created at ' + created_at + '">Updated at ' + updated_at + '</span>';
+                    return 'Updated at ' + updated_at + '\nCreated at ' + created_at;
                 }
                 else {
-                    return '<span>Created at ' + created_at + '</span>';
+                    return 'Created at ' + created_at;
                 }
             },
-            goBack: () => history.go(-1)
+            getDate (date) { // TODO 待移走
+                let mm, dd;
+
+                date = new Date(date);
+                mm = ('0' + (date.getMonth() + 1)).slice(-2);
+                dd = ('0' + date.getDate()).slice(-2);
+
+                return date.getFullYear() + '-' + mm + '-' + dd;
+            },
+            goBack: () => history.go(-1) // TODO 待移走
         },
 
         computed: {
