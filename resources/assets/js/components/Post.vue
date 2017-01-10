@@ -1,34 +1,42 @@
 <template>
     <div class="content-box">
         <div class="content">
+            <!-- TODO Something wrong 移至 loading -->
             <div class="error post" v-if="error.code">
-                <h2>Error: {{ error.Text }}</h2>
-                <p>Try to <a href="" @click.prevent="fetchPost">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
+                <h2>{{ errorMsg }}</h2>
+                <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
+
             <article v-else class="post">
+
+                <!-- header -->
                 <header class="post-header">
-                    <h2>{{ post.title }}</h2>
+                    <h2 class="post-title">{{ post.title }}</h2>
+                    <span class="post-view-count fa fa-eye">{{ post.view_count }}</span><!-- TODO 是否移除 -->
                 </header>
+
+                <!-- content -->
                 <div class="post-content" v-html="post.content"></div>
-                <hr>
+
+                <!-- footer -->
                 <footer class="post-footer">
-                    <p>
-                        <span>Posted by {{ post.user_id }}</span>
-                        &nbsp;<span v-html="getDate(post.created_at, post.updated_at)"></span>
-                    </p>
-                    <p>
-                        <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
-                    </p>
-                    <template v-for="tag in post.tags">
-                        <router-link :to="'/tag/' + tag.tag_name">
-                            {{ tag.tag_name }}
-                        </router-link>
-                    </template>
+                    <span class="post-footer-item fa fa-clock-o" :title="dateTitle">
+                        {{ getDate(updated_at || created_at) }}
+                    </span>
+                    <span class="post-footer-item fa fa-user">
+                        {{ post.user_id }}
+                    </span>
+                    <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>-->
+                    <ul class="post-footer-item fa fa-tags" v-if="post.tags && post.tags.length">
+                        <li class="tag-item" v-for="tag in post.tags">
+                            <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
+                        </li>
+                    </ul>
                 </footer>
             </article>
-            <aside v-if="post.neighbour">
-                <p v-if="post.neighbour.prev">上一篇：<router-link :to="'/blog/' + post.neighbour.prev.id">{{ post.neighbour.prev.title }}</router-link></p>
-                <p v-if="post.neighbour.next">下一篇：<router-link :to="'/blog/' + post.neighbour.next.id">{{ post.neighbour.next.title }}</router-link></p>
+            <aside v-if="showNeighbour">
+                <p v-if="neighbour.prev">上一篇：<router-link :to="'/blog/' + neighbour.prev.id">{{ neighbour.prev.title }}</router-link></p>
+                <p v-if="neighbour.next">下一篇：<router-link :to="'/blog/' + neighbour.next.id">{{ neighbour.next.title }}</router-link></p>
             </aside>
         </div>
     </div>
@@ -36,11 +44,12 @@
 <style>
 </style>
 <script>
-    export default{
+    export default {
         data() {
-            return{
+            return {
                 error: { },
-                post: ''
+                post: '',
+                showNeighbour: true
             }
         },
         mounted: function() {
@@ -65,18 +74,55 @@
                         }
                     });
             },
-            getDate (created_at, updated_at) {
-                if (updated_at) {
-                    return '<span title="Created at ' + created_at + '">Updated at ' + updated_at + '</span>';
-                }
-                else {
-                    return '<span>Created at ' + created_at + '</span>';
-                }
+            getDate (date) { // TODO 待移走
+                let mm, dd;
+
+                date = new Date(date);
+                mm = ('0' + (date.getMonth() + 1)).slice(-2);
+                dd = ('0' + date.getDate()).slice(-2);
+
+                return date.getFullYear() + '-' + mm + '-' + dd;
             },
             goBack: () => history.go(-1)
         },
         computed: {
+            updated_at () {
+                return this.post.updated_at;
+            },
+            created_at () {
+                return this.post.created_at;
+            },
+            dateTitle () {
+                let self = this;
 
+                if (self.updated_at) {
+                    return 'Updated at ' + self.updated_at + '\nCreated at ' + self.created_at;
+                }
+                else {
+                    return 'Created at ' + self.created_at;
+                }
+            },
+            // TODO 有 bug ，加上 loading 即可
+            neighbour () {
+                let self = this,
+                    neighbour = self.post.neighbour,
+                    prev, next;
+
+                if (neighbour) {
+                    prev = neighbour.prev;
+                    next = neighbour.next;
+
+                    self.showNeighbour = !!prev || !!next || false;
+                }
+                else {
+                    self.showNeighbour = false;
+                }
+
+                return {
+                    prev: prev,
+                    next: next
+                };
+            }
         }
     }
 </script>
