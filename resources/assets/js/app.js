@@ -7,7 +7,7 @@ Vue.use(VueResource);
 
 import * as scss from '../sass/app.scss';
 import router from './app-router';
-import store from './store/store';
+import store from './store/index';
 
 
 Vue.http.options.emulateHTTP = true;
