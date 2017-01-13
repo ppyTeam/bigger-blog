@@ -1,22 +1,23 @@
 "use strict";
 
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-// import Vuex from 'vuex';
-// Vue.use(Vuex);
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
-// import css
-require('../sass/app.scss');
+
+import * as scss from '../sass/app.scss';
+import router from './app-router';
+import store from './store/store';
+
 
 Vue.http.options.emulateHTTP = true;
+
 
 // root
 new Vue({
     el: '#app',
-    router: new VueRouter(require('./app-router')),
+    router,
+    store,
     created: function () {
         const d = document,
             htmlSEOContainer = d.getElementById('html-seo-container');
