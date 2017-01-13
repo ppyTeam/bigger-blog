@@ -165,3 +165,30 @@
         <script src="{{ $assets['url'] . $assets['frontend']['appjs']['filename'] }}"></script>
     @endif
 @endsection
+
+{{-- 直接输出到前端的 JavaScript Object --}}
+@section('common-data')
+<script type="text/javascript">
+// 导航数据
+window.nav = {
+    main_link: '/blog',
+    title: '我要搞一个大标题',
+    subtitle: '副标题的最佳体验是十五个中国字\n多了要换行，最好少于15个字',
+    logo_url: 'http://ttionya.qiniudn.com/LOGO.gif',
+    nav: [ // flag 为 true 时为站内链接，使用 SPA，否则为站外链接
+        { url: '/', name: 'Home', flag: true },
+        { url: '/blog', name: 'Blog', flag: true },
+        { url: '/blog/3', name: 'Post 3', flag: true },
+        //{ url: '/categories', name: 'Categories', flag: true },
+        //{ url: '/tags', name: 'Tags', flag: true },
+        { url: '/archives', name: 'Archives', flag: true },
+        { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', flag: false }
+    ],
+    socially: [ // name 是相关名称，鼠标悬停时显示，type 为 CSS 字体的后半部分
+        { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', type: 'github' },
+        { url: 'http://weibo.com/', name: 'Weibo', type: 'weibo' },
+        { url: 'http://steamcommunity.com/id/ttionya/', name: 'Steam', type: 'steam' }
+    ]
+}
+</script>
+@endsection
