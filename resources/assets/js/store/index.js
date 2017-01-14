@@ -11,7 +11,8 @@ import * as getters from './getters';
 
 
 const state = {
-
+    navData: { },
+    blogContent: ''
 };
 
 

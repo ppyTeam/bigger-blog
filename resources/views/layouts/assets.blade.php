@@ -170,7 +170,7 @@
 @section('common-data')
 <script type="text/javascript">
 // 导航数据
-window.nav = {
+window.navData = {
     main_link: '/blog',
     title: '我要搞一个大标题',
     subtitle: '副标题的最佳体验是十五个中国字\n多了要换行，最好少于15个字',

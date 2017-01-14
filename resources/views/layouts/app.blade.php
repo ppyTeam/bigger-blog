@@ -23,19 +23,19 @@
 </div>
 
 <div id="html-seo-container">
+    <script>
+        /**
+         * For search engine snapshot
+         *
+         * Baidu snapshot 不执行任何脚本，将显示 SEO 内容
+         * Google、Bing snapshot 会执行部分脚本，此时引导跳转至原网站
+         *
+         */
+        document.getElementById('html-seo-container').style.display = 'none';
+    </script>
+
     @yield('content')
 </div>
-
-<script>
-    /**
-     * For search engine snapshot
-     *
-     * Baidu snapshot 不执行任何脚本，将显示 SEO 内容
-     * Google、Bing snapshot 会执行部分脚本，此时引导跳转至原网站
-     *
-     */
-    document.getElementById('html-seo-container').style.display = 'none';
-</script>
 
 {{-- 移动端访问时使用 ls --}}
 @section('mobile-body')

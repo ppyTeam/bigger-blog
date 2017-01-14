@@ -18,13 +18,8 @@ new Vue({
     el: '#app',
     router,
     store,
-    created: function () {
-        const d = document,
-            htmlSEOContainer = d.getElementById('html-seo-container');
-
-        let contentEle = htmlSEOContainer.querySelector('#content'),
-            content = contentEle && contentEle.innerHTML || '';
-
-        htmlSEOContainer.parentNode.removeChild(htmlSEOContainer);
+    created () {
+        this.$store.commit('initNavData'); // 初始化导航数据
+        this.$store.commit('initBlogContent'); // 初始化文章正文
     }
 });
