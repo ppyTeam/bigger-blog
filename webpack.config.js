@@ -15,7 +15,7 @@ module.exports = {
 
   entry: {
     // DO NOT change key name
-    common: ['vue', 'vue-router', 'vue-resource', 'vuex'],
+    common: ['vue', 'vue-router', 'vue-resource', 'vuex', 'nprogress'],
     app: PATH.join(RES_PATH, 'assets', 'js', 'app.js') // ./resources/assets/js/app.js
   },
 
@@ -149,6 +149,7 @@ module.exports = {
         postcss: [
           require('autoprefixer')({
             // https://github.com/postcss/autoprefixer
+            remove: false,
             browsers: ['> 5%']
           })
         ]

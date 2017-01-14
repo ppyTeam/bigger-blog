@@ -84,7 +84,7 @@
                         self.error = {
                             code: error.status,
                             Text: error.statusText
-                        }
+                        };
                     });
             },
             getDate (date) { // TODO 待移走

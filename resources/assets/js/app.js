@@ -5,12 +5,30 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
 
-import * as scss from '../sass/app.scss';
+import scss from '../sass/app.scss';
+import NProgress from 'nprogress';
 import router from './app-router';
 import store from './store/index';
 
 
+// Setting
 Vue.http.options.emulateHTTP = true;
+NProgress.configure({ showSpinner: false });
+
+
+// 拦截 Ajax 请求
+Vue.http.interceptors.push((request, next) => {
+    NProgress.start();
+
+    // continue
+    next(response => {
+        if (!response.ok) {
+            // TODO 留着
+        }
+
+        NProgress.done();
+    });
+});
 
 
 // root
