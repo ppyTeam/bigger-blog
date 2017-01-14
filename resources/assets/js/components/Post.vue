@@ -7,6 +7,10 @@
                 <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
 
+            <div v-if="showLoading">
+                <a-loading class="card-content"></a-loading>
+            </div>
+
             <article v-else class="post">
 
                 <!-- header -->
@@ -44,14 +48,20 @@
 <style>
 </style>
 <script>
+    import loading from './layout/Loading';
     export default {
+    components:{
+            'a-loading': loading,
+        },
         data() {
             return {
+                showLoading: true,
                 error: { },
                 post: '',
                 showNeighbour: true
             }
         },
+
         mounted: function() {
             this.fetchPost();
         },
@@ -62,10 +72,13 @@
             fetchPost: function() {
                 let self = this;
 
+                self.showLoading = true;
+
                 self.$http.get('/api' + self.$route.path)
                     .then(data => {
                         self.error = { };
                         self.post = data.body.main;
+                        self.showLoading = false;
                     })
                     .catch(error => {
                         self.error = {
