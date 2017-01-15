@@ -38,8 +38,7 @@
   .header-link {
     color: $header-font-color; // 可自定义
 
-    &:hover,
-    &:focus {
+    &:hover {
       color: $header-hover-font-color; // 可自定义
     }
   }

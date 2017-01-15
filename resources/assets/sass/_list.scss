@@ -48,8 +48,7 @@
     color: $post-more-link-font-color;
     background-color: $post-more-link-bg-color;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: $post-more-link-hover-bg-color;
     }
   }
