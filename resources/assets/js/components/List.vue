@@ -23,7 +23,7 @@
                             <!-- header -->
                             <header class="post-header">
                                 <h2 class="post-title"><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
-                                <span class="post-view-count fa fa-eye">{{ post.view_count }}</span>
+                                <span class="post-view-count fa fa-eye">{{ post.view_count + 8888 + ' 万' }}</span>
                             </header>
 
                             <!-- content -->

@@ -12,6 +12,7 @@
   // title
   .post-title {
     display: inline-block;
+    width: 77%; // 这个宽度是浏览量在980px下正好不会掉下的极限，而且虽然提前换行很蠢，但是标题不应该这么长
     line-height: 3rem;
   }
 

@@ -12,6 +12,7 @@ import * as getters from './getters';
 
 const state = {
     navData: { },
+    data: { }, // 所有缓存的数据保存在此
     blogContent: ''
 };
 
