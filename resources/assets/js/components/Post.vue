@@ -1,42 +1,47 @@
 <template>
     <div class="content-box">
         <div class="content">
-            <div class="error post" v-if="error.code">
-                <h2>{{ errorMsg }}</h2>
-                <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
-            </div>
+            <b-loading v-show="!ready"></b-loading>
 
-            <article v-else class="post">
-                <b-loading></b-loading>
-                <!-- header -->
-                <header class="post-header">
-                    <h2 class="post-title">{{ post.title }}</h2>
-                    <span class="post-view-count fa fa-eye">{{ post.view_count }}</span><!-- TODO 是否移除 -->
-                </header>
+            <template v-if="ready">
+                <div class="error post" v-if="error.code">
+                    <h2>{{ errorMsg }}</h2>
+                    <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
+                </div>
 
-                <!-- content -->
-                <div class="post-content" v-html="post.content"></div>
+                <article v-else class="post">
 
-                <!-- footer -->
-                <footer class="post-footer">
+                    <!-- header -->
+                    <header class="post-header">
+                        <h2 class="post-title">{{ post.title }}</h2>
+                        <span class="post-view-count fa fa-eye">{{ post.view_count }}</span><!-- TODO 是否移除 -->
+                    </header>
+
+                    <!-- content -->
+                    <div class="post-content" v-html="post.content"></div>
+
+                    <!-- footer -->
+                    <footer class="post-footer">
                     <span class="post-footer-item fa fa-clock-o" :title="dateTitle">
                         {{ getDate(updated_at || created_at) }}
                     </span>
-                    <span class="post-footer-item fa fa-user">
+                        <span class="post-footer-item fa fa-user">
                         {{ post.user_id }}
                     </span>
-                    <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>-->
-                    <ul class="post-footer-item fa fa-tags" v-if="post.tags && post.tags.length">
-                        <li class="tag-item" v-for="tag in post.tags">
-                            <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
-                        </li>
-                    </ul>
-                </footer>
-            </article>
-            <aside v-if="showNeighbour">
-                <p v-if="neighbour.prev">上一篇：<router-link :to="'/blog/' + neighbour.prev.id">{{ neighbour.prev.title }}</router-link></p>
-                <p v-if="neighbour.next">下一篇：<router-link :to="'/blog/' + neighbour.next.id">{{ neighbour.next.title }}</router-link></p>
-            </aside>
+                        <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>-->
+                        <ul class="post-footer-item fa fa-tags" v-if="post.tags && post.tags.length">
+                            <li class="tag-item" v-for="tag in post.tags">
+                                <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
+                            </li>
+                        </ul>
+                    </footer>
+                </article>
+                <aside v-if="showNeighbour">
+                    <p v-if="neighbour.prev">上一篇：<router-link :to="'/blog/' + neighbour.prev.id">{{ neighbour.prev.title }}</router-link></p>
+                    <p v-if="neighbour.next">下一篇：<router-link :to="'/blog/' + neighbour.next.id">{{ neighbour.next.title }}</router-link></p>
+                </aside>
+
+            </template>
         </div>
     </div>
 </template>
@@ -46,24 +51,27 @@
     import loadingVue from './layout/Loading';
 
     export default {
-    components:{
-            'b-loading': loadingVue,
+        components: {
+            'b-loading': loadingVue
         },
-        data() {
+
+        data () {
             return {
+                ready: false,
                 error: { },
                 post: '',
                 showNeighbour: true
             }
         },
 
-        mounted: function() {
-
+        created () {
             this.fetchPost();
         },
+
         watch: {
             '$route': 'fetchPost'
         },
+
         methods: {
             fetchPost: function() {
                 let self = this;
@@ -75,6 +83,7 @@
                         self.error = { };
                         self.post = data.body.main;
                         self.showLoading = false;
+                        setTimeout(() => self.ready = true, 200);
 
                     })
                     .catch(error => {
@@ -82,6 +91,7 @@
                             code: error.status,
                             Text: error.statusText
                         };
+
                     });
             },
             getDate (date) { // TODO 待移走
