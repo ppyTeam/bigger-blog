@@ -49,8 +49,8 @@
 </style>
 <script>
     import loadingVue from './layout/Loading';
-    import cacheMixin from './mixins/cache';
-    import commonMixin from './mixins/common';
+    import cacheMixin from '../mixins/cache';
+    import commonMixin from '../mixins/common';
 
     export default {
         components: {
