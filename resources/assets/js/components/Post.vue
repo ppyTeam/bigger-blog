@@ -49,12 +49,19 @@
 </style>
 <script>
     import loadingVue from './layout/Loading';
-
+    import cacheMixin from './mixins/cache';
+    import commonMixin from './mixins/common';
 
     export default {
         components: {
             'b-loading': loadingVue
         },
+
+
+        mixins: [
+            cacheMixin,
+            commonMixin
+        ],
 
 
         data () {
@@ -79,41 +86,41 @@
 
         methods: {
             fetchPost () {
-                let self = this;
+                this.ready = false;
 
                 // 有缓存的数据
-                if (self.cachedData) {
-                    self.postData = self.cachedData;
+                if (this.cachedData) {
+                    this.postData = this.cachedData;
 
-                    setTimeout(() => self.ready = true, 200);
+                    this.getReady(); // Ready
 
                     return;
                 }
 
                 // 无缓存的数据
-                self.$http.get('/api' + self.$route.path + (self.blogContent ? '?nocontent=1' : ''))
+                let path = this.$route.path;
+                this.$http.get('/api' + path + (this.blogContent ? '?nocontent=1' : ''))
                     .then(data => {
-                        if (self.blogContent) {
-                            data.body.main.content = self.blogContent;
+                        if (this.blogContent) {
+                            data.body.main.content = this.blogContent;
 
-                            self.$store.commit('removeBlogContent'); // 从 Vuex 中移除文章正文
+                            this.$store.commit('removeBlogContent'); // 从 Vuex 中移除文章正文
                         }
 
-                        self.error = { };
-                        self.postData = data.body.main;
+                        this.setError(); // Set Error
+                        this.postData = data.body.main;
 
-                        setTimeout(() => self.ready = true, 200);
-
-                        self.$store.commit('setCachedData', {
-                            path: self.$route.path,
+                        this.$store.commit('setCachedData', {
+                            path: path,
                             data: data.body.main
                         });
+
+                        this.getReady(); // Ready
                     })
                     .catch(error => {
-                        self.error = {
-                            code: error.status,
-                            Text: error.statusText
-                        };
+                        this.setError(error);
+
+                        this.getReady(); // Ready
                     });
             },
             getDate (date) { // TODO 待移走
@@ -130,22 +137,6 @@
 
 
         computed: {
-            cachedData () {
-                let self = this,
-                    path = self.$route.path,
-                    cachedData = self.$store.state.data[path];
-
-                if (!cachedData) return null;
-
-                // 暂定 60s = 60000ms
-                if (cachedData.timestamp <= Date.now() - 60000) {
-                    self.$store.commit('removeCachedData', path); // 移除
-
-                    return null;
-                }
-
-                return cachedData.data;
-            },
             blogContent () {
                 return this.$store.state.blogContent;
             },
