@@ -73,6 +73,16 @@
             };
         },
 
+        //beforeRouteEnter (to, from, next) {
+
+        //    next(vm => {
+        //        vm.$store.commit('x', false);
+        //    });
+        //},
+        //beforeRouteLeave (to, from, next) {
+        //    this.$store.commit('x', true);
+        //    next()
+        //},
         created () {
             this.fetchList();
         },
@@ -89,6 +99,7 @@
                     .then(data => {
                         self.error = { };
                         self.mainData = data.body.main;
+
                     })
                     .catch(error => {
                         self.error = {

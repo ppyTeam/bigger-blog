@@ -14,7 +14,7 @@
 
     export default {
         components:{
-            'b-header': headerVue,
+            'b-header': headerVue
         }
     }
 </script>

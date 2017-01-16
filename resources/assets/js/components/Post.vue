@@ -1,18 +1,13 @@
 <template>
     <div class="content-box">
         <div class="content">
-            <!-- TODO Something wrong 移至 loading -->
             <div class="error post" v-if="error.code">
                 <h2>{{ errorMsg }}</h2>
                 <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
             </div>
 
-            <div v-if="showLoading">
-                <a-loading class="card-content"></a-loading>
-            </div>
-
             <article v-else class="post">
-
+                <b-loading></b-loading>
                 <!-- header -->
                 <header class="post-header">
                     <h2 class="post-title">{{ post.title }}</h2>
@@ -48,14 +43,14 @@
 <style>
 </style>
 <script>
-    import loading from './layout/Loading';
+    import loadingVue from './layout/Loading';
+
     export default {
     components:{
-            'a-loading': loading,
+            'b-loading': loadingVue,
         },
         data() {
             return {
-                showLoading: true,
                 error: { },
                 post: '',
                 showNeighbour: true
@@ -63,6 +58,7 @@
         },
 
         mounted: function() {
+
             this.fetchPost();
         },
         watch: {
@@ -79,6 +75,7 @@
                         self.error = { };
                         self.post = data.body.main;
                         self.showLoading = false;
+
                     })
                     .catch(error => {
                         self.error = {
