@@ -21,7 +21,7 @@
     background-color: #fff;
 
     &:hover {
-      box-shadow: 0 0 1.5rem $header-logo-hover-border-color;
+      box-shadow: 0 0 1rem $header-logo-hover-border-color;
       border-color: $header-logo-hover-border-color;
     }
   }
@@ -29,7 +29,7 @@
 
   // 大标题和副标题
   .header-title {
-    margin: 1.8rem 0;
+    margin: 1.125rem 0; // ~18px
     font-family: $header-title-font-family;
   }
 
@@ -54,7 +54,7 @@
   // 全部 header 中的 ul 的定义，为了性能考虑加上类
   .nav-ul {
     padding: 0;
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 
 

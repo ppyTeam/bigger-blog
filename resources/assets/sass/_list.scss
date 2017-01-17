@@ -13,7 +13,7 @@
   .post-title {
     display: inline-block;
     width: 77%; // 这个宽度是浏览量在980px下正好不会掉下的极限，而且虽然提前换行很蠢，但是标题不应该这么长
-    line-height: 3rem;
+    line-height: 1.875rem;
   }
 
 
@@ -21,7 +21,7 @@
   .post-view-count {
     float: right;
     margin-right: $post-view-count-margin-right;
-    line-height: 3rem; // 与上面 h2 的 line-height 匹配
+    line-height: 1.875rem; // 与上面 h2 的 line-height 匹配
 
     &::before {
       @include padding-right();

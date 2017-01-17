@@ -31,7 +31,7 @@
     padding: $error-text-padding-tb $error-text-padding-lr;
     font-size: $error-text-font-size;
     line-height: $error-text-line-height;
-    border-radius: 15px;
-    background-color: #ccc;
+    border-radius: $error-text-border-radius;
+    background-color: $error-text-bg-color;
   }
 }
