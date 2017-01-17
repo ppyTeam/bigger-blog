@@ -15,15 +15,27 @@ export default {
             return returnData;
         },
 
-        // 格式化时间为 yyyy-mm-dd 格式
-        getFormationDate (date = Date.now()) {
-            let mm, dd;
+        // 格式化时间为 yyyy-MM-dd 格式
+        getFormationDate (date) {
 
-            date = new Date(date);
-            mm = ('0' + (date.getMonth() + 1)).slice(-2);
-            dd = ('0' + date.getDate()).slice(-2);
+            /*
+             * 传入数据为 yyyy-MM-dd HH:mm:ss
+             * 简单地取空格前日期即可，以后有变化再进行修改
+             */
 
-            return date.getFullYear() + '-' + mm + '-' + dd;
+            return date.split(' ')[0];
+
+
+            // // IE and Safari bug
+            // date = date.replace(/-/g, '/');
+            //
+            // let mm, dd;
+            //
+            // date = new Date(date);
+            // mm = ('0' + (date.getMonth() + 1)).slice(-2);
+            // dd = ('0' + date.getDate()).slice(-2);
+            //
+            // return date.getFullYear() + '-' + mm + '-' + dd;
         },
 
         // 计算浏览人数

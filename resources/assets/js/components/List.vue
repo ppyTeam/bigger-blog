@@ -36,12 +36,13 @@
 
                             <!-- footer -->
                             <footer class="post-footer">
-                            <span class="post-footer-item fa fa-clock-o" :title="getDateTitle(post.created_at, post.updated_at)">
-                                {{ getFormationDate(post.updated_at || post.created_at) }}
-                            </span>
+                                <span class="post-footer-item fa fa-clock-o"
+                                      :title="getDateTitle(post.created_at, post.updated_at)"
+                                >{{ getFormationDate(post.updated_at || post.created_at) }}</span>
+
                                 <span class="post-footer-item fa fa-user">
-                                {{ post.user_id }}
-                            </span>
+                                    {{ post.user_id }}
+                                </span>
                                 <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>-->
                                 <ul class="post-footer-item fa fa-tags" v-if="post.tags.length">
                                     <li class="tag-item" v-for="tag in post.tags">

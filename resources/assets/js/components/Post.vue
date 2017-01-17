@@ -22,9 +22,10 @@
 
                     <!-- footer -->
                     <footer class="post-footer">
-                        <span class="post-footer-item fa fa-clock-o" :title="getDateTitle(postData.created_at, postData.updated_at)">
-                            {{ getFormationDate(postData.updated_at || postData.created_at) }}
-                        </span>
+                        <span class="post-footer-item fa fa-clock-o"
+                              :title="getDateTitle(postData.created_at, postData.updated_at)"
+                        >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span>
+
                         <span class="post-footer-item fa fa-user">
                             {{ postData.user_id }}
                         </span>
