@@ -8,10 +8,12 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- 正常内容，即遮罩层相关css和js，无论如何都要加载，内联 -->
-
-    <!-- 这是第一部分，另一部分放在</body>前 -->
+    {{-- 移动端访问时使用 ls --}}
     @section('mobile-header')
+    @show
+
+    {{-- 直接输出到前端的 JavaScript Object --}}
+    @section('common-data')
     @show
 </head>
 
@@ -21,10 +23,21 @@
 </div>
 
 <div id="html-seo-container">
+    <script>
+        /**
+         * For search engine snapshot
+         *
+         * Baidu snapshot 不执行任何脚本，将显示 SEO 内容
+         * Google、Bing snapshot 会执行部分脚本，此时引导跳转至原网站
+         *
+         */
+        document.getElementById('html-seo-container').style.display = 'none';
+    </script>
+
     @yield('content')
 </div>
 
-<!-- 这是第二部分 -->
+{{-- 移动端访问时使用 ls --}}
 @section('mobile-body')
 @show
 </body>

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="sidebar header-sidebar">
             <div class="header-sidebar-panel">
-                <b-nav></b-nav>
+                <b-header></b-header>
             </div>
         </div>
 
@@ -10,11 +10,11 @@
     </div>
 </template>
 <script>
-    import navVue from './layout/Header';
+    import headerVue from './layout/Header';
 
     export default {
         components:{
-            'b-nav': navVue,
+            'b-header': headerVue
         }
     }
 </script>

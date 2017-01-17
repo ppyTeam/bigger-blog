@@ -40,22 +40,23 @@ $link-hover-color:      darken($link-color, 15%) !default;
 $font-family-base: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "WenQuanYi Micro Hei", Arial,Helvetica, sans-serif !default;
 $font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default; // For <code>, <pre>, <bkd>
 
-$font-size-root: 10px !default;
+$font-size-root: 16px !default;
 
-$font-size-base: 1.6rem !default;
-$font-size-lg:   2rem !default;
-$font-size-sm:   1.4rem !default;
-$font-size-xs:   1.2rem !default;
+$font-size-base: 1rem !default;       // ~16px
+$font-size-lg:   1.25rem !default;    // ~20px
+$font-size-sm:   .875rem !default;    // ~14px
+$font-size-xs:   .75rem !default;     // ~12px
 
 $line-height-base: 1.5 !default;
 
-$font-size-h1: 2.8rem !default;
-$font-size-h2: 2.4rem !default;
-$font-size-h3: 2rem !default;
-$font-size-h4: 1.8rem !default;
-$font-size-h5: 1.6rem !default;
-$font-size-h6: 1.4rem !default;
+$font-size-h1: 1.75rem !default;      // ~28px
+$font-size-h2: 1.5rem !default;       // ~24px
+$font-size-h3: 1.25rem !default;      // ~20px
+$font-size-h4: 1.125rem !default;     // ~18px
+$font-size-h5: 1rem !default;         // ~16px
+$font-size-h6: .875rem !default;      // ~14px
 
+//xxx
 $headings-font-family:   inherit !default;
 $headings-font-weight:   500 !default;
 $headings-line-height:   1.1 !default;
@@ -95,11 +96,12 @@ $list-inline-padding: 5px !default;
 $line-height-lg:         (4 / 3) !default;
 $line-height-sm:         1.5 !default;
 
-$border-radius:          .4rem !default;
-$border-radius-lg:       .5rem !default;
-$border-radius-sm:       .3rem !default;
+$border-radius:          .25rem !default;     // ~4px
+$border-radius-lg:       .3125rem !default;   // ~5px
+$border-radius-sm:       .1875rem !default;   // ~3px
 $border-radius-round:    50% !default;
 
+//xxx
 $component-active-color: #fff !default;
 $component-active-bg:    $brand-primary !default;
 
@@ -108,7 +110,7 @@ $caret-width-lg:         $caret-width !default;
 
 
 // Tables
-//
+//xxxxxxxxxxxxx
 // Customizes the `.table` component with basic values, each used across all table variations.
 
 $table-cell-padding:            .75rem !default;
@@ -124,7 +126,7 @@ $table-border-color:            $gray-lighter !default;
 
 
 // Buttons
-//
+//xxxxxxxxxxxxxx
 // For each of Bootstrap's buttons, define text, background and border color.
 
 $btn-padding-x:                  1rem !default;
@@ -176,7 +178,7 @@ $btn-border-radius-sm:           $border-radius-sm !default;
 
 
 // Forms
-
+//xxxxxxxxx
 $input-padding-x:                .75rem !default;
 $input-padding-y:                .5rem !default;
 $input-line-height:              1.25 !default;
@@ -227,7 +229,7 @@ $form-icon-danger: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www
 
 
 // Dropdowns
-//
+//xxxxxxxxxxx
 // Dropdown menu container and contents.
 
 $dropdown-min-width:             10rem !default;
@@ -253,22 +255,6 @@ $dropdown-item-padding-x:        1.5rem !default;
 $dropdown-header-color:          $gray-light !default;
 
 
-// Z-index master list
-//
-// Warning: Avoid customizing these values. They're used for a bird's eye view
-// of components dependent on the z-axis and are designed to all work together.
-
-$zindex-dropdown-backdrop:  990 !default;
-$zindex-navbar:            1000 !default;
-$zindex-dropdown:          1000 !default;
-$zindex-popover:           1060 !default;
-$zindex-tooltip:           1070 !default;
-$zindex-navbar-fixed:      1030 !default;
-$zindex-navbar-sticky:     1030 !default;
-$zindex-modal-bg:          1040 !default;
-$zindex-modal:             1050 !default;
-
-
 // Layout
 // =======================================
 
@@ -284,8 +270,8 @@ $sidebar-bg-color:                       #fff !default;
 
 // Header sidebar
 
-$sidebar-header-bg-image:                url('http://o9evx54l5.bkt.clouddn.com/background-cover.jpg') !default;
-$sidebar-header-bg-cover:                linear-gradient(140deg,rgba(73, 50, 82, 0.6) 20%, rgba(17, 11, 19, 0.8)) !default; // linear-gradient(140deg,rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8))
+$sidebar-header-bg-image:                url('http://ww2.sinaimg.cn/mw690/873fc752gw1fbpdxzjixpj20fo0mrwgy.jpg') !default; // url('http://o9evx54l5.bkt.clouddn.com/background-cover.jpg') !default;
+$sidebar-header-bg-cover:                linear-gradient(140deg,rgba(73, 50, 82, 0.4) 80%, rgba(17, 11, 19, 0.8)) !default; // linear-gradient(140deg,rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8))
 
 $sidebar-header-width:                   $layout-left-width !default;
 
@@ -308,8 +294,8 @@ $post-bg-color:                         #fff !default;
 
 $post-border-top:                       0 !default;
 $post-border-right:                     1px solid #ddd !default;
-$post-border-bottom:                    0 !default;
-$post-border-left:                      1px solid #ddd !default;
+$post-border-bottom:                    $post-border-top !default;
+$post-border-left:                      $post-border-right !default;
 
 // Padding && Margin
 
@@ -319,13 +305,13 @@ $post-content-padding-lr:               $post-padding-left !default;
 $post-more-link-padding-lr:             $post-padding-left !default;
 $post-footer-margin-lr:                 $post-padding-left !default;
 
-$post-content-line-height:              calc(1.75 * #{$font-size-base}) !default;
+$post-content-line-height:              calc(1.75 * #{$font-size-base}) !default; // ~28px
 
 // More Link
 
 $post-more-link-padding:                2px 8px 4px !default;
-$post-more-link-font-size:              1.2rem !default;
-$post-more-link-border-radius:          $border-radius-sm !default;
+$post-more-link-font-size:              $font-size-xs !default;         // ~12px
+$post-more-link-border-radius:          $border-radius-sm !default;     // ~3px
 $post-more-link-font-color:             #fff !default;
 $post-more-link-bg-color:               #4d4d4d !default;
 $post-more-link-hover-bg-color:         #3c3c3c !default;
@@ -335,8 +321,14 @@ $post-more-link-hover-bg-color:         #3c3c3c !default;
 $post-footer-border-top-color:          #ddd !default;
 $post-footer-font-color:                #999 !default;
 
-// Pagination
+// Neighbour
 
+$neighbour-font-color:                  #08c !default;
+$neighbour-hover-font-color:            darken($neighbour-font-color, 15%) !default;
+
+
+// Pagination
+//xxxxx
 $pagination-padding-x:                .75rem !default;
 $pagination-padding-y:                .5rem !default;
 $pagination-padding-x-sm:             .75rem !default;
@@ -363,14 +355,9 @@ $pagination-disabled-bg:               #fff !default;
 $pagination-disabled-border:           #ddd !default;
 
 
-// Jumbotron
-
-$jumbotron-padding:              2rem !default;
-$jumbotron-bg:                   $gray-lighter !default;
-
 
 // Form states and alerts
-//
+//xxxxxx
 // Define colors for form feedback states and, by default, alerts.
 
 $state-success-text:             #3c763d !default;
@@ -391,7 +378,7 @@ $state-danger-bg:                #f2dede !default;
 $state-danger-border:            darken($state-danger-bg, 5%) !default;
 
 
-// Cards
+// Cardsxxxxxxxxxxxxxxx
 $card-spacer-x:            1.25rem !default;
 $card-spacer-y:            .75rem !default;
 $card-border-width:        1px !default;
@@ -410,7 +397,7 @@ $card-deck-margin:         .625rem !default;
 $card-columns-sm-up-column-gap: 1.25rem !default;
 
 
-// Tooltips
+// Tooltipsxxxxxxxxxxxx
 
 $tooltip-max-width:           200px !default;
 $tooltip-color:               #fff !default;
@@ -424,7 +411,7 @@ $tooltip-arrow-width:         5px !default;
 $tooltip-arrow-color:         $tooltip-bg !default;
 
 
-// Popovers
+// Popoversxxxxxxxxxxxx
 
 $popover-inner-padding:               1px !default;
 $popover-bg:                          #fff !default;
@@ -447,58 +434,11 @@ $popover-arrow-outer-width:           ($popover-arrow-width + 1px) !default;
 $popover-arrow-outer-color:           fade-in($popover-border-color, .05) !default;
 
 
-// Tags
 
-$tag-default-bg:            $gray-light !default;
-$tag-primary-bg:            $brand-primary !default;
-$tag-success-bg:            $brand-success !default;
-$tag-info-bg:               $brand-info !default;
-$tag-warning-bg:            $brand-warning !default;
-$tag-danger-bg:             $brand-danger !default;
-
-$tag-color:                 #fff !default;
-$tag-link-hover-color:      #fff !default;
-$tag-font-size:             75% !default;
-$tag-font-weight:           bold !default;
-$tag-padding-x:             .4em !default;
-$tag-padding-y:             .25em !default;
-
-$tag-pill-padding-x:        .6em !default;
-// Use a higher than normal value to ensure completely rounded edges when
-// customizing padding or font-size on labels.
-$tag-pill-border-radius:    10rem !default;
-
-// Modals
-
-// Padding applied to the modal body
-$modal-inner-padding:         15px !default;
-
-$modal-dialog-margin:         10px !default;
-$modal-dialog-sm-up-margin-y: 30px !default;
-
-$modal-title-padding:         15px !default;
-$modal-title-line-height:     $line-height-base !default;
-
-$modal-content-bg:               #fff !default;
-$modal-content-border-color:     rgba(0,0,0,.2) !default;
-$modal-content-border-width:     $border-width !default;
-$modal-content-xs-box-shadow:    0 3px 9px rgba(0,0,0,.5) !default;
-$modal-content-sm-up-box-shadow: 0 5px 15px rgba(0,0,0,.5) !default;
-
-$modal-backdrop-bg:           #000 !default;
-$modal-backdrop-opacity:      .5 !default;
-$modal-header-border-color:   #e5e5e5 !default;
-$modal-footer-border-color:   $modal-header-border-color !default;
-$modal-header-border-width:   $modal-content-border-width !default;
-$modal-footer-border-width:   $modal-header-border-width !default;
-
-$modal-lg:                    900px !default;
-$modal-md:                    600px !default;
-$modal-sm:                    300px !default;
 
 
 // Alerts
-//
+//xxxxxxxxxx
 // Define alert colors, border radius, and padding.
 
 $alert-padding-x:             1.25rem !default;
@@ -524,22 +464,37 @@ $alert-danger-text:           $state-danger-text !default;
 $alert-danger-border:         $state-danger-border !default;
 
 
-// Progress bars
+// Progress bars && Loading
+// =======================================
 
-$progress-bg:                 #eee !default;
-$progress-bar-color:          #0074d9 !default;
-$progress-border-radius:      $border-radius !default;
-$progress-box-shadow:         inset 0 .1rem .1rem rgba(0,0,0,.1) !default;
+$nprogress-color:             #29d !default;
 
-$progress-bar-bg:             $brand-primary !default;
-$progress-bar-success-bg:     $brand-success !default;
-$progress-bar-warning-bg:     $brand-warning !default;
-$progress-bar-danger-bg:      $brand-danger !default;
-$progress-bar-info-bg:        $brand-info !default;
+$loading-mask-padding-top:    125px !default;
+
+$loading-ball-width:          12px !default;
+$loading-ball-height:         $loading-ball-width !default;
+$loading-ball-color:          #20a0ff !default;
+
+
+// Error
+// =======================================
+
+$error-padding-tb:            80px !default;
+$error-padding-lr:            120px !default;
+
+$error-box-margin-top:        calc(#{$loading-mask-padding-top} - #{$error-padding-tb}) !default;
+
+$error-text-margin-top:       5px !default;
+$error-text-padding-tb:       .1875rem !default;        // ~3px
+$error-text-padding-lr:       1rem !default;            // ~16px
+$error-text-font-size:        $font-size-sm !default;   // ~14px
+$error-text-line-height:      1.25rem !default;         // ~20px
+$error-text-border-radius:    calc((#{$error-text-line-height} + 2 * #{$error-text-padding-tb}) / 2) !default; // ~13px
+$error-text-bg-color:         #ccc !default;
 
 
 // List group
-
+// xxxxxxxxxx
 $list-group-bg:                 #fff !default;
 $list-group-border-color:       #ddd !default;
 $list-group-border-width:       $border-width !default;
@@ -564,7 +519,7 @@ $list-group-item-padding-y:             .75rem !default;
 $list-group-item-heading-margin-bottom: 5px !default;
 
 
-// Image thumbnails
+// Image thumbnails xxxxxxxxxxxxx
 
 $thumbnail-padding:           .25rem !default;
 $thumbnail-bg:                $body-bg !default;
@@ -574,12 +529,12 @@ $thumbnail-border-radius:     $border-radius !default;
 $thumbnail-box-shadow:        0 1px 2px rgba(0,0,0,.075) !default;
 
 
-// Figures
+// Figures xxxxxxxxxxxxx
 
 $figure-caption-font-size: 90% !default;
 
 
-// Breadcrumbs
+// Breadcrumbs  xxxxxxxxxxx
 
 $breadcrumb-padding-y:          .75rem !default;
 $breadcrumb-padding-x:          1rem !default;
@@ -591,14 +546,14 @@ $breadcrumb-active-color:       $gray-light !default;
 $breadcrumb-divider:            "/" !default;
 
 
-// Media objects
+// Media objects xxxxxxxxxxxxxx
 
 $media-margin-top:            15px !default;
 $media-heading-margin-bottom:  5px !default;
 $media-alignment-padding-x:   10px !default;
 
 
-// Carousel
+// Carousel xxxxxxxxxxxxxxx
 
 $carousel-text-shadow:                        0 1px 2px rgba(0,0,0,.6) !default;
 
@@ -622,14 +577,14 @@ $carousel-caption-color:                      #fff !default;
 $carousel-icon-width:                         20px !default;
 
 
-// Close
+// Close xxxxxxxxxxxxxxx
 
 $close-font-weight:           bold !default;
 $close-color:                 #000 !default;
 $close-text-shadow:           0 1px 0 #fff !default;
 
 
-// Code
+// Code xxxxxxxxxxxxxx
 
 $code-font-size:              90% !default;
 $code-padding-x:              .4rem !default;
@@ -644,6 +599,51 @@ $pre-bg:                      #f7f7f9 !default;
 $pre-color:                   $gray-dark !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
+
+
+
+
+
+// Tags xxxxxxxxxxx
+
+$tag-default-bg:            $gray-light !default;
+$tag-primary-bg:            $brand-primary !default;
+$tag-success-bg:            $brand-success !default;
+$tag-info-bg:               $brand-info !default;
+$tag-warning-bg:            $brand-warning !default;
+$tag-danger-bg:             $brand-danger !default;
+
+$tag-color:                 #fff !default;
+$tag-link-hover-color:      #fff !default;
+$tag-font-size:             75% !default;
+$tag-font-weight:           bold !default;
+$tag-padding-x:             .4em !default;
+$tag-padding-y:             .25em !default;
+
+$tag-pill-padding-x:        .6em !default;
+// Use a higher than normal value to ensure completely rounded edges when
+// customizing padding or font-size on labels.
+$tag-pill-border-radius:    10rem !default;
+
+
+
+// Z-index master list
+// xxxxxxxxxxxx
+// Warning: Avoid customizing these values. They're used for a bird's eye view
+// of components dependent on the z-axis and are designed to all work together.
+
+$zindex-dropdown-backdrop:  990 !default;
+$zindex-navbar:            1000 !default;
+$zindex-dropdown:          1000 !default;
+$zindex-popover:           1060 !default;
+$zindex-tooltip:           1070 !default;
+$zindex-navbar-fixed:      1030 !default;
+$zindex-navbar-sticky:     1030 !default;
+$zindex-modal-bg:          1040 !default;
+$zindex-modal:             1050 !default;
+
+
+
 
 // Nav
 

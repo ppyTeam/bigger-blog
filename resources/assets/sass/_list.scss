@@ -2,7 +2,7 @@
 // 列表页面
 
 .post-header {
-  padding: 30px 0 0 $post-padding-left;
+  padding: 40px 0 0 $post-padding-left;
 
   &::after {
     @include clearfix;
@@ -12,7 +12,8 @@
   // title
   .post-title {
     display: inline-block;
-    line-height: 3rem;
+    width: 77%; // 这个宽度是浏览量在980px下正好不会掉下的极限，而且虽然提前换行很蠢，但是标题不应该这么长
+    line-height: 1.875rem;
   }
 
 
@@ -20,7 +21,7 @@
   .post-view-count {
     float: right;
     margin-right: $post-view-count-margin-right;
-    line-height: 3rem; // 与上面 h2 的 line-height 匹配
+    line-height: 1.875rem; // 与上面 h2 的 line-height 匹配
 
     &::before {
       @include padding-right();
@@ -48,8 +49,7 @@
     color: $post-more-link-font-color;
     background-color: $post-more-link-bg-color;
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: $post-more-link-hover-bg-color;
     }
   }
@@ -88,13 +88,6 @@
 
 
 
-
-
-.error {
-  h2 {
-    color: red;
-  }
-}
 
 .pagination {
   @extend .post;

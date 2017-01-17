@@ -1,29 +1,43 @@
 "use strict";
 
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-Vue.use(VueRouter);
-// import Vuex from 'vuex';
-// Vue.use(Vuex);
 import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
-// import css
-require('../sass/app.scss');
 
+import scss from '../sass/app.scss';
+import NProgress from 'nprogress';
+import router from './app-router';
+import store from './store/index';
+
+
+// Setting
 Vue.http.options.emulateHTTP = true;
+NProgress.configure({ showSpinner: false });
+
+
+// 拦截 Ajax 请求
+Vue.http.interceptors.push((request, next) => {
+    NProgress.start();
+
+    // continue
+    next(response => {
+        if (!response.ok) {
+            // TODO 留着
+        }
+
+        NProgress.done();
+    });
+});
+
 
 // root
 new Vue({
     el: '#app',
-    router: new VueRouter(require('./app-router')),
-    created: function () {
-        const d = document,
-            htmlSEOContainer = d.getElementById('html-seo-container');
-
-        let contentEle = htmlSEOContainer.querySelector('#content'),
-            content = contentEle && contentEle.innerHTML || '';
-
-        htmlSEOContainer.parentNode.removeChild(htmlSEOContainer);
+    router,
+    store,
+    created () {
+        this.$store.commit('initNavData'); // 初始化导航数据
+        this.$store.commit('initBlogContent'); // 初始化文章正文
     }
 });

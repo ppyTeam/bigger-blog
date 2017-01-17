@@ -1,3 +1,8 @@
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+
+
 import homeVue from './components/Home';
 import indexVue from './components/Index';
 import listVue from './components/List';
@@ -7,7 +12,8 @@ import tagsVue from './components/Tags';
 import aboutVue from './components/About';
 import _404Vue from './components/NotFound';
 
-module.exports = {
+
+export default new VueRouter({
     mode: 'history',
     linkActiveClass: 'current-page',
     routes: [
@@ -98,7 +104,7 @@ module.exports = {
             component: _404Vue
         }
     ]
-};
+});
 // 首页 /
 //
 // 博文列表 /blog/page/:页码
