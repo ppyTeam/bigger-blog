@@ -24,24 +24,35 @@
                     <footer class="post-footer">
                         <span class="post-footer-item fa fa-clock-o"
                               :title="getDateTitle(postData.created_at, postData.updated_at)"
-                        >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span>
+                        >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span><!--
 
-                        <span class="post-footer-item fa fa-user">
-                            {{ postData.user_id }}
-                        </span>
-                        <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>-->
-                        <ul class="post-footer-item fa fa-tags" v-if="postData.tags && postData.tags.length">
+                        --><span class="post-footer-item fa fa-user">{{ postData.user_id }}</span><!--
+
+                        --><span class="post-footer-item fa fa-navicon">
+                            <router-link :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>
+                        </span><!--
+
+                        --><ul class="post-footer-item fa fa-tags" v-if="postData.tags.length">
                             <li class="tag-item" v-for="tag in postData.tags">
                                 <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
                             </li>
                         </ul>
                     </footer>
                 </article>
-                <aside v-if="showNeighbour">
-                    <p v-if="neighbour.prev">上一篇：<router-link :to="'/blog/' + neighbour.prev.id">{{ neighbour.prev.title }}</router-link></p>
-                    <p v-if="neighbour.next">下一篇：<router-link :to="'/blog/' + neighbour.next.id">{{ neighbour.next.title }}</router-link></p>
+
+                <aside class="neighbour-box" v-if="hasNeighbour">
+                    <router-link class="neighbour-link neighbour-next"
+                                 :to="'/blog/' + neighbour.next.id"
+                                 v-if="neighbour.next"
+                    ><i class="fa fa-chevron-circle-left"></i>{{ neighbour.next.title }}</router-link>
+
+                    <router-link class="neighbour-link neighbour-prev"
+                                 :to="'/blog/' + neighbour.prev.id"
+                                 v-if="neighbour.prev"
+                    >{{ neighbour.prev.title }}<i class="fa fa-chevron-circle-right"></i></router-link>
                 </aside>
 
+                <div id="comment" style="height: 300px;"></div>
             </template>
         </div>
     </div>
@@ -72,7 +83,7 @@
                 ready: false,
                 error: { },
                 postData: '',
-                showNeighbour: true
+                hasNeighbour: true
             }
         },
 
@@ -83,7 +94,7 @@
 
 
         watch: {
-            '$route': 'fetchPost'
+            '$route.path': 'fetchPost'
         },
 
 
@@ -136,20 +147,18 @@
                 return this.$store.state.blogContent;
             },
 
-            // TODO 有 bug ，加上 loading 即可
             neighbour () {
-                let self = this,
-                    neighbour = self.postData.neighbour,
+                let neighbour = this.postData.neighbour,
                     prev, next;
 
                 if (neighbour) {
                     prev = neighbour.prev;
                     next = neighbour.next;
 
-                    self.showNeighbour = !!prev || !!next || false;
+                    this.hasNeighbour = !!prev || !!next || false;
                 }
                 else {
-                    self.showNeighbour = false;
+                    this.hasNeighbour = false;
                 }
 
                 return {

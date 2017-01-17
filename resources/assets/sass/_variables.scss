@@ -335,6 +335,12 @@ $post-more-link-hover-bg-color:         #3c3c3c !default;
 $post-footer-border-top-color:          #ddd !default;
 $post-footer-font-color:                #999 !default;
 
+// Neighbour
+
+$neighbour-font-color:                  #08c !default;
+$neighbour-hover-font-color:            darken($neighbour-font-color, 15%) !default;
+
+
 // Pagination
 
 $pagination-padding-x:                .75rem !default;
