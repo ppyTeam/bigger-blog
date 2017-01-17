@@ -23,7 +23,7 @@
                             <!-- header -->
                             <header class="post-header">
                                 <h2 class="post-title"><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
-                                <span class="post-view-count fa fa-eye">{{ post.view_count + 8888 + ' 万' }}</span>
+                                <span class="post-view-count fa fa-eye" :title="post.view_count">{{ getFormationViewCount(post.view_count) }}</span>
                             </header>
 
                             <!-- content -->
@@ -36,8 +36,8 @@
 
                             <!-- footer -->
                             <footer class="post-footer">
-                            <span class="post-footer-item fa fa-clock-o" :title="getDateTitle(post.updated_at, post.created_at)">
-                                {{ getDate(post.updated_at || post.created_at) }}
+                            <span class="post-footer-item fa fa-clock-o" :title="getDateTitle(post.created_at, post.updated_at)">
+                                {{ getFormationDate(post.updated_at || post.created_at) }}
                             </span>
                                 <span class="post-footer-item fa fa-user">
                                 {{ post.user_id }}
@@ -66,12 +66,23 @@
 <script>
     import loadingVue from './layout/Loading';
     import pageVue from './layout/Pagination';
+    import cacheMixin from '../mixins/cache';
+    import commonMixin from '../mixins/common';
+    import postMixin from '../mixins/post';
 
     export default {
         components: {
             'b-loading': loadingVue,
             'b-pagination': pageVue
         },
+
+
+        mixins: [
+            cacheMixin,
+            commonMixin,
+            postMixin
+        ],
+
 
         data () {
             return {
@@ -81,58 +92,49 @@
             };
         },
 
-        //beforeRouteEnter (to, from, next) {
 
-        //    next(vm => {
-        //        vm.$store.commit('x', false);
-        //    });
-        //},
-        //beforeRouteLeave (to, from, next) {
-        //    this.$store.commit('x', true);
-        //    next()
-        //},
         created () {
             this.fetchList();
         },
+
 
         watch: {
             '$route': 'fetchList'
         },
 
+
         methods: {
             fetchList () {
-                let self = this;
+                this.ready = false;
 
-                self.$http.get('/api' + self.$route.path)
+                // 有缓存的数据
+                if (this.cachedData) {
+                    this.mainData = this.cachedData;
+
+                    this.getReady(); // Ready
+
+                    return;
+                }
+
+                // 无缓存的数据
+                let path = this.$route.path;
+                this.$http.get('/api' + path)
                     .then(data => {
-                        self.error = { };
-                        self.mainData = data.body.main;
-setTimeout(() => self.ready = true, 200);
+                        this.setError(); // Set Error
+                        this.mainData = data.body.main;
+
+                        this.$store.commit('setCachedData', {
+                            path: path,
+                            data: data.body.main
+                        });
+
+                        this.getReady(); // Ready
                     })
                     .catch(error => {
-                        self.error = {
-                            code: error.status,
-                            text: error.statusText
-                        };
+                        this.setError(error);
 
+                        this.getReady(); // Ready
                     });
-            },
-            getDateTitle (created_at, updated_at) {
-                if (updated_at) {
-                    return 'Updated at ' + updated_at + '\nCreated at ' + created_at;
-                }
-                else {
-                    return 'Created at ' + created_at;
-                }
-            },
-            getDate (date) { // TODO 待移走
-                let mm, dd;
-
-                date = new Date(date);
-                mm = ('0' + (date.getMonth() + 1)).slice(-2);
-                dd = ('0' + date.getDate()).slice(-2);
-
-                return date.getFullYear() + '-' + mm + '-' + dd;
             },
             goBack: () => history.go(-1) // TODO 待移走
         },

@@ -14,7 +14,7 @@
                     <!-- header -->
                     <header class="post-header">
                         <h2 class="post-title">{{ postData.title }}</h2>
-                        <span class="post-view-count fa fa-eye">{{ postData.view_count + 8888 + ' 万' }}</span>
+                        <span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>
                     </header>
 
                     <!-- content -->
@@ -22,12 +22,12 @@
 
                     <!-- footer -->
                     <footer class="post-footer">
-                    <span class="post-footer-item fa fa-clock-o" :title="dateTitle">
-                        {{ getDate(updated_at || created_at) }}
-                    </span>
+                        <span class="post-footer-item fa fa-clock-o" :title="getDateTitle(postData.created_at, postData.updated_at)">
+                            {{ getFormationDate(postData.updated_at || postData.created_at) }}
+                        </span>
                         <span class="post-footer-item fa fa-user">
-                        {{ postData.user_id }}
-                    </span>
+                            {{ postData.user_id }}
+                        </span>
                         <!-- // TODO 移除否？ <router-link class="post-footer-item" :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>-->
                         <ul class="post-footer-item fa fa-tags" v-if="postData.tags && postData.tags.length">
                             <li class="tag-item" v-for="tag in postData.tags">
@@ -51,6 +51,7 @@
     import loadingVue from './layout/Loading';
     import cacheMixin from '../mixins/cache';
     import commonMixin from '../mixins/common';
+    import postMixin from '../mixins/post';
 
     export default {
         components: {
@@ -60,7 +61,8 @@
 
         mixins: [
             cacheMixin,
-            commonMixin
+            commonMixin,
+            postMixin
         ],
 
 
@@ -123,15 +125,7 @@
                         this.getReady(); // Ready
                     });
             },
-            getDate (date) { // TODO 待移走
-                let mm, dd;
 
-                date = new Date(date);
-                mm = ('0' + (date.getMonth() + 1)).slice(-2);
-                dd = ('0' + date.getDate()).slice(-2);
-
-                return date.getFullYear() + '-' + mm + '-' + dd;
-            },
             goBack: () => history.go(-1)
         },
 
@@ -141,22 +135,6 @@
                 return this.$store.state.blogContent;
             },
 
-            updated_at () {
-                return this.postData.updated_at;
-            },
-            created_at () {
-                return this.postData.created_at;
-            },
-            dateTitle () {
-                let self = this;
-
-                if (self.updated_at) {
-                    return 'Updated at ' + self.updated_at + '\nCreated at ' + self.created_at;
-                }
-                else {
-                    return 'Created at ' + self.created_at;
-                }
-            },
             // TODO 有 bug ，加上 loading 即可
             neighbour () {
                 let self = this,
