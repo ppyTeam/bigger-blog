@@ -4,55 +4,57 @@
             <b-loading v-show="!ready"></b-loading>
 
             <template v-if="ready">
-                <div class="error post" v-if="error.code">
-                    <h2>{{ errorMsg }}</h2>
-                    <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
-                </div>
+                <b-error :error="error"
+                         @reload="fetchPost"
+                         v-if="error.code !== undefined"
+                ></b-error>
 
-                <article v-else class="post">
+                <template v-else>
+                    <article class="post">
 
-                    <!-- header -->
-                    <header class="post-header">
-                        <h2 class="post-title">{{ postData.title }}</h2>
-                        <span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>
-                    </header>
+                        <!-- header -->
+                        <header class="post-header">
+                            <h2 class="post-title">{{ postData.title }}</h2>
+                            <span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>
+                        </header>
 
-                    <!-- content -->
-                    <div class="post-content" v-html="postData.content"></div>
+                        <!-- content -->
+                        <div class="post-content" v-html="postData.content"></div>
 
-                    <!-- footer -->
-                    <footer class="post-footer">
-                        <span class="post-footer-item fa fa-clock-o"
-                              :title="getDateTitle(postData.created_at, postData.updated_at)"
-                        >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span><!--
+                        <!-- footer -->
+                        <footer class="post-footer">
+                            <span class="post-footer-item fa fa-clock-o"
+                                  :title="getDateTitle(postData.created_at, postData.updated_at)"
+                            >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span><!--
 
-                        --><span class="post-footer-item fa fa-user">{{ postData.user_id }}</span><!--
+                            --><span class="post-footer-item fa fa-user">{{ postData.user_id }}</span><!--
 
-                        --><span class="post-footer-item fa fa-navicon">
-                            <router-link :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>
-                        </span><!--
+                            --><span class="post-footer-item fa fa-navicon">
+                                <router-link :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>
+                            </span><!--
 
-                        --><ul class="post-footer-item fa fa-tags" v-if="postData.tags.length">
-                            <li class="tag-item" v-for="tag in postData.tags">
-                                <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
-                            </li>
-                        </ul>
-                    </footer>
-                </article>
+                            --><ul class="post-footer-item fa fa-tags" v-if="postData.tags.length">
+                                <li class="tag-item" v-for="tag in postData.tags">
+                                    <router-link :to="'/tag/' + tag.tag_name">{{ tag.tag_name }}</router-link>
+                                </li>
+                            </ul>
+                        </footer>
+                    </article>
 
-                <aside class="neighbour-box" v-if="hasNeighbour">
-                    <router-link class="neighbour-link neighbour-next"
-                                 :to="'/blog/' + neighbour.next.id"
-                                 v-if="neighbour.next"
-                    ><i class="fa fa-chevron-circle-left"></i>{{ neighbour.next.title }}</router-link>
+                    <aside class="neighbour-box" v-if="hasNeighbour">
+                        <router-link class="neighbour-link neighbour-next"
+                                     :to="'/blog/' + neighbour.next.id"
+                                     v-if="neighbour.next"
+                        ><i class="fa fa-chevron-circle-left"></i>{{ neighbour.next.title }}</router-link>
 
-                    <router-link class="neighbour-link neighbour-prev"
-                                 :to="'/blog/' + neighbour.prev.id"
-                                 v-if="neighbour.prev"
-                    >{{ neighbour.prev.title }}<i class="fa fa-chevron-circle-right"></i></router-link>
-                </aside>
+                        <router-link class="neighbour-link neighbour-prev"
+                                     :to="'/blog/' + neighbour.prev.id"
+                                     v-if="neighbour.prev"
+                        >{{ neighbour.prev.title }}<i class="fa fa-chevron-circle-right"></i></router-link>
+                    </aside>
 
-                <div id="comment" style="height: 300px;"></div>
+                    <div id="comment" style="height: 300px;"></div>
+                </template>
             </template>
         </div>
     </div>
@@ -61,13 +63,15 @@
 </style>
 <script>
     import loadingVue from './layout/Loading';
+    import errorVue from './layout/Error';
     import cacheMixin from '../mixins/cache';
     import commonMixin from '../mixins/common';
     import postMixin from '../mixins/post';
 
     export default {
         components: {
-            'b-loading': loadingVue
+            'b-loading': loadingVue,
+            'b-error': errorVue
         },
 
 
@@ -101,6 +105,7 @@
         methods: {
             fetchPost () {
                 this.ready = false;
+                this.setError(); // Set Error
 
                 // 有缓存的数据
                 if (this.cachedData) {
@@ -121,7 +126,6 @@
                             this.$store.commit('removeBlogContent'); // 从 Vuex 中移除文章正文
                         }
 
-                        this.setError(); // Set Error
                         this.postData = data.body.main;
 
                         this.$store.commit('setCachedData', {
@@ -136,9 +140,7 @@
 
                         this.getReady(); // Ready
                     });
-            },
-
-            goBack: () => history.go(-1)
+            }
         },
 
 

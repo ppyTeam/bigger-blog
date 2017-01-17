@@ -19,7 +19,7 @@ export default {
             // 有错误
             this.error = {
                 code: error.status,
-                Text: error.statusText
+                text: error.statusText
             };
         }
     }

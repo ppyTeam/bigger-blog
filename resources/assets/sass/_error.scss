@@ -1,0 +1,37 @@
+// Error
+
+
+.error-box {
+  position: relative;
+  margin-top: $error-box-margin-top;
+  text-align: center;
+
+
+  // 毛玻璃层
+  //.error-frosted-glass {
+  //  position: absolute;
+  //  right: 20%;
+  //  left: 20%;
+  //  height: 100%;
+  //  background-color: rgba(255,255,255,.4);
+  //  // filter: blur(10px);
+  //}
+
+
+  .error {
+    position: relative;
+    display: inline-block;
+    padding: $error-padding-tb $error-padding-lr;
+  }
+
+
+  .error-text {
+    display: inline-block;
+    margin-top: $error-text-margin-top;
+    padding: $error-text-padding-tb $error-text-padding-lr;
+    font-size: $error-text-font-size;
+    line-height: $error-text-line-height;
+    border-radius: 15px;
+    background-color: #ccc;
+  }
+}

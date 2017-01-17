@@ -4,16 +4,15 @@
             <b-loading v-show="!ready"></b-loading>
 
             <template v-if="ready">
-                <div class="error post" v-if="error.code">
-                    <h2>{{ errorMsg }}</h2>
-                    <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
-                </div>
+                <b-error :error="error"
+                         @reload="fetchList"
+                         v-if="error.code !== undefined"
+                ></b-error>
 
                 <template v-else>
                     <!-- Empty post list -->
                     <div class="post" v-if="emptyList">
-                        <h2>没有任何内容哦~</h2>
-                        <p>Try to <a href="" @click.prevent="fetchList">Reload</a> this page. Or <a href="" @click.prevent="goBack">Go Back</a></p>
+                        <h2>没有任何内容哦~</h2><!-- TODO 做一个图片吧，待定 -->
                     </div>
 
                     <!-- NOT empty post list -->
@@ -68,6 +67,7 @@
 </template>
 <script>
     import loadingVue from './layout/Loading';
+    import errorVue from './layout/Error';
     import pageVue from './layout/Pagination';
     import cacheMixin from '../mixins/cache';
     import commonMixin from '../mixins/common';
@@ -76,6 +76,7 @@
     export default {
         components: {
             'b-loading': loadingVue,
+            'b-error': errorVue,
             'b-pagination': pageVue
         },
 
@@ -109,6 +110,7 @@
         methods: {
             fetchList () {
                 this.ready = false;
+                this.setError(); // Set Error
 
                 // 有缓存的数据
                 if (this.cachedData) {
@@ -123,7 +125,6 @@
                 let path = this.$route.path;
                 this.$http.get('/api' + path)
                     .then(data => {
-                        this.setError(); // Set Error
                         this.mainData = data.body.main;
 
                         this.$store.commit('setCachedData', {
@@ -138,20 +139,12 @@
 
                         this.getReady(); // Ready
                     });
-            },
-            goBack: () => history.go(-1) // TODO 待移走
+            }
         },
 
         computed: {
-            errorMsg () {
-                let self = this;
-
-                return self.error.code ?
-                    self.error.code + ' ' + self.error.text :
-                    '';
-            },
             emptyList () {
-                return !(this.mainData.data && this.mainData.data.length);
+                return !(this.mainData.data.length);
             }
         }
     }

@@ -20,6 +20,9 @@
 //@import "buttons";
 
 // Components
+@import "loading";
+@import "scrollbar";
+@import "error";
 @import "sidebar";
 @import "header";
 @import "layout";
@@ -52,12 +55,3 @@
 //
 //// Utility classes
 //@import "utilities";
-
-@media screen and (max-width: 1024px) {
-  .sidebar {
-    //display: none;
-  }
-}
-// Common
-@import "scrollbar";
-@import "loading";
