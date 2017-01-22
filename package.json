@@ -3,8 +3,8 @@
   "scripts": {
     "prod": "cross-env NODE_ENV='production' webpack",
     "dev": "webpack --watch",
-    "dev-init": "sh ./developing/init.sh",
-    "dev-update": "sh ./developing/update.sh"
+    "dev-install": "sh ./tools/install.sh",
+    "dev-update": "sh ./tools/update.sh"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.0",
