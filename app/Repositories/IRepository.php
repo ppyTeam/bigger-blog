@@ -103,6 +103,18 @@ abstract class IRepository implements RepositoryInterface, RepositoryCriteriaInt
     }
 
     /**
+     * 简单分页查询
+     * @param int $perPage
+     * @param array $columns
+     * @param int $page
+     * @return mixed
+     */
+    public function simplePaginate($perPage=25, $columns = array('*'), $page = 1)
+    {
+        $this->applyCriteria();
+        return $this->model->simplePaginate($perPage, $columns, 'page', $page);
+    }
+    /**
      * 新增记录
      * @param array $data
      * @return static

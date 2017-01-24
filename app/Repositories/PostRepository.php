@@ -36,7 +36,7 @@ class PostRepository extends IRepository
     }
 
     /**
-     * 文章简单分页(伪)
+     * 文章简单分页
      * @param int $limit
      * @param int $page
      * @param array $columns
@@ -44,7 +44,8 @@ class PostRepository extends IRepository
      */
     public function postSimplePaginate($limit = 10, $page = 1, $columns = ['*'])
     {
-        return $this->orderBy('id', 'desc')->paginate($limit, $columns, $page);
+
+        return $this->orderBy('id', 'desc')->simplePaginate($limit, $columns, $page);
     }
 
     /**
