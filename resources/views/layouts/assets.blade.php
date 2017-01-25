@@ -184,10 +184,10 @@ window.navData = {
         { url: '/archives', name: 'Archives', flag: true },
         { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', flag: false }
     ],
-    socially: [ // name 是相关名称，鼠标悬停时显示，type 为 CSS 字体的后半部分
-        { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', type: 'github' },
-        { url: 'http://weibo.com/', name: 'Weibo', type: 'weibo' },
-        { url: 'http://steamcommunity.com/id/ttionya/', name: 'Steam', type: 'steam' }
+    socially: [ // name 是相关名称，鼠标悬停时显示，icon 为 CSS 字体的后半部分
+        { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', icon: 'github' },
+        { url: 'http://weibo.com/', name: 'Weibo', icon: 'weibo' },
+        { url: 'http://steamcommunity.com/id/ttionya/', name: 'Steam', icon: 'steam' }
     ]
 }
 </script>

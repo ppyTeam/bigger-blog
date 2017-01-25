@@ -26,7 +26,7 @@
             <ul class="nav-ul">
                 <li class="socially-item" v-for="item in navData.socially">
                     <a class="header-link" :href="item.url" :title="item.name" target="_blank">
-                        <i class="fa fa-lg" :class="'fa-' + item.type"></i>
+                        <i class="fa fa-lg" :class="'fa-' + item.icon"></i>
                     </a>
                 </li>
             </ul>
