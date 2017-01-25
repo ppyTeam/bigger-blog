@@ -11,12 +11,12 @@ class NavSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Nav::class, 1)->create([
-            'name' => 'Home',
-            'url' => '/',
-            'flag' => true,
-            'icon' => '',
-        ]);
+//        factory(App\Nav::class, 1)->create([
+//            'name' => 'Home',
+//            'url' => '/',
+//            'flag' => true,
+//            'icon' => '',
+//        ]);
         factory(App\Nav::class, 1)->create([
             'name' => 'Blog',
             'url' => '/blog',
@@ -30,9 +30,21 @@ class NavSeeder extends Seeder
             'icon' => '',
         ]);
         factory(App\Nav::class, 1)->create([
-            'name' => 'Github',
-            'url' => 'https://github.com/ppyTeam/bigger-blog/tree/dev',
-            'flag' => false,
+            'name' => 'Tags',
+            'url' => '/tags',
+            'flag' => true,
+            'icon' => '',
+        ]);
+        factory(App\Nav::class, 1)->create([
+            'name' => 'Category',
+            'url' => '/categories',
+            'flag' => true,
+            'icon' => '',
+        ]);
+        factory(App\Nav::class, 1)->create([
+            'name' => 'About',
+            'url' => '/about',
+            'flag' => true,
             'icon' => '',
         ]);
 
@@ -54,8 +66,6 @@ class NavSeeder extends Seeder
             'type' => 1,
             'icon' => 'steam',
         ]);
-
-
 
 
     }

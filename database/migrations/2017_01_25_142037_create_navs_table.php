@@ -22,6 +22,7 @@ class CreateNavsTable extends Migration
                 $table->boolean('flag')->unsigned()->default(false);
                 $table->string('icon')->nullable();
                 $table->tinyInteger('type')->unsigned()->default(0)->comment('0:nav 1:socially');
+                $table->tinyInteger('status')->unsigned()->default(0);
             });
         }
     }

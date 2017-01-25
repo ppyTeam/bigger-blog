@@ -7,20 +7,31 @@ namespace App\Helpers;
  * Time: 22:36
  */
 use App\Contracts\TransformerInterface;
+use App\Repository\NavRepository;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Storage;
 
 class ReturnDataHelper
 {
+    public $prefix_url = null;
+    public $is_mobile = null;
+    public $nav = null;
     private $jsonConfig = null;
-    private $prefix_url = null;
-    private $is_mobile = null;
+    private $navRepository = null;
 
-
-    public function initConfig($prefix_url, $is_mobile)
+    public function __construct(NavRepository $navRepository)
     {
-        $this->prefix_url = $prefix_url;
-        $this->is_mobile = $is_mobile;
+        $this->prefix_url = config('app.url');
+        $this->is_mobile = false;
+        $this->navRepository = $navRepository;
+    }
+
+    private function getNav()
+    {
+        if (null === $this->nav) {
+            $this->nav = $this->navRepository->getAllNav();
+        }
+        return $this->nav;
     }
 
     /**
@@ -54,6 +65,7 @@ class ReturnDataHelper
         } else {
             $return_data['assets'] = $this->get_config($this->prefix_url);
             $return_data['is_mobile'] = $this->is_mobile;
+            $return_data['nav'] = $this->getNav();
             return view($view_blade, $return_data);
         }
     }

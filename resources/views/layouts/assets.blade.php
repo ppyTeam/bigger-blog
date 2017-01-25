@@ -176,18 +176,14 @@ window.navData = {
     subtitle: '副标题的最佳体验是十五个中国字\n多了要换行，最好少于15个字',
     logo_url: 'http://ttionya.qiniudn.com/LOGO.gif',
     nav: [ // flag 为 true 时为站内链接，使用 SPA，否则为站外链接
-        { url: '/', name: 'Home', flag: true },
-        { url: '/blog', name: 'Blog', flag: true },
-        { url: '/blog/3', name: 'Post 3', flag: true },
-        //{ url: '/categories', name: 'Categories', flag: true },
-        //{ url: '/tags', name: 'Tags', flag: true },
-        { url: '/archives', name: 'Archives', flag: true },
-        { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', flag: false }
+        @foreach($nav['nav'] as $eachNav)
+        { url: '{{ $eachNav['url'] }}', name: '{{ $eachNav['name'] }}', flag: {{ $eachNav['flag'] }}  },
+        @endforeach
     ],
     socially: [ // name 是相关名称，鼠标悬停时显示，icon 为 CSS 字体的后半部分
-        { url: 'https://github.com/ppyTeam/bigger-blog/tree/dev', name: 'Github', icon: 'github' },
-        { url: 'http://weibo.com/', name: 'Weibo', icon: 'weibo' },
-        { url: 'http://steamcommunity.com/id/ttionya/', name: 'Steam', icon: 'steam' }
+        @foreach($nav['socially'] as $eachNav)
+        { url: '{{ $eachNav['url'] }}', name: '{{ $eachNav['name'] }}', icon: '{{ $eachNav['icon'] }}' },
+        @endforeach
     ]
 }
 </script>

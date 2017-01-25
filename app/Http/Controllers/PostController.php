@@ -24,7 +24,6 @@ class PostController extends Controller
     {
         $this->postRepository = $postRepository;
         $this->postRepository->pushCriteria(app(Criteria\ShowInSite::class));
-        $dataHelper->initConfig(config('app.url'), false);
         $this->returnHelper = $dataHelper;
     }
 

@@ -7,7 +7,6 @@ use App\Helpers\ReturnDataHelper;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Transformers\PostListTransformer;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -32,7 +31,6 @@ class CategoryController extends Controller
         $this->categoryRepository->pushCriteria(app(Criteria\ShowInSite::class));
         $this->postRepository = $postRepository;
         $this->postRepository->pushCriteria(app(Criteria\ShowInSite::class));
-        $dataHelper->initConfig(config('app.url'), false);
         $this->returnHelper = $dataHelper;
     }
 
