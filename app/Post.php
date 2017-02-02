@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Indal\Markdown\Facade as Markdown;
+use App\Facades\MarkDown;
 
 class Post extends Model
 {
@@ -33,7 +33,7 @@ class Post extends Model
 
     public function getContentAttribute($value)
     {
-        return Markdown::parse($value);
+        return MarkDown::parse($value);
     }
 
     public function tags()

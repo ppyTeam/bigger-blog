@@ -4,52 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f77c3e554e6328c517a8454bdc68961e",
-    "content-hash": "c8c2f2e6b2e680014309ba6e65b95015",
+    "hash": "182b159fb66e6ce254d6e6a9e7f98199",
+    "content-hash": "abbbbd62b6cc0fa9a83f60d18ae64fd3",
     "packages": [
-        {
-            "name": "andreasindal/laravel-markdown",
-            "version": "1.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/andreasindal/laravel-markdown.git",
-                "reference": "9b71f768e2327806a6ef2c7ecb091138702b9f2e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://packagist.phpcomposer.com/files/andreasindal/laravel-markdown/9b71f768e2327806a6ef2c7ecb091138702b9f2e.zip",
-                "reference": "9b71f768e2327806a6ef2c7ecb091138702b9f2e",
-                "shasum": ""
-            },
-            "require": {
-                "erusev/parsedown": "^1.6",
-                "illuminate/support": "^5.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Indal\\Markdown\\": "src/"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andreas Indal",
-                    "email": "andreas@rocketship.se"
-                }
-            ],
-            "description": "Simple Blade directive for markdown parsing.",
-            "time": "2017-01-18 22:14:48"
-        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.1.0",

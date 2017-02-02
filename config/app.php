@@ -166,7 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Indal\Markdown\MarkdownServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -178,7 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //Service Provider
         Sven\EnvProviders\EnvServiceProvider::class,
-
+        App\Providers\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -231,7 +230,7 @@ return [
         //Blog Setting Facade
         'Setting' => App\Facades\Setting::class,
         //Markdown
-        'Markdown' => Indal\Markdown\Facade::class,
+        'Markdown' => App\Facades\MarkDown::class,
     ],
 
 ];
