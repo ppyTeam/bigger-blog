@@ -18,7 +18,7 @@ Homestead.yaml
 _ide_helper*.php
 
 # Composer
-composer.lock
+# composer.lock
 
 # 开发时暂时排除编译完成的静态资源
 # public
