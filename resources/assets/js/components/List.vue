@@ -102,7 +102,13 @@
 
 
         watch: {
-            '$route.path': 'fetchList'
+            '$route.path' (to, from) {
+                if (from + '/page/1' === to) return;
+                if (to + '/page/1' === from) return;
+                console.log(to);
+                console.log(from);
+                this.fetchList();
+            }
         },
 
 

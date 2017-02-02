@@ -1,5 +1,5 @@
 <template>
-    <div class="pagination" v-if="lastPage > 1">
+    <div class="pagination">
         <router-link :to="{ name: componentName, params: { page: pageInfo.prev } }" v-if="pageInfo.showPrevBtn">&lt;&lt; Prev</router-link>
 
         <router-link :to="{ name: componentName, params: { page: 1 } }" v-if="pageInfo.showFirstBtn">1</router-link>
