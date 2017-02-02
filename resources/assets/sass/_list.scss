@@ -43,6 +43,7 @@
   padding: 0 $post-more-link-padding-lr;
 
   .post-more-link {
+    display: inline-block;
     padding: $post-more-link-padding;
     font-size: $post-more-link-font-size;
     border-radius: $post-more-link-border-radius;
