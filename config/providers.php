@@ -16,7 +16,7 @@ return [
         'environments' => ['local', 'development', 'dev'],
 
         'providers' => [
-            //
+            //Debugbar
             Barryvdh\Debugbar\ServiceProvider::class,
             //IdeaHelper
             \Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
@@ -38,7 +38,7 @@ return [
      |
      */
     [
-        'environments' => [],
+        'environments' => ['production'],
         'providers' => [],
         'aliases' => [],
     ],

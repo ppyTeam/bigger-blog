@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => env('TIMEZONE') ? :'Asia/Shanghai',
+    'timezone' => env('TIMEZONE') ?: 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' =>  env('LOCALE') ? :'zh_cn',
+    'locale' => env('LOCALE') ?: 'zh_cn',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,8 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
-        //
+        Indal\Markdown\MarkdownServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +230,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         //Blog Setting Facade
         'Setting' => App\Facades\Setting::class,
+        //Markdown
+        'Markdown' => Indal\Markdown\Facade::class,
     ],
 
 ];

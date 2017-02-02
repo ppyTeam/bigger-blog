@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Indal\Markdown\Facade as Markdown;
 
 class Post extends Model
 {
@@ -28,6 +29,11 @@ class Post extends Model
         if (!$this->exists) {
             $this->attributes['slug'] = str_slug($value);
         }
+    }
+
+    public function getContentAttribute($value)
+    {
+        return Markdown::parse($value);
     }
 
     public function tags()

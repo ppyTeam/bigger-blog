@@ -21,6 +21,6 @@
         </p>
     </header>
     <div id="content">
-        {{ $main->content }}
+        {!! $main->content !!}
     </div>
 @endsection
