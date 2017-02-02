@@ -38,11 +38,7 @@
 
                             <!-- footer -->
                             <footer class="post-footer">
-                                <span class="post-footer-item fa fa-clock-o"
-                                      :title="getDateTitle(post.created_at, post.updated_at)"
-                                >{{ getFormationDate(post.updated_at || post.created_at) }}</span><!--
-
-                                --><span class="post-footer-item fa fa-user">{{ post.user_id }}</span><!--
+                                <span class="post-footer-item fa fa-user">{{ post.user_id }}</span><!--
 
                                 --><span class="post-footer-item fa fa-navicon">
                                     <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
