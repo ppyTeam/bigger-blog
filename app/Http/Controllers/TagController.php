@@ -13,43 +13,44 @@ class TagController extends Controller
     /**
      * @var TagRepository
      */
-    protected $tagRepository;
+    protected $tagRepo;
     /**
      * @var PostRepository
      */
-    protected $postRepository;
-    protected $returnData;
-
-    /**
-     * @var ReturnDataHelper
-     */
-    protected $returnHelper;
+    protected $postRepo;
 
     public function __construct(TagRepository $tagRepository, PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
-        $this->tagRepository = $tagRepository;
-        $this->tagRepository->pushCriteria(app(Criteria\ShowInSite::class));
-        $this->postRepository = $postRepository;
-        $this->postRepository->pushCriteria(app(Criteria\ShowInSite::class));
+        $this->tagRepo = $tagRepository->pushCriteria(app(Criteria\ShowInSite::class));
+        $this->postRepo = $postRepository->pushCriteria(app(Criteria\ShowInSite::class));
         $this->returnHelper = $dataHelper;
     }
 
+    /**
+     * 所有tag列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function index()
     {
-        $tags = $this->tagRepository->all();
+        $tags = $this->tagRepo->all();
         $this->returnData['main'] = $tags;
         return $this->returnHelper->handler($this->returnData, 'tag.index');
     }
 
+    /**
+     * 指定tag下的文章列表
+     * @param string $tagName tag名称
+     * @param int $page 分页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function show($tagName, $page = 1)
     {
 
-        $tag = $this->tagRepository->findOneBy('tag_name', $tagName, '=', ['id', 'tag_name']);
+        $tag = $this->tagRepo->findOneBy('tag_name', $tagName, '=', ['id', 'tag_name']);
         if (empty($tag)) {
             abort(404);
         }
-        $posts = $this->tagRepository->getTagPosts($tag)->paginate(10, ['*'], $page);
-        $posts = $this->postRepository->getPostOtherInfo($posts);
+        $posts = $this->postRepo->getPostOtherInfo($this->tagRepo->getTagPosts($tag)->Paginate(10, ['*'], $page));
         $this->returnData = [
             'tag_id' => $tag->id,
             'tag_name' => $tag->tag_name,

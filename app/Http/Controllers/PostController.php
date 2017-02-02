@@ -12,18 +12,11 @@ class PostController extends Controller
     /**
      * @var PostRepository
      */
-    protected $postRepository;
-    protected $returnData;
-
-    /**
-     * @var ReturnDataHelper
-     */
-    protected $returnHelper;
+    protected $postRepo;
 
     public function __construct(PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
-        $this->postRepository = $postRepository;
-        $this->postRepository->pushCriteria(app(Criteria\ShowInSite::class));
+        $this->postRepo = $postRepository->pushCriteria(app(Criteria\ShowInSite::class));
         $this->returnHelper = $dataHelper;
     }
 
@@ -34,19 +27,19 @@ class PostController extends Controller
      */
     public function index($page = 1)
     {
-        $posts = $this->postRepository->postPaginate(5, $page);
+        $posts = $this->postRepo->postPaginate(5, $page);
         $this->returnData['main'] = $this->returnHelper->transform($posts, new Transformers\PostListTransformer());
         return $this->returnHelper->handler($this->returnData, 'blog.list');
     }
 
     /**
      * 文章详情
-     * @param $id
+     * @param int $id 文章id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        $show_post = $this->postRepository->findOneBy('id', $id);
+        $show_post = $this->postRepo->findOneBy('id', $id);
         if (empty($show_post)) {
             abort(404);
         }
