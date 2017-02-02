@@ -22,7 +22,7 @@
                             <!-- header -->
                             <header class="post-header">
                                 <h2 class="post-title"><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
-                                <span class="post-view-count fa fa-eye" :title="post.view_count">{{ getFormationViewCount(post.view_count) }}</span>
+                                <!--<span class="post-view-count fa fa-eye" :title="post.view_count">{{ getFormationViewCount(post.view_count) }}</span>-->
                             </header>
 
                             <!-- content -->

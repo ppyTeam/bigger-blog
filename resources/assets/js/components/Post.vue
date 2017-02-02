@@ -15,7 +15,7 @@
                         <!-- header -->
                         <header class="post-header">
                             <h2 class="post-title">{{ postData.title }}</h2>
-                            <span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>
+                            <!--<span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>-->
                         </header>
 
                         <!-- content -->

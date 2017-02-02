@@ -38,27 +38,27 @@ export default {
             // return date.getFullYear() + '-' + mm + '-' + dd;
         },
 
-        // 计算浏览人数
+        // 计算浏览人数 （已移除该功能，暂不删除）
         // 根据实际情况，暴力实现即可，最高支持到 千亿 级别
-        getFormationViewCount (count = 0) {
-            if (isNaN(parseInt(count))) return 0; // 容错
-
-
-            let digit = count.toString().split('').length;
-
-            if (digit < 5) {
-                return count;
-            }
-            else if (digit < 9) {
-                return parseInt(count / 1e4) + ' 万';
-            }
-            else if (digit < 13) {
-                return parseInt(count / 1e8) + ' 亿';
-            }
-            else {
-                return '爆表';
-            }
-        }
+        // getFormationViewCount (count = 0) {
+        //     if (isNaN(parseInt(count))) return 0; // 容错
+        //
+        //
+        //     let digit = count.toString().split('').length;
+        //
+        //     if (digit < 5) {
+        //         return count;
+        //     }
+        //     else if (digit < 9) {
+        //         return parseInt(count / 1e4) + ' 万';
+        //     }
+        //     else if (digit < 13) {
+        //         return parseInt(count / 1e8) + ' 亿';
+        //     }
+        //     else {
+        //         return '爆表';
+        //     }
+        // }
     },
 
     computed: {
