@@ -22,7 +22,10 @@
                             <!-- header -->
                             <header class="post-header">
                                 <h2 class="post-title"><router-link :to="'/blog/' + post.id">{{ post.title }}</router-link></h2>
-                                <span class="post-view-count fa fa-eye" :title="post.view_count">{{ getFormationViewCount(post.view_count) }}</span>
+                                <span class="post-header-span fa fa-clock-o"
+                                      :title="getDateTitle(post.created_at, post.updated_at)"
+                                >{{ getFormationDate(post.updated_at || post.created_at) }}</span>
+                                <!--<span class="post-view-count fa fa-eye" :title="post.view_count">{{ getFormationViewCount(post.view_count) }}</span>-->
                             </header>
 
                             <!-- content -->
@@ -35,11 +38,7 @@
 
                             <!-- footer -->
                             <footer class="post-footer">
-                                <span class="post-footer-item fa fa-clock-o"
-                                      :title="getDateTitle(post.created_at, post.updated_at)"
-                                >{{ getFormationDate(post.updated_at || post.created_at) }}</span><!--
-
-                                --><span class="post-footer-item fa fa-user">{{ post.user_id }}</span><!--
+                                <span class="post-footer-item fa fa-user">{{ post.user_id }}</span><!--
 
                                 --><span class="post-footer-item fa fa-navicon">
                                     <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
@@ -103,7 +102,12 @@
 
 
         watch: {
-            '$route.path': 'fetchList'
+            '$route.path' (to, from) {
+                if (from + '/page/1' === to) return;
+                if (to + '/page/1' === from) return;
+
+                this.fetchList();
+            }
         },
 
 
@@ -128,7 +132,7 @@
                         this.mainData = data.body.main;
 
                         this.$store.commit('setCachedData', {
-                            path: path,
+                            path: this.getCachedListPath(this.$route),
                             data: data.body.main
                         });
 

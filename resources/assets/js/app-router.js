@@ -27,7 +27,6 @@ export default new VueRouter({
             children: [
                 {
                     path: '',
-                    alias: 'page',
                     component: listVue
                 },
                 {

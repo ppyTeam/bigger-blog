@@ -15,7 +15,10 @@
                         <!-- header -->
                         <header class="post-header">
                             <h2 class="post-title">{{ postData.title }}</h2>
-                            <span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>
+                            <span class="post-header-span fa fa-clock-o"
+                                  :title="getDateTitle(postData.created_at, postData.updated_at)"
+                            >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span>
+                            <!--<span class="post-view-count fa fa-eye" :title="postData.view_count">{{ getFormationViewCount(postData.view_count) }}</span>-->
                         </header>
 
                         <!-- content -->
@@ -23,11 +26,7 @@
 
                         <!-- footer -->
                         <footer class="post-footer">
-                            <span class="post-footer-item fa fa-clock-o"
-                                  :title="getDateTitle(postData.created_at, postData.updated_at)"
-                            >{{ getFormationDate(postData.updated_at || postData.created_at) }}</span><!--
-
-                            --><span class="post-footer-item fa fa-user">{{ postData.user_id }}</span><!--
+                            <span class="post-footer-item fa fa-user">{{ postData.user_id }}</span><!--
 
                             --><span class="post-footer-item fa fa-navicon">
                                 <router-link :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>

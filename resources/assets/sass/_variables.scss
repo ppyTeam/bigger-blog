@@ -300,7 +300,6 @@ $post-border-left:                      $post-border-right !default;
 // Padding && Margin
 
 $post-padding-left:                     7.5% !default;
-$post-view-count-margin-right:          $post-padding-left !default;
 $post-content-padding-lr:               $post-padding-left !default;
 $post-more-link-padding-lr:             $post-padding-left !default;
 $post-footer-margin-lr:                 $post-padding-left !default;
@@ -328,6 +327,12 @@ $neighbour-hover-font-color:            darken($neighbour-font-color, 15%) !defa
 
 
 // Pagination
+// =======================================
+
+$pagination-margin-lr:                  $post-padding-left !default;
+$pagination-font-size:                  $font-size-sm !default; // ~14px
+$pagination-line-height:                $pagination-font-size !default; // ~14px
+
 //xxxxx
 $pagination-padding-x:                .75rem !default;
 $pagination-padding-y:                .5rem !default;
