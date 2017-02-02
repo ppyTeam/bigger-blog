@@ -1,0 +1,25 @@
+// Pagination
+// 分页
+
+
+.pagination {
+  margin: 0 $pagination-margin-lr;
+  text-align: center;
+
+
+  .p-ul {
+    display: inline-block;
+    padding: 0;
+
+    &::after {
+      @include clearfix;
+    }
+  }
+
+
+  .p-li {
+    float: left;
+    font-size: $pagination-font-size;
+    line-height: $pagination-line-height;
+  }
+}

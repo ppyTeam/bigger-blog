@@ -1,62 +1,120 @@
 <template>
     <div class="pagination">
-        <router-link :to="{ name: componentName, params: { page: pageInfo.prev } }" v-if="pageInfo.showPrevBtn">&lt;&lt; Prev</router-link>
+        <ul class="p-ul">
+            <li class="p-li" v-show="pageInfo.showPrevBtn">
+                <router-link
+                        class="p-link p-near"
+                        :to="{ name: componentName, params: { page: pageInfo.prev } }"
+                >Prev</router-link>
+            </li>
 
-        <router-link :to="{ name: componentName, params: { page: 1 } }" v-if="pageInfo.showFirstBtn">1</router-link>
+            <li class="p-li" v-show="pageInfo.showFirstBtn">
+                <router-link
+                        class="p-link p-a"
+                        :to="{ name: componentName, params: { page: 1 } }"
+                >1</router-link>
+            </li>
 
-        <span v-if="pageInfo.showPrevDot">...</span>
+            <li class="p-li" v-show="pageInfo.showPrevDot">
+                <router-link
+                        class="p-link p-dot fa"
+                        :to="{ name: componentName, params: { page: 1 } }"
+                ></router-link>
+            </li>
 
-        <router-link
-                :class="{ 'current-page': item.active }"
-                :to="{ name: componentName, params: { page: item.page } }"
-                v-for="item in pageInfo.pageRange"
-                :tag="item.active ? 'span' : 'a'"
-        >{{ item.page }}</router-link>
+            <li class="p-li" v-for="item in pageInfo.pageRange">
+                <router-link
+                        class="p-link p-a"
+                        :class="{ 'current-page': item.active }"
+                        :to="{ name: componentName, params: { page: item.page } }"
+                        :tag="item.active ? 'span' : 'a'"
+                >{{ item.page }}</router-link>
+            </li>
 
-        <span v-if="pageInfo.showNextDot">...</span>
+            <li class="p-li" v-show="pageInfo.showNextDot">
+                <router-link
+                        class="p-link p-dot fa"
+                        :to="{ name: componentName, params: { page: 1 } }"
+                ></router-link>
+            </li>
 
-        <router-link :to="{ name: componentName, params: { page: lastPage } }" v-if="pageInfo.showLastBtn">{{ lastPage }}</router-link>
+            <li class="p-li" v-show="pageInfo.showLastBtn">
+                <router-link
+                        class="p-link p-a"
+                        :to="{ name: componentName, params: { page: lastPage } }"
+                >{{ lastPage }}</router-link>
+            </li>
 
-        <router-link :to="{ name: componentName, params: { page: pageInfo.next } }" v-if="pageInfo.showNextBtn">Next &gt;&gt;</router-link>
+            <li class="p-li" v-show="pageInfo.showNextBtn">
+                <router-link
+                        class="p-link p-near"
+                        :to="{ name: componentName, params: { page: pageInfo.next } }"
+                >Next</router-link>
+            </li>
+        </ul>
     </div>
 </template>
 <style lang="scss">
 .pagination {
-    text-align: center;
+    .p-dot {
+        &::before {
+            content: '...';
+        }
 
-    a,
-    span {
-        margin: 4px;
-        padding: 4px;
+        &:hover::before {
+            content: '\f100';
+        }
+    }
+
+    .current-page {
+        color: #607c5d;
+        background-color: #d0dfcf;
+    }
+
+    .p-link {
+        display: inline-block;
+        margin-right: 6px;
+        padding: 9px 12px;
+        color: #a2c49e;
+        border-radius: 16px;
+        background-color: #363842;
+        transition: all 0.3s linear;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+    .p-near {
+        padding: 9px 13px;
+        color: #fff;
+        background-color: #607c5d;
+
+        &:hover {
+            background-color: #486f43;
+        }
     }
 }
 </style>
 <script>
     export default {
-        data () {
-            return {
-
-            };
-        },
-
         props: [
             'currentPage',
             'lastPage'
         ],
 
-        methods: {
-
-        },
 
         computed: {
-            // TODO 不知是否能监听到 $route 的变化，待测试
             componentName () {
                 return this.$route.params.name;
             },
+
+
             pageInfo () {
 
                 /**
-                 * << Prev 1 ... 3 4 5 6 7 ... 10 Next >>
+                 * Prev ① ... ④ ⑤ ⑥ ... ⑩ Next
+                 * https://designshack.net/tutorialexamples/css3-pagination/index-4.html
                  *
                  **/
                 let currentPage = this.currentPage,
@@ -68,18 +126,19 @@
                     showPrevBtn = true,
                     showNextBtn = true;
 
-                if (prevPage < 1) {
+
+                if (prevPage < 1) { // 当前页为第一页
                     prevPage = 1;
                     showPrevBtn = false;
                 }
-                if (nextPage > lastPage) {
+                if (nextPage > lastPage) { // 当前页为最后一页
                     nextPage = lastPage;
                     showNextBtn = false;
                 }
 
                 // link
-                let start = currentPage - 2,
-                    stop = currentPage + 2,
+                let start = currentPage - 1,
+                    stop = currentPage + 1,
                     showFirstBtn = true,
                     showLastBtn = true,
                     showPrevDot = true,
@@ -112,15 +171,15 @@
 
 
                 return {
-                    prev: prevPage,                // 上一页按钮
-                    next: nextPage,                // 下一页按钮
-                    showPrevBtn: showPrevBtn,      // 显示上一页按钮
-                    showNextBtn: showNextBtn,      // 显示下一页按钮
-                    pageRange: pageRange,          // 页码范围
-                    showFirstBtn: showFirstBtn,    // 显示页码 1 的按钮
-                    showLastBtn: showLastBtn,      // 显示页码最后的按钮
-                    showPrevDot: showPrevDot,      // 显示前面的省略号
-                    showNextDot: showNextDot,      // 显示后面的省略号
+                    prev: prevPage, // 上一页按钮
+                    next: nextPage, // 下一页按钮
+                    showPrevBtn,    // 显示上一页按钮
+                    showNextBtn,    // 显示下一页按钮
+                    pageRange,      // 页码范围
+                    showFirstBtn,   // 显示页码 1 的按钮
+                    showLastBtn,    // 显示页码最后的按钮
+                    showPrevDot,    // 显示前面的省略号
+                    showNextDot     // 显示后面的省略号
                 };
             }
         }
