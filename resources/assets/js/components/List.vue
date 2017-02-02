@@ -105,8 +105,7 @@
             '$route.path' (to, from) {
                 if (from + '/page/1' === to) return;
                 if (to + '/page/1' === from) return;
-                console.log(to);
-                console.log(from);
+
                 this.fetchList();
             }
         },
@@ -133,7 +132,7 @@
                         this.mainData = data.body.main;
 
                         this.$store.commit('setCachedData', {
-                            path: path,
+                            path: this.getCachedListPath(this.$route),
                             data: data.body.main
                         });
 
