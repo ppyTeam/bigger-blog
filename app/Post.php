@@ -46,6 +46,18 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function getSummaryAttribute()
+    {
+        $index = mb_strpos($this->content, '<!--more-->');
+        if ($index !== false) {
+            return mb_substr($this->content, 0, $index) . '...';
+        } elseif (mb_strlen($this->content) >= 1000) {
+            return mb_substr($this->content, 0, 1000) . '...';
+        } else {
+            return $this->content;
+        }
+    }
+
     /**
      * 获取相邻的文章数据
      * @return array

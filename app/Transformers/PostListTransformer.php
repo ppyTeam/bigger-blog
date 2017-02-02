@@ -17,7 +17,7 @@ class PostListTransformer implements TransformerInterface
             $posts[$collection_key] = [
                 'id' => $post->id,
                 'title' => $post->title,
-                'content' => str_limit($post->content, 1000, '...'),
+                'content' => $post->summary,
                 'more_link' => true, // 标识是否显示 more 按钮
                 'slug' => $post->slug,
                 'user_id' => $post->user_id,

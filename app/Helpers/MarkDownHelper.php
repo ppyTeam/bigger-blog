@@ -12,4 +12,9 @@ namespace App\Helpers;
 class MarkDownHelper extends \Parsedown
 {
     //TODO: Extend for parsedown
+
+    public function __construct()
+    {
+        $this->setBreaksEnabled(true);
+    }
 }
