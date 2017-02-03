@@ -297,6 +297,10 @@ $post-border-right:                     1px solid #ddd !default;
 $post-border-bottom:                    $post-border-top !default;
 $post-border-left:                      $post-border-right !default;
 
+$post-box-shadow-color:                 rgba(0,0,0,.15) !default;
+$post-box-shadow-pos:                   3px 3px 6px -1px !default;
+$post-box-shadow:                       $post-box-shadow-pos $post-box-shadow-color !default;
+
 // Padding && Margin
 
 $post-padding-left:                     7.5% !default;
@@ -313,7 +317,7 @@ $post-more-link-font-size:              $font-size-xs !default;         // ~12px
 $post-more-link-border-radius:          $border-radius-sm !default;     // ~3px
 $post-more-link-font-color:             #fff !default;
 $post-more-link-bg-color:               #4d4d4d !default;
-$post-more-link-hover-bg-color:         #3c3c3c !default;
+$post-more-link-hover-bg-color:         darken($post-more-link-bg-color, 10%) !default; // #343434
 
 // Footer
 
@@ -329,36 +333,22 @@ $neighbour-hover-font-color:            darken($neighbour-font-color, 15%) !defa
 // Pagination
 // =======================================
 
-$pagination-margin-lr:                  $post-padding-left !default;
-$pagination-font-size:                  $font-size-sm !default; // ~14px
-$pagination-line-height:                $pagination-font-size !default; // ~14px
+$pagination-margin-lr:                  35px !default;
+$pagination-font-size:                  $font-size-sm !default;             // ~14px
+$pagination-font-color:                 #fff !default;
+$pagination-line-height:                $pagination-font-size !default;     // ~14px
 
-//xxxxx
-$pagination-padding-x:                .75rem !default;
-$pagination-padding-y:                .5rem !default;
-$pagination-padding-x-sm:             .75rem !default;
-$pagination-padding-y-sm:             .275rem !default;
-$pagination-padding-x-lg:             1.5rem !default;
-$pagination-padding-y-lg:             .75rem !default;
+$pagination-border:                     0 !default;
+$pagination-border-radius:              $border-radius-sm !default;         // ~3px
+$pagination-link-bg-color:              $post-more-link-bg-color !default;  // #4d4d4d;
+$pagination-link-hover-bg-color:        lighten($pagination-link-bg-color, 10%) !default; // #676767
 
+$pagination-box-shadow-color:           rgba(0,0,0,.45) !default;
+$pagination-box-shadow-pos:             $post-box-shadow-pos !default;
+$pagination-box-shadow:                 $pagination-box-shadow-pos $pagination-box-shadow-color !default;
 
-$pagination-color:                     $link-color !default;
-$pagination-bg:                        #fff !default;
-$pagination-border-width:              $border-width !default;
-$pagination-border-color:              #ddd !default;
-
-$pagination-hover-color:               $link-hover-color !default;
-$pagination-hover-bg:                  $gray-lighter !default;
-$pagination-hover-border:              #ddd !default;
-
-$pagination-active-color:              #fff !default;
-$pagination-active-bg:                 $brand-primary !default;
-$pagination-active-border:             $brand-primary !default;
-
-$pagination-disabled-color:            $gray-light !default;
-$pagination-disabled-bg:               #fff !default;
-$pagination-disabled-border:           #ddd !default;
-
+$pagination-current-bg-color:           #d2b48c !default;
+$pagination-current-font-color:         #555 !default;
 
 
 // Form states and alerts

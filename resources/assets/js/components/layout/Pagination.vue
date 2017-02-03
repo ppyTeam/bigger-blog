@@ -1,101 +1,63 @@
 <template>
     <div class="pagination">
-        <ul class="p-ul">
-            <li class="p-li" v-show="pageInfo.showPrevBtn">
+        <ul class="pag-ul">
+            <li class="pag-li" v-show="pageInfo.showPrevBtn">
                 <router-link
-                        class="p-link p-near"
+                        class="pag-item"
                         :to="{ name: componentName, params: { page: pageInfo.prev } }"
                 >Prev</router-link>
             </li>
 
-            <li class="p-li" v-show="pageInfo.showFirstBtn">
+            <li class="pag-li" v-show="pageInfo.showFirstBtn">
                 <router-link
-                        class="p-link p-a"
+                        class="pag-item"
                         :to="{ name: componentName, params: { page: 1 } }"
                 >1</router-link>
             </li>
 
-            <li class="p-li" v-show="pageInfo.showPrevDot">
+            <li class="pag-li" v-show="pageInfo.showPrevDot">
                 <router-link
-                        class="p-link p-dot fa"
-                        :to="{ name: componentName, params: { page: 1 } }"
+                        class="pag-item pag-dot fa"
+                        :to="{ name: componentName, params: { page: pageInfo.fastPrev } }"
                 ></router-link>
             </li>
 
-            <li class="p-li" v-for="item in pageInfo.pageRange">
+            <li class="pag-li" v-for="item in pageInfo.pageRange">
+                <span
+                        class="pag-item current-page"
+                        v-if="item.active"
+                >{{ item.page }}</span>
                 <router-link
-                        class="p-link p-a"
-                        :class="{ 'current-page': item.active }"
+                        class="pag-item"
                         :to="{ name: componentName, params: { page: item.page } }"
-                        :tag="item.active ? 'span' : 'a'"
+                        v-else
                 >{{ item.page }}</router-link>
             </li>
 
-            <li class="p-li" v-show="pageInfo.showNextDot">
+            <li class="pag-li" v-show="pageInfo.showNextDot">
                 <router-link
-                        class="p-link p-dot fa"
-                        :to="{ name: componentName, params: { page: 1 } }"
+                        class="pag-item pag-dot pag-dot-r fa"
+                        :to="{ name: componentName, params: { page: pageInfo.fastNext } }"
                 ></router-link>
             </li>
 
-            <li class="p-li" v-show="pageInfo.showLastBtn">
+            <li class="pag-li" v-show="pageInfo.showLastBtn">
                 <router-link
-                        class="p-link p-a"
+                        class="pag-item"
                         :to="{ name: componentName, params: { page: lastPage } }"
                 >{{ lastPage }}</router-link>
             </li>
 
-            <li class="p-li" v-show="pageInfo.showNextBtn">
+            <li class="pag-li" v-show="pageInfo.showNextBtn">
                 <router-link
-                        class="p-link p-near"
+                        class="pag-item"
                         :to="{ name: componentName, params: { page: pageInfo.next } }"
                 >Next</router-link>
             </li>
         </ul>
     </div>
 </template>
-<style lang="scss">
-.pagination {
-    .p-dot {
-        &::before {
-            content: '...';
-        }
 
-        &:hover::before {
-            content: '\f100';
-        }
-    }
-
-    .current-page {
-        color: #607c5d;
-        background-color: #d0dfcf;
-    }
-
-    .p-link {
-        display: inline-block;
-        margin-right: 6px;
-        padding: 9px 12px;
-        color: #a2c49e;
-        border-radius: 16px;
-        background-color: #363842;
-        transition: all 0.3s linear;
-
-        &:hover {
-            color: #fff;
-        }
-    }
-
-    .p-near {
-        padding: 9px 13px;
-        color: #fff;
-        background-color: #607c5d;
-
-        &:hover {
-            background-color: #486f43;
-        }
-    }
-}
-</style>
 <script>
     export default {
         props: [
@@ -113,16 +75,15 @@
             pageInfo () {
 
                 /**
-                 * Prev ① ... ④ ⑤ ⑥ ... ⑩ Next
-                 * https://designshack.net/tutorialexamples/css3-pagination/index-4.html
+                 * https://designshack.net/tutorialexamples/css3-pagination/index-2.html
                  *
                  **/
                 let currentPage = this.currentPage,
                     lastPage = this.lastPage;
 
                 // neighbour page info
-                let prevPage = currentPage - 1,
-                    nextPage = currentPage + 1,
+                let prevPage = currentPage - 1, // 上一页
+                    nextPage = currentPage + 1, // 下一页
                     showPrevBtn = true,
                     showNextBtn = true;
 
@@ -139,6 +100,8 @@
                 // link
                 let start = currentPage - 1,
                     stop = currentPage + 1,
+                    fastPrevPage = currentPage - 5,
+                    fastNextPage = currentPage + 5,
                     showFirstBtn = true,
                     showLastBtn = true,
                     showPrevDot = true,
@@ -162,6 +125,10 @@
                     showNextDot = false;
                 }
 
+                // 快速翻页
+                fastPrevPage = fastPrevPage < 1 ? 1 : fastPrevPage;
+                fastNextPage = fastNextPage > lastPage ? lastPage : fastNextPage;
+
                 for (; start <= stop; start++) {
                     pageRange.push({
                         page: start,
@@ -179,7 +146,9 @@
                     showFirstBtn,   // 显示页码 1 的按钮
                     showLastBtn,    // 显示页码最后的按钮
                     showPrevDot,    // 显示前面的省略号
-                    showNextDot     // 显示后面的省略号
+                    showNextDot,    // 显示后面的省略号
+                    fastPrev: fastPrevPage, // 快速上翻
+                    fastNext: fastNextPage  // 快速下翻
                 };
             }
         }
