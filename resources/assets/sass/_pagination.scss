@@ -3,11 +3,11 @@
 
 
 .pagination {
-  margin: 0 $pagination-margin-lr;
+  margin: 0 $pagination-margin-lr 60px;
   text-align: center;
 
 
-  .p-ul {
+  .pag-ul {
     display: inline-block;
     padding: 0;
 
@@ -17,9 +17,52 @@
   }
 
 
-  .p-li {
+  .pag-li {
     float: left;
     font-size: $pagination-font-size;
     line-height: $pagination-line-height;
+  }
+
+
+  .pag-item {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 6px 11px;
+    color: $pagination-font-color;
+    border: $pagination-border;
+    border-radius: $pagination-border-radius;
+    background-color: $pagination-link-bg-color;
+    @include box-shadow($pagination-box-shadow);
+
+    &:hover {
+      background-color: $pagination-link-hover-bg-color;
+    }
+  }
+
+
+  .pag-dot {
+    width: 33px;
+
+    &::before {
+      content: '...';
+    }
+
+    &:hover::before {
+      content: '\f100';
+    }
+
+    &.pag-dot-r:hover::before {
+      content: '\f101';
+    }
+  }
+
+  .current-page {
+    font-weight: bold;
+    color: $pagination-current-font-color;
+    background-color: $pagination-current-bg-color;
+
+    &:hover {
+      background-color: $pagination-current-bg-color;
+    }
   }
 }

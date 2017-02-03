@@ -22,5 +22,6 @@
       left: $post-border-left;
     };
     background-color: $post-bg-color;
+    @include box-shadow($post-box-shadow);
   }
 }
