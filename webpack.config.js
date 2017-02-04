@@ -15,7 +15,7 @@ module.exports = {
 
   entry: {
     // DO NOT change key name
-    common: ['vue', 'vue-router', 'vue-resource', 'vuex', 'nprogress'],
+    common: ['vue', 'vue-router', 'vue-resource', 'vuex', 'nprogress', 'highlight.js'],
     app: PATH.join(RES_PATH, 'assets', 'js', 'app.js') // ./resources/assets/js/app.js
   },
 

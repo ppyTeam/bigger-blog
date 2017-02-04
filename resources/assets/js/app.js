@@ -5,8 +5,9 @@ import VueResource from 'vue-resource';
 Vue.use(VueResource);
 
 
-import scss from '../sass/app.scss';
+import '../sass/app.scss';
 import NProgress from 'nprogress';
+import hljs from 'highlight.js';
 import router from './app-router';
 import store from './store/index';
 
@@ -14,6 +15,13 @@ import store from './store/index';
 // Setting
 Vue.http.options.emulateHTTP = true;
 NProgress.configure({ showSpinner: false });
+
+
+// 自定义高亮指令
+Vue.directive('hljs', el => {
+    let blocks = el.querySelectorAll('pre code');
+    Array.prototype.forEach.call(blocks, hljs.highlightBlock);
+});
 
 
 // 拦截 Ajax 请求
