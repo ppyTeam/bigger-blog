@@ -459,10 +459,8 @@ $alert-danger-text:           $state-danger-text !default;
 $alert-danger-border:         $state-danger-border !default;
 
 
-// Progress bars && Loading
+// Loading
 // =======================================
-
-$nprogress-color:             #29d !default;
 
 $loading-mask-padding-top:    125px !default;
 
@@ -487,6 +485,30 @@ $error-text-line-height:      1.25rem !default;         // ~20px
 $error-text-border-radius:    calc((#{$error-text-line-height} + 2 * #{$error-text-padding-tb}) / 2) !default; // ~13px
 $error-text-bg-color:         #ccc !default;
 
+
+// Code About
+// =======================================
+
+// pre
+$pre-bg-color:                #f8f8f8 !default;
+$pre-border-color:            #ddd !default;
+
+// code
+$code-bg-color:               #f9f2f4 !default;
+$code-font-color:             #c7254e !default;
+
+// Three Part Library
+// =======================================
+
+// NProgress
+
+$nprogress-color:             #29d !default;
+
+// Highlight.js
+
+// $highlight-path:              "../../../node_modules/highlight.js/styles/" !default;
+// $highlight-theme:             "vs" !default; // Setting Theme
+// 现在 SCSS 并不支持这个功能，请移步 highlight.scss 文件手动修改
 
 // List group
 // xxxxxxxxxx

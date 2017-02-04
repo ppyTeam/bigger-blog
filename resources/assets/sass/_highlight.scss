@@ -1,0 +1,14 @@
+// 我非常想实现通过一个设置就可以快速切换 Highlight.js 的主题
+// 但是遗憾的是，SCSS 现在并没有实现，虽然 Less 早已经实现该功能
+// Issue https://github.com/sass/sass/issues/739
+
+// 现在我有两个选择，一个是让用户到这个文件中修改路径
+// 另一个是要用户手动复制样式内容到此
+// 为了方便和以后 SCSS 实现该功能后的修改，我选择了第一种方案
+
+// 你必须自己手动修改路径
+@import "../../../node_modules/highlight.js/styles/vs.css";
+
+.hljs {
+  background-color: $pre-bg-color;
+}

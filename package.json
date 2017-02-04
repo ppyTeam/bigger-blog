@@ -28,6 +28,7 @@
     "webpack": "^2.2.0"
   },
   "dependencies": {
+    "highlight.js": "^9.9.0",
     "nprogress": "0.2.0",
     "vue": "^2.1.0",
     "vue-resource": "^1.0.0",
