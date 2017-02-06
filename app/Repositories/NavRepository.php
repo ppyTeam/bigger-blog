@@ -7,6 +7,7 @@ namespace App\Repository;
 
 use App\Setting;
 use App\Nav;
+use Illuminate\Support\Facades\Cache;
 
 class NavRepository extends IRepository
 {
@@ -24,10 +25,13 @@ class NavRepository extends IRepository
 
     public function getAllNav()
     {
-        $NavCollection = $this->all(['name', 'url', 'flag', 'type', 'icon']);
-        $NavCollection->transform(function ($item) {
-            $item['flag'] = $item['flag'] ? 'true' : 'false';
-            return $item;
+        $NavCollection = Cache::remember('nav', $minutes = 120, function () {
+            $NavCollection = $this->all(['name', 'url', 'flag', 'type', 'icon']);
+            $NavCollection->transform(function ($item) {
+                $item['flag'] = $item['flag'] ? 'true' : 'false';
+                return $item;
+            });
+            return $NavCollection;
         });
         return [
             'nav' => $NavCollection->filter(function ($value) {
