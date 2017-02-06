@@ -18,12 +18,12 @@ class Dev extends Command
      *
      * @var string
      */
-    protected $description = 'Development Tools【开发者工具】';
+    protected $description = '【开发者工具】Development Tools';
 
     protected $action = [
-        'help' => 'show tools list information【工具清单帮助说明】',
-        'update' => 'Update information for development【更新信息】',
-        'run_npm' => 'npm run prod(or dev)【执行npm指令】',
+        'exit' => '【退出工具】Exit the dev tools',
+        'update' => '【更新信息】Update information for development',
+        'run_npm' => '【执行npm指令】npm run prod(or dev)',
     ];
     protected $action_step = [
         'update' => 5,
@@ -38,7 +38,6 @@ class Dev extends Command
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -52,12 +51,22 @@ class Dev extends Command
      */
     public function handle()
     {
-        $choice = $this->choice('Please choose the number what you want to do', array_keys($this->action), 0);
+        $this->show_help();
+        $choice = $this->choice('Please choose the number what you want to do,or press Enter to', array_keys($this->action), 0);
         $max_step = isset($this->action_step[$choice]) ? $this->action_step[$choice] : -1;
         $this->start($max_step);
         call_user_func([$this, 'act_' . $choice]);
         $this->finish();
         return;
+    }
+
+    public function show_help()
+    {
+        $this->table(['【开发者工具】Development Tools'], []);
+        foreach ($this->action as $name => $description) {
+            $this->warn('- ' . $name . ":");
+            $this->info('    ' . $description);
+        }
     }
 
     private function start($max_step = 0)
@@ -96,14 +105,9 @@ class Dev extends Command
         $this->line('---');
     }
 
-
-    public function act_help()
+    public function act_exit()
     {
-        $this->info("Tool list description:");
-        foreach ($this->action as $name => $description) {
-            $this->warn('- ' . $name . ":");
-            $this->info('    ' . $description);
-        }
+        exit;
     }
 
     public function act_update()
@@ -134,7 +138,6 @@ class Dev extends Command
 
     public function act_run_npm()
     {
-
         if ($this->confirm('run npm prod? [Y|n]', true)) {
             $this->execShell('npm run prod');
         } else {

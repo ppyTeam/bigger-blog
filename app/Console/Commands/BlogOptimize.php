@@ -12,15 +12,15 @@ class BlogOptimize extends Command
      * @var string
      */
     protected $signature = 'blog:optimize 
-                            {--C|clear : only clear cache【可选参数:仅清除缓存】}
-                            {--O|optimize : only optimize【可选参数:仅优化框架】}';
+                            {--C|clear : 【可选参数:仅清除缓存】only clear cache}
+                            {--O|optimize : 【可选参数:仅优化框架】only optimize}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Optimize the blog and refresh laravel cache.【清理和优化博客框架文件缓存】';
+    protected $description = '【清理和优化博客框架文件缓存】Optimize the blog and refresh laravel cache.';
 
     protected $optimize_shells = [
         'php artisan config:cache',
