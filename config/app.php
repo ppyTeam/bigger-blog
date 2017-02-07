@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
 
+        Zizaco\Entrust\EntrustServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -231,6 +232,8 @@ return [
         'Setting' => App\Facades\Setting::class,
         //Markdown
         'Markdown' => App\Facades\MarkDown::class,
+        //Entrust
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];
