@@ -24,6 +24,7 @@ class Dev extends Command
         'exit' => '【退出工具】Exit the dev tools',
         'update' => '【更新信息】Update information for development',
         'run_npm' => '【执行npm指令】npm run prod(or dev)',
+        'seed' => '【数据生成器】database seed',
     ];
     protected $action_step = [
         'update' => 5,
@@ -143,6 +144,11 @@ class Dev extends Command
         } else {
             $this->execShell('npm run dev');
         }
+    }
+
+    public function act_seed()
+    {
+
     }
 
 
