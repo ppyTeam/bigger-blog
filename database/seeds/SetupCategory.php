@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class SetupCategory extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,8 @@ class CategorySeeder extends Seeder
     public function run()
     {
         factory(App\Category::class)->create([
-            'category_name'=>'test',
+            'category_name'=>'blog',
         ]);
+
     }
 }

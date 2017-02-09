@@ -3,10 +3,13 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
-class InitSeeder extends Seeder
+class SetupSeeder extends Seeder
 {
-    protected $seeders=[
-        NavSeeder::class,
+    protected $seeders = [
+        SetupNav::class,
+        SetupCategory::class,
+        SetupTag::class,
+        //SetupRBAC::class,
     ];
 
     /**
