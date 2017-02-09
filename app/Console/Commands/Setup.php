@@ -127,7 +127,7 @@ class Setup extends Command
             exit;
         }
         //App info
-        $config_arr['APP_URL'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
+        $app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
         $this->progress(1, true);
         //Database
         while (true) {
@@ -140,6 +140,7 @@ class Setup extends Command
 
         //Admin info
 
+        $config_arr['APP_URL'] = $app_url;
         $this->create_env_file($config_arr);
         $this->info(trans('setup.complete'));
     }
