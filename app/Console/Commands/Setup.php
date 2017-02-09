@@ -54,6 +54,17 @@ class Setup extends Command
     public function handle()
     {
         //
+        $this->choice_language();
+        $this->welcome();
+        $this->ask_choice();
+        return;
+    }
+
+    /**
+     * choice setup guide language
+     */
+    public function choice_language()
+    {
         $choice = $this->choice('Please select the Language:', ['中文', 'English'], 0);
         switch ($choice) {
             case '中文':
@@ -68,9 +79,6 @@ class Setup extends Command
         }
         \App::setLocale($language);
         $this->execShell('clear');
-        $this->welcome();
-        $this->ask_choice();
-        return;
     }
 
     /**
@@ -118,12 +126,32 @@ class Setup extends Command
             $this->finish_progress();
             exit;
         }
+        //App info
         $config_arr['APP_URL'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
         $this->progress(1, true);
+        //Database
+        while (true) {
+            $config_arr = $this->ask_db_config();
+            if ($this->test_connection($config_arr) === true) break;
+            $this->warn(trans('setup.db_wrong'));
+        }
+        $this->progress(1, true);
+        //Migration
+
+        //Admin info
+
+        $this->create_env_file($config_arr);
+        $this->info(trans('setup.complete'));
+    }
+
+
+
+    private function ask_db_config()
+    {
         $this->info(trans('setup.ask.db_info'));
         $config_arr['DB_CONNECTION'] = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.db_driver')]), ['mysql', 'pgsql', 'sqlite', 'sqlsrv'], 0);
-        if ($config_arr['DB_CONNECTION'] == 'pgsql') {
-            $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), db_path('database.sqlite'));
+        if ($config_arr['DB_CONNECTION'] == 'sqlite') {
+            $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), database_path('database.sqlite'));
         } else {
             $config_arr['DB_HOST'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_host')]), 'localhost');
             $config_arr['DB_PORT'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_port')]), '3306');
@@ -131,9 +159,7 @@ class Setup extends Command
             $config_arr['DB_USERNAME'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_username')]), '');
             $config_arr['DB_PASSWORD'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_pwd')]), '');
         }
-        //complete
-        $this->progress(1, true);
-        $this->create_env_file($config_arr);
+        return $config_arr;
     }
 
     private function start_progress($max_step = 0)
@@ -192,6 +218,61 @@ class Setup extends Command
             file_get_contents($this->laravel->environmentFilePath())
         ));
 
+    }
+
+    private function test_connection($config_arr)
+    {
+        $capsule = app(\Illuminate\Database\Capsule\Manager::class);
+        switch ($config_arr['DB_CONNECTION']) {
+            case 'sqlite':
+                $connect_arr = [
+                    'driver' => 'sqlite',
+                    'database' => $config_arr['DB_DATABASE'],
+                    'prefix' => '',
+                ];
+                break;
+            case 'mysql':
+                $connect_arr = [
+                    'charset' => 'utf8',
+                    'collation' => 'utf8_unicode_ci',
+                    'prefix' => '',
+                    'strict' => true,
+                    'engine' => null,
+                ];
+                break;
+            case 'pgsql':
+                $connect_arr = [
+                    'charset' => 'utf8',
+                    'prefix' => '',
+                    'schema' => 'public',
+                    'sslmode' => 'prefer',
+                ];
+                break;
+            case 'sqlsrv':
+                $connect_arr = [
+                    'charset' => 'utf8',
+                    'prefix' => '',
+                ];
+                break;
+        }
+        if ($config_arr['DB_CONNECTION'] != 'sqlite') {
+            $connect_arr['driver'] = $config_arr['DB_CONNECTION'];
+            $connect_arr['host'] = $config_arr['DB_HOST'];
+            $connect_arr['port'] = $config_arr['DB_PORT'];
+            $connect_arr['database'] = $config_arr['DB_DATABASE'];
+            $connect_arr['username'] = $config_arr['DB_USERNAME'];
+            $connect_arr['password'] = $config_arr['DB_PASSWORD'];
+        }
+        try {
+            $capsule->addConnection($connect_arr, 'test_connection');
+            $conn = $capsule->getConnection('test_connection');
+            $conn->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
+        } catch (\PDOException $e) {
+            return false;
+        } catch (\Doctrine\DBAL\Driver\PDOException $e) {
+            return false;
+        }
+        return true;
     }
 
 }
