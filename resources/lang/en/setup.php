@@ -24,7 +24,13 @@ return [
         'db_name' => 'Database Name:',
         'db_username' => 'Database UserName:',
         'db_pwd' => 'Database User Password:',
+        'admin_info' => '===Complement Admin User info===',
+        'username' => 'Admin Username:',
+        'password' => 'Admin Password:',
+        'password_confirmation' => 'Please Confirm Password:',
+        'email' => 'Admin Email:',
     ],
     'db_wrong' => 'Could not connect to database! Please check the database info.',
+    'admin_info_failed' => 'Could not add Admin User!Please check the following errors:',
     'complete' => 'Initialize Setup Complete!',
 ];

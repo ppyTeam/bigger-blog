@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Hash;
+use Validator;
 
 class Setup extends Command
 {
@@ -36,10 +38,12 @@ class Setup extends Command
      */
     protected $bar = null;
 
+    protected $app_url = null;
+    protected $config_arr = [];
+
     /**
      * Create a new command instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -54,9 +58,9 @@ class Setup extends Command
     public function handle()
     {
         //
-        $this->choice_language();
-        $this->welcome();
-        $this->ask_choice();
+        $this->choice_language()
+            ->welcome()
+            ->ask_choice();
         return;
     }
 
@@ -79,6 +83,7 @@ class Setup extends Command
         }
         \App::setLocale($language);
         $this->execShell('clear');
+        return $this;
     }
 
     /**
@@ -95,6 +100,7 @@ class Setup extends Command
             $this->warn('- ' . $name . ":");
             $this->info('    ' . trans($description));
         }
+        return $this;
     }
 
     /**
@@ -107,59 +113,149 @@ class Setup extends Command
         $this->start_progress($max_step);
         call_user_func([$this, 'act_' . $choice]);
         $this->finish_progress();
+        return $this;
     }
 
-    private function act_exit()
+    protected function act_exit()
     {
         exit;
     }
 
-    private function act_update()
+    protected function act_update()
     {
         //
     }
 
-    private function act_install()
+    protected function act_install()
     {
         if (file_exists($this->laravel->environmentFilePath())) {
             $this->error(PHP_EOL . trans('setup.already_installed') . PHP_EOL);
             $this->finish_progress();
             exit;
         }
-        //App info
-        $app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
-        $this->progress(1, true);
-        //Database
-        while (true) {
-            $config_arr = $this->ask_db_config();
-            if ($this->test_connection($config_arr) === true) break;
-            $this->warn(trans('setup.db_wrong'));
-        }
-        $this->progress(1, true);
-        //Migration
-
-        //Admin info
-
-        $config_arr['APP_URL'] = $app_url;
-        $this->create_env_file($config_arr);
+        $this->ask_app_info()
+            ->ask_db_config()
+            ->create_config_file()
+            ->do_migration()
+            ->ask_admin_info()
+            ->do_db_seed();
         $this->info(trans('setup.complete'));
     }
 
-
-    private function ask_db_config()
+    /**
+     * Record App info
+     * @return $this
+     */
+    protected function ask_app_info()
     {
-        $this->info(trans('setup.ask.db_info'));
-        $config_arr['DB_CONNECTION'] = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.db_driver')]), ['mysql', 'pgsql', 'sqlite', 'sqlsrv'], 0);
-        if ($config_arr['DB_CONNECTION'] == 'sqlite') {
-            $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), database_path('database.sqlite'));
-        } else {
-            $config_arr['DB_HOST'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_host')]), 'localhost');
-            $config_arr['DB_PORT'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_port')]), '3306');
-            $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), '');
-            $config_arr['DB_USERNAME'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_username')]), '');
-            $config_arr['DB_PASSWORD'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_pwd')]), '');
+        $this->app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
+        $this->progress(1, true);
+        return $this;
+    }
+
+    /**
+     * Record Database info
+     * @return $this
+     */
+    protected function ask_db_config()
+    {
+        while (true) {
+            $this->info(trans('setup.ask.db_info'));
+            $config_arr['DB_CONNECTION'] = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.db_driver')]), ['mysql', 'pgsql', 'sqlite', 'sqlsrv'], 0);
+            if ($config_arr['DB_CONNECTION'] == 'sqlite') {
+                $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), database_path('database.sqlite'));
+            } else {
+                $config_arr['DB_HOST'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_host')]), 'localhost');
+                $config_arr['DB_PORT'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_port')]), '3306');
+                $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), '');
+                $config_arr['DB_USERNAME'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_username')]), '');
+                $config_arr['DB_PASSWORD'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_pwd')]), '');
+            }
+            $this->config_arr = $config_arr;
+            if ($this->test_connection($this->config_arr) === true) break;
+            $this->warn(trans('setup.db_wrong'));
         }
-        return $config_arr;
+        $this->progress(1, true);
+        return $this;
+    }
+
+    /**
+     * Create ENV config file
+     * @return $this
+     */
+    protected function create_config_file()
+    {
+        $this->config_arr['APP_URL'] = $this->app_url;
+        $this->create_env_file($this->config_arr);
+        return $this;
+    }
+
+    /**
+     * Create migration table
+     * @return $this
+     */
+    protected function do_migration()
+    {
+        $this->execShell('php artisan migrate:install');
+        $this->execShell('php artisan migrate');
+        $this->progress(1, false);
+        return $this;
+    }
+
+    /**
+     * Record Admin info
+     * @return $this
+     */
+    protected function ask_admin_info()
+    {
+        while (true) {
+            $this->info(trans('setup.ask.admin_info'));
+            $user['username'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.username')]), 'admin');
+            $user['password'] = $this->secret(trans('setup.input', ['name' => trans('setup.ask.password')]));
+            $user['password_confirmation'] = $this->secret(trans('setup.ask.password_confirmation'));
+            $user['email'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.email')]), '');
+            //validate
+            $validator = Validator::make($user, [
+                'username' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:3|confirmed',
+                'password_confirmation' => 'required|min:3'
+            ]);
+            if (!$validator->fails()) {
+                break;
+            }
+            $this->warn(trans('setup.admin_info_failed'));
+            foreach ($validator->errors()->all() as $error) {
+                $this->error($error);
+            }
+        }
+        $admin = app(\App\User::class);
+        $admin->name = $user['username'];
+        $admin->email = $user['email'];
+        $admin->password = Hash::make($user['password']);
+        $admin->save();
+        //$this->config_RBAC($admin);
+        return $this;
+    }
+
+    protected function config_RBAC($admin)
+    {
+        //TODO
+        $this->progress(1, false);
+        $this->execShell('php artisan db:seed --class=SetupRBAC');
+        $owner = Role::where(['name' => 'owner']);
+        $admin->attachRole($owner);
+        return $this;
+    }
+
+    /**
+     * Initialize some default data
+     * @return $this
+     */
+    protected function do_db_seed()
+    {
+        //TODO
+        return $this;
     }
 
     private function start_progress($max_step = 0)
@@ -223,6 +319,7 @@ class Setup extends Command
     private function test_connection($config_arr)
     {
         $capsule = app(\Illuminate\Database\Capsule\Manager::class);
+        $connect_arr = [];
         switch ($config_arr['DB_CONNECTION']) {
             case 'sqlite':
                 $connect_arr = [

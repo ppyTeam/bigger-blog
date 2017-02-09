@@ -24,7 +24,13 @@ return [
         'db_name' => '数据库名:',
         'db_username' => '数据库用户名:',
         'db_pwd' => '数据库密码:',
+        'admin_info' => '===补全系统默认管理员信息===',
+        'username' => '管理员用户名:',
+        'password' => '管理员密码:',
+        'password_confirmation' => '请再次确认管理员密码:',
+        'email' => '电子邮箱:',
     ],
     'db_wrong' => '数据库连接失败!请重新检查并配置数据库信息!',
+    'admin_info_failed' => '管理员信息录入失败!请检查并调整以下错误信息:',
     'complete' => '初始化安装完成!',
 ];
