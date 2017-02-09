@@ -22,7 +22,7 @@
                         </header>
 
                         <!-- content -->
-                        <div class="post-content" v-html="postData.content" v-hljs></div>
+                        <div id="content" class="post-content" v-html="postData.content" v-hljs v-toc></div>
 
                         <!-- footer -->
                         <footer class="post-footer">
