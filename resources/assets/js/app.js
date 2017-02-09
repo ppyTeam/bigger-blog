@@ -23,6 +23,13 @@ Vue.directive('hljs', el => {
     Array.prototype.forEach.call(blocks, hljs.highlightBlock);
 });
 
+import toc from './toc';
+// 自定义 TOC
+Vue.directive('toc', el => {
+    let content = el.innerHTML
+    el.innerHTML = toc.tocBlock(content) + content;
+});
+
 
 // 拦截 Ajax 请求
 Vue.http.interceptors.push((request, next) => {
