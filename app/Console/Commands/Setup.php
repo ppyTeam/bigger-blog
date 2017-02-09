@@ -146,7 +146,6 @@ class Setup extends Command
     }
 
 
-
     private function ask_db_config()
     {
         $this->info(trans('setup.ask.db_info'));
@@ -268,9 +267,8 @@ class Setup extends Command
             $capsule->addConnection($connect_arr, 'test_connection');
             $conn = $capsule->getConnection('test_connection');
             $conn->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
-        } catch (\PDOException $e) {
-            return false;
-        } catch (\Doctrine\DBAL\Driver\PDOException $e) {
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
             return false;
         }
         return true;
