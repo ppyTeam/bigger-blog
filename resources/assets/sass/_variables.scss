@@ -21,9 +21,12 @@ $brand-inverse:             $gray-dark !default;
 // Body
 // =======================================
 
-$body-bg:    #eee !default;
-$body-color: $gray-dark !default;
-
+$body-bg-color:             #eee !default;        // Custom 配色最好与 image 匹配
+$body-color:                $gray-dark !default;
+$body-bg-image:             '' !default;          // Custom
+$body-bg-size:              cover !default;       // Custom
+$body-bg-attachment:        fixed !default;       // Custom
+$body-bg-repeat:            no-repeat !default;   // Custom
 
 // Links
 // =======================================
@@ -264,21 +267,19 @@ $layout-left-width:                      350px !default;
 // Sidebar, Header, Logo, Nav
 // =======================================
 
-// Sidebar
-
-$sidebar-bg-color:                       #fff !default;
-
 // Header sidebar
 
-$sidebar-header-bg-image:                url('http://ww2.sinaimg.cn/mw690/873fc752gw1fbpdxzjixpj20fo0mrwgy.jpg') !default; // url('http://o9evx54l5.bkt.clouddn.com/background-cover.jpg') !default;
-$sidebar-header-bg-cover:                linear-gradient(140deg,rgba(73, 50, 82, 0.4) 80%, rgba(17, 11, 19, 0.8)) !default; // linear-gradient(140deg,rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8))
+$sidebar-header-bg-image:                url('http://ww2.sinaimg.cn/mw690/873fc752gw1fbpdxzjixpj20fo0mrwgy.jpg') !default;  // Custom
+                                         // url('http://o9evx54l5.bkt.clouddn.com/background-cover.jpg') !default;
+$sidebar-header-bg-cover:                linear-gradient(140deg,rgba(73, 50, 82, 0.4) 80%, rgba(17, 11, 19, 0.8)) !default; // Custom
+                                         // linear-gradient(140deg,rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8))
 
 $sidebar-header-width:                   $layout-left-width !default;
 
 // Header && Logo
 
-$header-font-color:                      #fff !default;
-$header-hover-font-color:                #ccc !default;
+$header-font-color:                      #fff !default; // Custom
+$header-hover-font-color:                #ccc !default; // Custom
 
 $header-logo-border-radius:              $border-radius-round !default;
 $header-logo-border-color:               #ddd !default;
@@ -539,7 +540,7 @@ $list-group-item-heading-margin-bottom: 5px !default;
 // Image thumbnails xxxxxxxxxxxxx
 
 $thumbnail-padding:           .25rem !default;
-$thumbnail-bg:                $body-bg !default;
+//$thumbnail-bg:                $body-bg !default;
 $thumbnail-border-width:      $border-width !default;
 $thumbnail-border-color:      #ddd !default;
 $thumbnail-border-radius:     $border-radius !default;

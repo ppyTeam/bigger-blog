@@ -6,7 +6,7 @@
     display: table-cell;
     padding: 0 30px;
     text-align: center;
-    color: $header-font-color; // 可自定义
+    color: $header-font-color;
     vertical-align: middle;
     // word-break: break-all; // 强制换行
   }
@@ -36,10 +36,10 @@
 
   // 所有的 link，可后台自定义
   .header-link {
-    color: $header-font-color; // 可自定义
+    color: $header-font-color;
 
     &:hover {
-      color: $header-hover-font-color; // 可自定义
+      color: $header-hover-font-color;
     }
   }
 
