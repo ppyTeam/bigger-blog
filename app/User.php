@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Zizaco\Entrust\Traits\EntrustUserTrait;
-//use Illuminate\Notifications\Notifiable;
-//use Illuminate\Foundation\Auth\User as Authenticatable;
+use Caffeinated\Shinobi\Traits\ShinobiTrait;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends \Eloquent
+class User extends Authenticatable
 {
-    //use Notifiable;
-    use EntrustUserTrait;
+    use Notifiable;
+    use ShinobiTrait;
 
     /**
      * The attributes that are mass assignable.

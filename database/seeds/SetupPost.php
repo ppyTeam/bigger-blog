@@ -11,17 +11,17 @@ class SetupPost extends Seeder
      */
     public function run()
     {
-//        factory(App\Post::class, 1)->create([
-//            'title' => 'Hello World',
-//            'content' => 'This is the first article of this system.',
-//            'updated_at' => date_create(),
-//            'user_id' => App\User::find(1),
-//            'category_id' => App\Category::find(1),
-//        ]);
+        factory(App\Post::class, 1)->create([
+            'title' => 'Hello World',
+            'content' => 'This is the first article of this system.',
+            'updated_at' => date_create(),
+            'user_id' => App\User::find(1)->id,
+            'category_id' => App\Category::find(1)->id,
+        ]);
         factory(App\Post::class, 1)->create([
             'title' => 'Cmd Markdown 简明语法手册',
             'updated_at' => date_create(),
-            'user_id' => 1,
+            'user_id' => App\User::find(1)->id,
             'category_id' => App\Category::find(1)->id,
             'content' => $this->getMarkDownDemo(),
         ])->tags()->attach([App\Tag::find(1)->id => ['created_at' => date_create()],]);

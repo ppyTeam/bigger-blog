@@ -11,26 +11,26 @@ class SetupRBAC extends Seeder
      */
     public function run()
     {
-        $owner = new \App\Role();
+        #Permission
+        $createPost = app(\Caffeinated\Shinobi\Models\Permission::class);
+        $createPost->name = 'create-post';
+        $createPost->slug = 'Create Posts';
+        $createPost->description = 'create new blog posts';
+        $createPost->save();
+
+        $editUser = app(\Caffeinated\Shinobi\Models\Permission::class);
+        $editUser->name = 'edit-user';
+        $editUser->slug = 'Edit Users';
+        $editUser->description = 'edit existing users';
+        $editUser->save();
+
+        #Role
+        $owner = app(\Caffeinated\Shinobi\Models\Role::class);
         $owner->name = 'owner';
-        $owner->display_name = 'Project Owner';
+        $owner->slug = 'Project Owner';
         $owner->description = 'User is the owner of a given project';
         $owner->save();
 
-        $createPost = new Permission();
-        $createPost->name = 'create-post';
-        $createPost->display_name = 'Create Posts'; // optional
-        // Allow a user to...
-        $createPost->description = 'create new blog posts'; // optional
-        $createPost->save();
-
-        $editUser = new Permission();
-        $editUser->name = 'edit-user';
-        $editUser->display_name = 'Edit Users'; // optional
-        // Allow a user to...
-        $editUser->description = 'edit existing users'; // optional
-        $editUser->save();
-
-        $owner->attachPermissions([$createPost, $editUser]);
+        $owner->syncPermissions([$createPost->id, $editUser->id]);
     }
 }

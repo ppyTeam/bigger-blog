@@ -57,8 +57,7 @@ class Kernel extends HttpKernel
         //Output Separate
         'Output' => \App\Http\Middleware\OutputSeparate::class,
         //RBAC
-        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
-        'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'roleshinobi' => \Caffeinated\Shinobi\Middleware\UserHasRole::class,
+        'permissionshinobi' => \Caffeinated\Shinobi\Middleware\UserHasPermission::class,
     ];
 }

@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Console\Command;
 use Hash;
+use App;
 use Validator;
 
 class Setup extends Command
@@ -25,12 +27,12 @@ class Setup extends Command
     protected $action = [
         'exit' => 'setup.menu.exit',
         'install' => 'setup.menu.install',
-        'update' => 'setup.menu.update',
+        'switch' => 'setup.menu.change_env',
     ];
 
     protected $action_step = [
-        'install' => 5,
-        'update' => 1,
+        'install' => 6,
+        'switch' => 1,
     ];
 
     /**
@@ -121,7 +123,7 @@ class Setup extends Command
         exit;
     }
 
-    protected function act_update()
+    protected function act_switch()
     {
         //
     }
@@ -138,8 +140,14 @@ class Setup extends Command
             ->create_config_file()
             ->do_migration()
             ->ask_admin_info()
-            ->do_db_seed();
+            ->do_db_seed()
+            ->optimize();
+        if ($this->bar !== null) {
+            $this->bar->finish();
+            echo PHP_EOL;
+        }
         $this->info(trans('setup.complete'));
+        exit;
     }
 
     /**
@@ -149,7 +157,6 @@ class Setup extends Command
     protected function ask_app_info()
     {
         $this->app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
-        $this->progress(1, true);
         return $this;
     }
 
@@ -159,8 +166,10 @@ class Setup extends Command
      */
     protected function ask_db_config()
     {
+        $this->progress(1, true);
         while (true) {
             $this->info(trans('setup.ask.db_info'));
+            $config_arr = [];
             $config_arr['DB_CONNECTION'] = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.db_driver')]), ['mysql', 'pgsql', 'sqlite', 'sqlsrv'], 0);
             if ($config_arr['DB_CONNECTION'] == 'sqlite') {
                 $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), database_path('database.sqlite'));
@@ -175,7 +184,6 @@ class Setup extends Command
             if ($this->test_connection($this->config_arr) === true) break;
             $this->warn(trans('setup.db_wrong'));
         }
-        $this->progress(1, true);
         return $this;
     }
 
@@ -187,6 +195,7 @@ class Setup extends Command
     {
         $this->config_arr['APP_URL'] = $this->app_url;
         $this->create_env_file($this->config_arr);
+        $this->execShell('php artisan config:cache');
         return $this;
     }
 
@@ -196,9 +205,10 @@ class Setup extends Command
      */
     protected function do_migration()
     {
+        $this->progress(1, true);
         $this->execShell('php artisan migrate:install');
+        $this->info(trans('setup.create_table'));
         $this->execShell('php artisan migrate');
-        $this->progress(1, false);
         return $this;
     }
 
@@ -208,6 +218,7 @@ class Setup extends Command
      */
     protected function ask_admin_info()
     {
+        $this->progress(1, true);
         while (true) {
             $this->info(trans('setup.ask.admin_info'));
             $user['username'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.username')]), 'admin');
@@ -229,22 +240,27 @@ class Setup extends Command
                 $this->error($error);
             }
         }
-        $admin = app(\App\User::class);
+        $admin = app(App\User::class);
         $admin->name = $user['username'];
         $admin->email = $user['email'];
         $admin->password = Hash::make($user['password']);
         $admin->save();
-        //$this->config_RBAC($admin);
+        $this->config_RBAC($admin);
         return $this;
     }
 
-    protected function config_RBAC($admin)
+    /**
+     * Configure R.B.A.C
+     * @param App\User $admin
+     * @return $this
+     */
+    protected function config_RBAC(App\User $admin)
     {
-        //TODO
         $this->progress(1, false);
+        $this->info(trans('setup.create_admin_role'));
         $this->execShell('php artisan db:seed --class=SetupRBAC');
-        $owner = Role::where(['name' => 'owner']);
-        $admin->attachRole($owner);
+        $owner = Role::where(['name' => 'owner'])->first();
+        $admin->assignRole($owner->id);
         return $this;
     }
 
@@ -254,7 +270,16 @@ class Setup extends Command
      */
     protected function do_db_seed()
     {
-        //TODO
+        $this->progress(1, false);
+        $this->info(trans('setup.create_default_seed'));
+        $this->execShell('php artisan db:seed --class=SetupSeeder');
+        return $this;
+    }
+
+    protected function optimize()
+    {
+        $this->execShell('php artisan route:cache');
+        $this->execShell('php artisan optimize');
         return $this;
     }
 
@@ -300,10 +325,10 @@ class Setup extends Command
     private function create_env_file($config_arr)
     {
         $this->execShell('cp .env.example .env');
-        $this->execShell('php artisan key:generate');
         foreach ($config_arr as $key => $val) {
             $this->setEnv($key, $val);
         }
+        $this->execShell('php artisan key:generate');
     }
 
     private function setEnv($key, $value)
@@ -361,8 +386,8 @@ class Setup extends Command
             $connect_arr['password'] = $config_arr['DB_PASSWORD'];
         }
         try {
-            $capsule->addConnection($connect_arr, 'test_connection');
-            $conn = $capsule->getConnection('test_connection');
+            $capsule->addConnection($connect_arr);
+            $conn = $capsule->getConnection();
             $conn->getPdo()->getAttribute(\PDO::ATTR_SERVER_INFO);
         } catch (\Exception $e) {
             $this->error($e->getMessage());

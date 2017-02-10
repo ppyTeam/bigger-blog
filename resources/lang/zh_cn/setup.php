@@ -11,7 +11,7 @@ return [
     'menu' => [
         'exit' => '退出向导',
         'install' => '首次安装并初始化',
-        'update' => '更新新版迁移',
+        'change_env' => '切换开发环境/生产环境',
     ],
     'already_installed' => '您已经进行过初始化安装了!请勿重复安装',
     'finished' => '安装已结束!',
@@ -32,5 +32,8 @@ return [
     ],
     'db_wrong' => '数据库连接失败!请重新检查并配置数据库信息!',
     'admin_info_failed' => '管理员信息录入失败!请检查并调整以下错误信息:',
+    'create_table' => '正在创建表...',
+    'create_admin_role' => '正在分配管理员权限...',
+    'create_default_seed' => '正在创建初始数据...',
     'complete' => '初始化安装完成!',
 ];

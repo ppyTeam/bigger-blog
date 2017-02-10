@@ -9,6 +9,8 @@ class SetupSeeder extends Seeder
         SetupNav::class,
         SetupCategory::class,
         SetupTag::class,
+        SetupPost::class,
+        SetupSetting::class,
         //SetupRBAC::class,
     ];
 

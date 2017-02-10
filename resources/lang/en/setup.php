@@ -11,7 +11,7 @@ return [
     'menu' => [
         'exit' => 'Exit guide',
         'install' => 'Install and initialize',
-        'update' => 'update and migrate',
+        'change_env' => 'Switch the development environment/production environment',
     ],
     'already_installed' => 'You had already installed!',
     'finished' => 'Setup finished!',
@@ -32,5 +32,8 @@ return [
     ],
     'db_wrong' => 'Could not connect to database! Please check the database info.',
     'admin_info_failed' => 'Could not add Admin User!Please check the following errors:',
+    'create_table' => 'creating table...',
+    'create_admin_role' => 'create admin and configure permissions...',
+    'create_default_seed' => 'create default data...',
     'complete' => 'Initialize Setup Complete!',
 ];
