@@ -3,6 +3,7 @@
 
 .sidebar {
   position: fixed;
+  overflow-y: auto;
 }
 
 .header-sidebar {
@@ -14,6 +15,13 @@
     size: cover;
   }
   word-break: break-all;
+
+
+  // Hidden scrollbar
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+  }
 }
 
 .header-sidebar-panel {

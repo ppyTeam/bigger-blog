@@ -1,0 +1,16 @@
+// 媒体查询
+
+
+// Mobile
+@media screen and (max-width: 980px) {
+
+}
+
+
+// Narrow
+// 解决左侧导航边栏内容超出屏幕的问题
+@media screen and (min-width: 981px) {
+  @media (max-height: 700px) {
+    @import "narrow";
+  }
+}

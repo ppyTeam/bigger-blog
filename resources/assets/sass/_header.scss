@@ -15,7 +15,7 @@
   .logo {
     height: 112px;
     width: 112px;
-    margin-bottom: 25px;
+    margin-bottom: 25px; // narrow => 0
     border: 5px solid $header-logo-border-color;
     border-radius: $header-logo-border-radius;
     background-color: #fff;
@@ -61,7 +61,7 @@
   // 站内链接和站外链接的导航
   .header-nav {
     display: flex;
-    min-height: 250px;
+    min-height: 250px; // narrow => 0
     flex-direction: column;
     justify-content: center;
 
@@ -71,7 +71,7 @@
   }
 
   .header-socially {
-    margin-top: 60px;
+    margin-top: 60px; // narrow => 0
 
     .socially-item {
       display: inline-block;
