@@ -3,6 +3,10 @@
 return [
     'input' => 'Please enter:name',
     'choice' => 'Please choose :name',
+    'choices' => [
+        'production' => 'production environment',
+        'local' => 'local develop environment',
+    ],
     'title' => '【Setup】',
     'tools_name' => 'Blog Setup Guide',
     'version' => 'Version',
@@ -17,6 +21,7 @@ return [
     'finished' => 'Setup finished!',
     'ask' => [
         'app_url' => 'blog site url(domain or ip,default:http://localhost)',
+        'app_env' => 'blog environment:',
         'db_info' => '===Complement Database info===',
         'db_driver' => 'Database driver:',
         'db_host' => 'Database Host:',

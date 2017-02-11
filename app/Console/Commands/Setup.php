@@ -41,6 +41,7 @@ class Setup extends Command
     protected $bar = null;
 
     protected $app_url = null;
+    protected $app_env = null;
     protected $config_arr = [];
 
     /**
@@ -157,6 +158,7 @@ class Setup extends Command
     protected function ask_app_info()
     {
         $this->app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
+        $this->app_env = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.app_env')]), ['production' => trans('setup.choice.production'), 'local' => trans('setup.choice.local')], 'production');
         return $this;
     }
 
@@ -194,6 +196,7 @@ class Setup extends Command
     protected function create_config_file()
     {
         $this->config_arr['APP_URL'] = $this->app_url;
+        $this->config_arr['APP_ENV'] = $this->app_env;
         $this->create_env_file($this->config_arr);
         $this->execShell('php artisan config:cache');
         return $this;

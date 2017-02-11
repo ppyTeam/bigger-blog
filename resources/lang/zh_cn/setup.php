@@ -3,6 +3,10 @@
 return [
     'input' => '请填写:name',
     'choice' => '请选择:name',
+    'choices'=>[
+        'production'=>'线上正式环境',
+        'local'=>'本地开发环境',
+    ],
     'title' => '【安装向导】',
     'tools_name' => '博客初始化安装工具',
     'version' => '版本',
@@ -17,6 +21,7 @@ return [
     'finished' => '安装已结束!',
     'ask' => [
         'app_url' => '博客的站点地址(url或者ip,默认:http://localhost)',
+        'app_env' => '当前系统环境:',
         'db_info' => '===补全数据库信息===',
         'db_driver' => '数据库驱动类型:',
         'db_host' => '数据库HOST地址:',
