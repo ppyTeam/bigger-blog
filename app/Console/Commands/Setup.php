@@ -261,7 +261,7 @@ class Setup extends Command
     {
         $this->progress(1, false);
         $this->info(trans('setup.create_admin_role'));
-        $this->execShell('php artisan db:seed --class=SetupRBAC');
+        $this->execShell('php artisan db:seed --force --class=SetupRBAC');
         $owner = Role::where(['name' => 'owner'])->first();
         $admin->assignRole($owner->id);
         return $this;
@@ -275,7 +275,7 @@ class Setup extends Command
     {
         $this->progress(1, false);
         $this->info(trans('setup.create_default_seed'));
-        $this->execShell('php artisan db:seed --class=SetupSeeder');
+        $this->execShell('php artisan db:seed --force --class=SetupSeeder');
         return $this;
     }
 
