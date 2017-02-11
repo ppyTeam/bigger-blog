@@ -158,7 +158,7 @@ class Setup extends Command
     protected function ask_app_info()
     {
         $this->app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
-        $this->app_env = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.app_env')]), ['production' => trans('setup.choice.production'), 'local' => trans('setup.choice.local')], 'production');
+        $this->app_env = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.app_env')]), ['production' => trans('setup.choices.production'), 'local' => trans('setup.choices.local')], 'production');
         return $this;
     }
 
