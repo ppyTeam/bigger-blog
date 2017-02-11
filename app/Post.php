@@ -64,24 +64,11 @@ class Post extends Model
      */
     public function getNeighbourAttribute()
     {
-        $neighbour_posts = Post::whereIn('id', [$this->id - 1, $this->id + 1])->get(['id', 'title']);
-        $return_posts = [
-            'prev' => null,
-            'next' => null,
+        $prev_post = Post::where('id', '<', $this->id)->orderBy('id', 'desc')->first(['id', 'title']);
+        $next_post = Post::where('id', '>', $this->id)->orderBy('id', 'asc')->first(['id', 'title']);
+        return [
+            'prev' => $prev_post ? $prev_post->toArray() : null,
+            'next' => $next_post ? $next_post->toArray() : null,
         ];
-        foreach ($neighbour_posts as $each_post) {
-            if ($this->id - 1 === $each_post->id) {
-                $return_posts['prev'] = [
-                    'id' => $each_post->id,
-                    'title' => $each_post->title,
-                ];
-            } elseif ($this->id + 1 === $each_post->id) {
-                $return_posts['next'] = [
-                    'id' => $each_post->id,
-                    'title' => $each_post->title,
-                ];
-            }
-        }
-        return $return_posts;
     }
 }
