@@ -211,7 +211,7 @@ class Setup extends Command
         $this->progress(1, true);
         $this->execShell('php artisan migrate:install');
         $this->info(trans('setup.create_table'));
-        $this->execShell('php artisan migrate');
+        $this->execShell('php artisan migrate --force');
         return $this;
     }
 
