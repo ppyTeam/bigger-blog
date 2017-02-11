@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: chenyi
- * Date: 2016/12/8 0008
- * Time: 23:17
- */
 
 namespace App\Repository;
 
 
 use App\Post;
+use Illuminate\Support\Facades\Cache;
 
 class PostRepository extends IRepository
 {
@@ -27,18 +22,32 @@ class PostRepository extends IRepository
     /**
      * 文章分页
      * @param int $limit
+     * @param int $page
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function postPaginate($limit = 10, $page = 1)
+    {
+        //$posts = Post::where('updated_at', '<=', Carbon::now())
+        $columns = ['*'];
+        //$posts = Cache::remember('posts.' . $page, $minutes = 120, function () use ($limit, $columns, $page) {
+        $posts = $this->orderBy('id', 'desc')->paginate($limit, $columns, $page);
+        $posts = $this->getPostOtherInfo($posts);
+        //return $posts;
+        //});
+        return $posts;
+    }
+
+    /**
+     * 文章简单分页
+     * @param int $limit
+     * @param int $page
      * @param array $columns
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function simplePaginate($limit = 10, $columns = ['*'])
+    public function postSimplePaginate($limit = 10, $page = 1, $columns = ['*'])
     {
-        //$this->applyCriteria();
-        //查询文章并分页
-        //$posts = Post::where('updated_at', '<=', Carbon::now())
-        $posts = $this->orderBy('id', 'desc')->paginate($limit, $columns);
-        $posts = $this->getPostOtherInfo($posts);
-        return $posts;
 
+        return $this->orderBy('id', 'desc')->simplePaginate($limit, $columns, $page);
     }
 
     /**

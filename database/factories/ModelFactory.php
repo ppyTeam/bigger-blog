@@ -45,3 +45,12 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
         'category_name' => $faker->words(1, true),
     ];
 });
+
+$factory->define(App\Nav::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->words(1, true),
+        'url' => '/',
+        'flag' => $faker->boolean(50),
+        'icon' => '',
+    ];
+});

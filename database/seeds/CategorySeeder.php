@@ -12,12 +12,6 @@ class CategorySeeder extends Seeder
     public function run()
     {
         factory(App\Category::class)->create([
-            'category_name'=>'blog',
-        ]);
-        factory(App\Category::class)->create([
-            'category_name'=>'share',
-        ]);
-        factory(App\Category::class)->create([
             'category_name'=>'test',
         ]);
     }

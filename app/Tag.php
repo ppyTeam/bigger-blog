@@ -13,4 +13,10 @@ class Tag extends Model
     {
         return $this->belongsToMany(Post::class);
     }
+
+    public function getTagsInfoAttribute()
+    {
+
+        return ['id' => $this->id, 'tag_name' => $this->tag_name];
+    }
 }

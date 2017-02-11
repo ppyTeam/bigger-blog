@@ -93,14 +93,27 @@ abstract class IRepository implements RepositoryInterface, RepositoryCriteriaInt
      * 分页查询
      * @param int $perPage
      * @param array $columns
+     * @param int $page
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($perPage = 25, $columns = array('*'))
+    public function paginate($perPage = 25, $columns = array('*'), $page = 1)
     {
         $this->applyCriteria();
-        return $this->model->paginate($perPage, $columns);
+        return $this->model->paginate($perPage, $columns, 'page', $page);
     }
 
+    /**
+     * 简单分页查询
+     * @param int $perPage
+     * @param array $columns
+     * @param int $page
+     * @return mixed
+     */
+    public function simplePaginate($perPage=25, $columns = array('*'), $page = 1)
+    {
+        $this->applyCriteria();
+        return $this->model->simplePaginate($perPage, $columns, 'page', $page);
+    }
     /**
      * 新增记录
      * @param array $data
@@ -191,29 +204,31 @@ abstract class IRepository implements RepositoryInterface, RepositoryCriteriaInt
      * @param array $where
      * @param array $columns
      * @param bool $or 条件之间关联是'与'还是'或'
-     * @return \Illuminate\Database\Eloquent\Collection|null
+     * @return \Illuminate\Database\Eloquent\Collection|$this|null
      */
     public function findWhere($where, $columns = ['*'], $or = false)
     {
         $this->applyCriteria();
-        $model = $this->model;
         $whereFunction = (!$or) ? 'where' : 'orWhere';
         foreach ($where as $field => $value) {
             if ($value instanceof \Closure) {
-                $model = $model->{$whereFunction}($value);
+                $this->model = $this->model->{$whereFunction}($value);
             } elseif (is_array($value)) {
                 if (count($value) === 3) {
                     list($field, $operator, $search) = $value;
-                    $model = $model->{$whereFunction}($field, $operator, $search);
+                    $this->model = $this->model->{$whereFunction}($field, $operator, $search);
                 } elseif (count($value) === 2) {
                     list($field, $search) = $value;
-                    $model = $model->{$whereFunction}($field, '=', $search);
+                    $this->model = $this->model->{$whereFunction}($field, '=', $search);
                 }
             } else {
-                $model = $model->{$whereFunction}($field, '=', $value);
+                $this->model = $this->model->{$whereFunction}($field, '=', $value);
             }
         }
-        return $model->get($columns);
+        if ($columns === null) {
+            return $this;
+        }
+        return $this->model->get($columns);
     }
 
 

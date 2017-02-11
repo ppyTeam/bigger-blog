@@ -2,30 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ReturnDataHelper;
 use App\Repository\PostRepository;
-use Illuminate\Http\Request;
+use App\Transformers;
+use App\Criteria;
 
 class PostController extends Controller
 {
-    protected $postRepository;
+    /**
+     * @var PostRepository
+     */
+    protected $postRepo;
 
-    public function __construct(PostRepository $postRepository)
+    public function __construct(PostRepository $postRepository, ReturnDataHelper $dataHelper)
     {
-        $this->postRepository = $postRepository;
+        $this->postRepo = $postRepository->pushCriteria(app(Criteria\ShowInSite::class));
+        $this->returnHelper = $dataHelper;
     }
 
-    public function index()
+    /**
+     * 文章列表
+     * @param int $page 分页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index($page = 1)
     {
-        $posts = $this->postRepository->simplePaginate(5);
-        return view('post.index', compact('posts'));
+        $posts = $this->postRepo->postPaginate(5, $page);
+        $this->returnData['main'] = $this->returnHelper->transform($posts, new Transformers\PostListTransformer());
+        return $this->returnHelper->handler($this->returnData, 'blog.list');
     }
 
+    /**
+     * 文章详情
+     * @param int $id 文章id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($id)
     {
-        $show_post = $this->postRepository->findOneBy('id', $id);
+        $show_post = $this->postRepo->findOneBy('id', $id);
         if (empty($show_post)) {
             abort(404);
         }
-        return view('post.show', compact('show_post'));
+        $this->returnData['main'] = $this->returnHelper->transform($show_post, new Transformers\PostTransformer());
+        return $this->returnHelper->handler($this->returnData, 'blog.show');
     }
 }

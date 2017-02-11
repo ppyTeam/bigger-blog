@@ -1,0 +1,6 @@
+@mixin clearfix {
+  display: block;
+  visibility: hidden;
+  content: '';
+  clear: both;
+}

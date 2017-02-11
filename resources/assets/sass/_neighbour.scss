@@ -1,0 +1,35 @@
+// Neighbour
+// 文章页面的上一篇下一篇
+
+
+.neighbour-box {
+  margin: 35px;
+
+  &::after {
+    @include clearfix;
+  }
+
+
+  .neighbour-link {
+    color: $neighbour-font-color;
+    transition: color .3s;
+
+    &:hover {
+      color: $neighbour-hover-font-color;
+    }
+
+
+    .fa {
+      padding: 0 10px;
+    }
+  }
+
+
+  //.neighbour-next {
+  //
+  //}
+
+  .neighbour-prev {
+    float: right;
+  }
+}

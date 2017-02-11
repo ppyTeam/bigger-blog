@@ -1,20 +1,58 @@
+"use strict";
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 
-require('./bootstrap');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
+import '../sass/app.scss';
+import NProgress from 'nprogress';
+import hljs from 'highlight.js';
+import router from './app-router';
+import store from './store/index';
 
-Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-    el: '#app'
+// Setting
+Vue.http.options.emulateHTTP = true;
+NProgress.configure({ showSpinner: false });
+
+
+// 自定义高亮指令
+Vue.directive('hljs', el => {
+    let blocks = el.querySelectorAll('pre code');
+    Array.prototype.forEach.call(blocks, hljs.highlightBlock);
+});
+
+import toc from './toc';
+// 自定义 TOC
+Vue.directive('toc', el => {
+    let content = el.innerHTML
+    el.innerHTML = toc.tocBlock(content) + content;
+});
+
+
+// 拦截 Ajax 请求
+Vue.http.interceptors.push((request, next) => {
+    NProgress.start();
+
+    // continue
+    next(response => {
+        if (!response.ok) {
+            // TODO 留着
+        }
+
+        NProgress.done();
+    });
+});
+
+
+// root
+new Vue({
+    el: '#app',
+    router,
+    store,
+    created () {
+        this.$store.commit('initNavData'); // 初始化导航数据
+        this.$store.commit('initBlogContent'); // 初始化文章正文
+    }
 });

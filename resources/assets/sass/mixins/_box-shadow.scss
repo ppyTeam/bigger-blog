@@ -1,0 +1,7 @@
+@mixin box-shadow($shadows...) {
+  box-shadow: $shadows;
+}
+
+@mixin box-shadow-inset($shadow...) {
+  box-shadow: inset $shadow;
+}

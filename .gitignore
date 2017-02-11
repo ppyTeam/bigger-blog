@@ -16,10 +16,14 @@ Homestead.yaml
 # ide-helper
 .phpstorm.meta.php
 _ide_helper*.php
+ide-helper.php
 
 # Composer
-composer.lock
+# composer.lock
 
+# 开发时暂时排除编译完成的静态资源
 # public
-/public/css/*
-/public/js/*
+# /public/css/*
+# /public/js/*
+# /public/images/*
+# /public/fonts/*

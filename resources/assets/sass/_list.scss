@@ -1,0 +1,88 @@
+// List
+// 列表页面
+
+.post-header {
+  padding: 40px $post-padding-left 0;
+
+  &::after {
+    @include clearfix;
+  }
+
+
+  // title
+  .post-title {
+    display: inline-block;
+    // width: 77%; // 这个宽度是浏览量在980px下正好不会掉下的极限，而且虽然提前换行很蠢，但是标题不应该这么长，适用于浏览人数
+    width: calc(100% - 115px);
+    line-height: 1.875rem;
+  }
+
+
+  // 浏览人数（已移除该功能，暂不删除） && 发布时间
+  .post-header-span {
+    float: right;
+    line-height: 1.875rem; // 与上面 h2 的 line-height 匹配
+
+    &::before {
+      @include padding-right();
+    }
+  }
+}
+
+
+.post-content {
+  margin-top: 10px;
+  padding: 0 $post-content-padding-lr;
+  line-height: $post-content-line-height;
+}
+
+
+// more link
+.post-more {
+  margin-top: 20px;
+  padding: 0 $post-more-link-padding-lr;
+
+  .post-more-link {
+    display: inline-block;
+    padding: $post-more-link-padding;
+    font-size: $post-more-link-font-size;
+    border-radius: $post-more-link-border-radius;
+    color: $post-more-link-font-color;
+    background-color: $post-more-link-bg-color;
+
+    &:hover {
+      background-color: $post-more-link-hover-bg-color;
+    }
+  }
+}
+
+
+.post-footer {
+  margin: 30px $post-footer-margin-lr 0;
+  padding-top: 20px;
+  min-height: 70px;
+  border-top: 1px solid $post-footer-border-top-color;
+
+
+  .post-footer-item {
+    display: inline-block;
+    margin-right: 25px;
+    padding-left: 0;
+    color: $post-footer-font-color;
+  }
+
+
+  // tag 项
+  .tag-item {
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+
+  // for font awesome
+  .fa {
+    &::before {
+      @include padding-right();
+    }
+  }
+}

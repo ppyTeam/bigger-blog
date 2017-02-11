@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => env('TIMEZONE') ? :'Asia/Shanghai',
+    'timezone' => env('TIMEZONE') ?: 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' =>  env('LOCALE') ? :'zh_cn',
+    'locale' => env('LOCALE') ?: 'zh_cn',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,8 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
-        //
+        Caffeinated\Shinobi\ShinobiServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -179,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         //Service Provider
         Sven\EnvProviders\EnvServiceProvider::class,
-
+        App\Providers\MarkdownServiceProvider::class,
     ],
 
     /*
@@ -229,6 +228,10 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         //Laravel-DebugBar
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        //Blog Setting Facade
+        'Setting' => App\Facades\Setting::class,
+        //Markdown
+        'Markdown' => App\Facades\MarkDown::class,
     ],
 
 ];

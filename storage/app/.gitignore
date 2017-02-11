@@ -1,3 +1,7 @@
 *
 !public/
 !.gitignore
+
+# 开发时暂时排除该文件
+# assets files
+!assets-*

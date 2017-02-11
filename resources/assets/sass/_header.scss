@@ -1,0 +1,81 @@
+// Header
+// 名为头部的边栏，外层容器见 sidebar.scss
+
+.header-sidebar-panel {
+  .header-panel {
+    display: table-cell;
+    padding: 0 30px;
+    text-align: center;
+    color: $header-font-color; // 可自定义
+    vertical-align: middle;
+    // word-break: break-all; // 强制换行
+  }
+
+
+  .logo {
+    height: 112px;
+    width: 112px;
+    margin-bottom: 25px;
+    border: 5px solid $header-logo-border-color;
+    border-radius: $header-logo-border-radius;
+    background-color: #fff;
+
+    &:hover {
+      box-shadow: 0 0 1rem $header-logo-hover-border-color;
+      border-color: $header-logo-hover-border-color;
+    }
+  }
+
+
+  // 大标题和副标题
+  .header-title {
+    margin: 1.125rem 0; // ~18px
+    font-family: $header-title-font-family;
+  }
+
+
+  // 所有的 link，可后台自定义
+  .header-link {
+    color: $header-font-color; // 可自定义
+
+    &:hover {
+      color: $header-hover-font-color; // 可自定义
+    }
+  }
+
+
+  hr {
+    width: 40%;
+    border: 0;
+    border-top: 1px rgba(255, 255, 255, 0.3) solid;
+  }
+
+
+  // 全部 header 中的 ul 的定义，为了性能考虑加上类
+  .nav-ul {
+    padding: 0;
+    font-size: 1.25rem;
+  }
+
+
+  // 站内链接和站外链接的导航
+  .header-nav {
+    display: flex;
+    min-height: 250px;
+    flex-direction: column;
+    justify-content: center;
+
+    .nav-item {
+      margin: 8px 0;
+    }
+  }
+
+  .header-socially {
+    margin-top: 60px;
+
+    .socially-item {
+      display: inline-block;
+      padding: 6px 8px;
+    }
+  }
+}
