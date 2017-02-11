@@ -37,7 +37,7 @@ return [
     ],
     'db_wrong' => 'Could not connect to database! Please check the database info.',
     'admin_info_failed' => 'Could not add Admin User!Please check the following errors:',
-    'create_table' => 'creating table...',
+    'create_table' => 'creating table,it will take a while...',
     'create_admin_role' => 'create admin and configure permissions...',
     'create_default_seed' => 'create default data...',
     'complete' => 'Initialize Setup Complete!',

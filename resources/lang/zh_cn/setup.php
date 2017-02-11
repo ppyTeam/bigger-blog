@@ -3,9 +3,9 @@
 return [
     'input' => '请填写:name',
     'choice' => '请选择:name',
-    'choices'=>[
-        'production'=>'线上正式环境',
-        'local'=>'本地开发环境',
+    'choices' => [
+        'production' => '线上正式环境',
+        'local' => '本地开发环境',
     ],
     'title' => '【安装向导】',
     'tools_name' => '博客初始化安装工具',
@@ -37,7 +37,7 @@ return [
     ],
     'db_wrong' => '数据库连接失败!请重新检查并配置数据库信息!',
     'admin_info_failed' => '管理员信息录入失败!请检查并调整以下错误信息:',
-    'create_table' => '正在创建表...',
+    'create_table' => '正在创建表,请耐心等待...',
     'create_admin_role' => '正在分配管理员权限...',
     'create_default_seed' => '正在创建初始数据...',
     'complete' => '初始化安装完成!',
