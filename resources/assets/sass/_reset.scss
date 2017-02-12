@@ -26,8 +26,8 @@ body {
   line-height: $line-height-base;
   color: $body-color;
 
-  background: {
-    color: $body-bg-color;
+  background: {                       // mobile => 0
+    color: $body-bg-color;            // mobile => #fff
     image: $body-bg-image;
     size: $body-bg-size;
     attachment: $body-bg-attachment;

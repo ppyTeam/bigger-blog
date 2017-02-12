@@ -2,15 +2,15 @@
 // 边栏，针对 header 等
 
 .sidebar {
-  position: fixed;
-  overflow-y: auto;
+  position: fixed;                    // mobile => static
+  overflow-y: auto;                   // mobile => hidden
 }
 
 .header-sidebar {
   height: 100%;
-  width: $sidebar-header-width;
-  background: {
-    image: $sidebar-header-bg-image;
+  width: $sidebar-header-width;       // mobile => 100%
+  background: {                       // mobile => background-color: #21233a
+    image: $sidebar-header-bg-image;  // mobile => none
     repeat: no-repeat;
     size: cover;
   }
@@ -25,7 +25,7 @@
 }
 
 .header-sidebar-panel {
-  display: table;
+  display: table;                     // mobile => block
   height: 100%;
   width: 100%;
   background-image: $sidebar-header-bg-cover;

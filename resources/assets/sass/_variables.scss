@@ -27,9 +27,9 @@ $brand-inverse:             $gray-dark !default;
 $body-bg-color:             #eee !default;        // Custom 配色最好与 image 匹配
 $body-color:                $gray-dark !default;
 $body-bg-image:             '' !default;          // Custom
-$body-bg-size:              cover !default;       // Custom
-$body-bg-attachment:        fixed !default;       // Custom
-$body-bg-repeat:            no-repeat !default;   // Custom
+$body-bg-size:              initial !default;     // Custom
+$body-bg-attachment:        initial !default;     // Custom
+$body-bg-repeat:            repeat !default;      // Custom
 
 // Links
 // =======================================
@@ -61,6 +61,13 @@ $font-size-h3: 1.25rem !default;      // ~20px
 $font-size-h4: 1.125rem !default;     // ~18px
 $font-size-h5: 1rem !default;         // ~16px
 $font-size-h6: .875rem !default;      // ~14px
+
+$font-size-h1-m: 1.5rem !default;     // ~24px
+$font-size-h2-m: 1.25rem !default;    // ~20px
+$font-size-h3-m: 1.125rem !default;   // ~18px
+$font-size-h4-m: 1rem !default;       // ~16px
+$font-size-h5-m: .875rem !default;    // ~14px
+$font-size-h6-m: .75rem !default;     // ~12px
 
 //xxx
 $headings-font-family:   inherit !default;

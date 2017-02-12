@@ -1,8 +1,8 @@
 // Layout
 // 右侧主体框架结构
 
-.content-box {
-  position: absolute;
+.content-box {                            // mobile => background-color: #fff
+  position: absolute;                     // mobile => static
   right: 0;
   left: $layout-left-width;
   min-height: 100%;
@@ -14,14 +14,14 @@
 
 
   .post {
-    margin: 35px;
-    border: {
+    margin: 35px;                         // mobile => 0
+    border: {                             // mobile => 0
       top: $post-border-top;
       right: $post-border-right;
       bottom: $post-border-bottom;
       left: $post-border-left;
     };
-    background-color: $post-bg-color;
-    @include box-shadow($post-box-shadow);
+    background-color: $post-bg-color;     // mobile => #fff
+    @include box-shadow($post-box-shadow);// mobile => none
   }
 }

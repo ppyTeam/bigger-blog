@@ -3,8 +3,8 @@
 
 .header-sidebar-panel {
   .header-panel {
-    display: table-cell;
-    padding: 0 30px;
+    display: table-cell;                    // mobile => block
+    padding: 0 30px;                        // mobile => 15px 15px 0
     text-align: center;
     color: $header-font-color;
     vertical-align: middle;
@@ -13,10 +13,10 @@
 
 
   .logo {
-    height: 112px;
-    width: 112px;
-    margin-bottom: 25px; // narrow => 0
-    border: 5px solid $header-logo-border-color;
+    height: 112px;                          // mobile => 84px
+    width: 112px;                           // mobile => 84px
+    margin-bottom: 25px;                    // narrow => 0, mobile => 0
+    border: 5px solid $header-logo-border-color;  // mobile => 3px #fff
     border-radius: $header-logo-border-radius;
     background-color: #fff;
 
@@ -28,8 +28,8 @@
 
 
   // 大标题和副标题
-  .header-title {
-    margin: 1.125rem 0; // ~18px
+  .header-title {                           // mobile => h1, h4
+    margin: 1.125rem 0; // ~18px            // mobile => .875rem 0 // ~14px
     font-family: $header-title-font-family;
   }
 
@@ -44,7 +44,7 @@
   }
 
 
-  hr {
+  hr {                                      // mobile => display: none
     width: 40%;
     border: 0;
     border-top: 1px rgba(255, 255, 255, 0.3) solid;
