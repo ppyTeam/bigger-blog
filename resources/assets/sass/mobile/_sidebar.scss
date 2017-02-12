@@ -1,0 +1,18 @@
+// Mobile
+// Sidebar
+// 边栏，针对 header 等
+
+.sidebar {
+  position: static;
+  overflow-y: hidden;
+}
+
+.header-sidebar {
+  width: 100%;
+  background-image: none;
+  background-color: #21233a;
+}
+
+.header-sidebar-panel {
+  display: block;
+}

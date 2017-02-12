@@ -25,7 +25,15 @@ body {
   font-size: $font-size-base;
   line-height: $line-height-base;
   color: $body-color;
-  background-color: $body-bg;
+
+  background: {                       // mobile => 0
+    color: $body-bg-color;            // mobile => #fff
+    image: $body-bg-image;
+    size: $body-bg-size;
+    attachment: $body-bg-attachment;
+    repeat: $body-bg-repeat;
+  }
+
   word-break: keep-all;
   word-wrap: break-word;
 }

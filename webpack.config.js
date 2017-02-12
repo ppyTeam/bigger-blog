@@ -60,7 +60,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        use: 'babel-loader'
       },
 
       {
@@ -70,15 +70,15 @@ module.exports = {
         options: {
           loaders: {
             css: ExtractTextPlugin.extract({
-              fallbackLoader: 'vue-style-loader',
-              loader: [
+              fallback: 'vue-style-loader',
+              use: [
                 'css-loader',
                 'postcss-loader'
               ]
             }),
             scss: ExtractTextPlugin.extract({
-              fallbackLoader: 'vue-style-loader',
-              loader: [
+              fallback: 'vue-style-loader',
+              use: [
                 'css-loader',
                 'postcss-loader',
                 'sass-loader'
@@ -90,9 +90,9 @@ module.exports = {
 
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: "style-loader",
-          loader: [
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
             'css-loader',
             'postcss-loader'
           ]
@@ -101,9 +101,9 @@ module.exports = {
 
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
             'css-loader',
             'postcss-loader',
             'sass-loader'

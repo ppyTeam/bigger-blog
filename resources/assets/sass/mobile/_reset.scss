@@ -1,0 +1,35 @@
+// Mobile
+// Reset (Edit by BootStrap v4)
+// 重置基础样式，涉及 Bug 修复、统一样式等
+
+
+// Reset HTML, body, and more
+// -------------------------------------------------
+
+body {
+  background: none;
+  background-color: #fff;
+}
+
+
+// Typography and Figures
+// -------------------------------------------------
+
+h1 {
+  font-size: $font-size-h1-m;
+}
+h2 {
+  font-size: $font-size-h2-m;
+}
+h3 {
+  font-size: $font-size-h3-m;
+}
+h4 {
+  font-size: $font-size-h4-m;
+}
+h5 {
+  font-size: $font-size-h5-m;
+}
+h6 {
+  font-size: $font-size-h6-m;
+}

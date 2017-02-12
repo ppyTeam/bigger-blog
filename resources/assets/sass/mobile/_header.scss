@@ -1,0 +1,65 @@
+// Mobile
+// Header
+// 名为头部的边栏，外层容器见 sidebar.scss
+
+.header-sidebar-panel {
+  .header-panel {
+    display: block;
+    padding: 15px 15px 0;
+    color: $header-font-color;
+  }
+
+
+  .logo {
+    height: 84px;
+    width: 84px;
+    margin: 0;
+    border-color: #fff;
+    border-width: 3px;
+  }
+
+
+  // 大标题和副标题
+  .header-title {
+    margin: .875rem 0; // ~14px
+  }
+
+  // 大标题
+  h1.header-title {
+    font-size: 1.6rem;
+    line-height: 30px;
+  }
+
+  // 副标题
+  h4.header-title {
+    color: #ccc;
+  }
+
+
+  hr {
+    display: none;
+  }
+
+
+  // 全部 header 中的 ul 的定义，为了性能考虑加上类
+  .nav-ul {
+    margin: .5rem 0;
+    font-size: 1.25rem;
+  }
+
+
+  // 站内链接和站外链接的导航
+  .header-nav {
+    display: none;
+  }
+
+  .header-socially {
+    margin-top: 0;
+
+    .socially-item {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 1rem;
+    }
+  }
+}
