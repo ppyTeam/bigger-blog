@@ -445,7 +445,7 @@ class Setup extends Command
     {
         $return_arr = [];
         array_walk($choice_arr, function ($value, $key) use (&$return_arr) {
-            $return_arr[strtolower($key[0])] = $key . ': ' . trans($value);
+            $return_arr[strtolower($key[0])] = $key . ": \t" . trans($value);
         });
         return $return_arr;
     }

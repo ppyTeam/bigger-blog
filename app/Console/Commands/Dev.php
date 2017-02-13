@@ -53,7 +53,9 @@ class Dev extends Command
     public function handle()
     {
         $this->show_help();
-        $choice = $this->choice('Please choose the number what you want to do,or press Enter to', array_keys($this->action), 0);
+        $options = $this->make_options($this->action);
+        $choice = $this->choice('Please choose the number what you want to do,or press Enter to exit', $options, array_keys($options)[0]);
+        $choice = $this->get_option_key($choice, $options);
         $max_step = isset($this->action_step[$choice]) ? $this->action_step[$choice] : -1;
         $this->start($max_step);
         call_user_func([$this, 'act_' . $choice]);
@@ -63,6 +65,7 @@ class Dev extends Command
 
     public function show_help()
     {
+        $this->info("\e[H\e[J");
         $this->table(['【开发者工具】Development Tools'], []);
         foreach ($this->action as $name => $description) {
             $this->warn('- ' . $name . ":");
@@ -151,5 +154,19 @@ class Dev extends Command
 
     }
 
+
+    private function make_options($choice_arr)
+    {
+        $return_arr = [];
+        array_walk($choice_arr, function ($value, $key) use (&$return_arr) {
+            $return_arr[strtolower($key[0])] = $key . ": \t" . trans($value);
+        });
+        return $return_arr;
+    }
+
+    private function get_option_key($choice, $option_arr)
+    {
+        return explode(': ', $option_arr[$choice])[0];
+    }
 
 }
