@@ -6,6 +6,7 @@ use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Console\Command;
 use Hash;
 use App;
+use Illuminate\Database\Capsule\Manager;
 use Validator;
 
 class Setup extends Command
@@ -40,8 +41,6 @@ class Setup extends Command
      */
     protected $bar = null;
 
-    protected $app_url = null;
-    protected $app_env = null;
     protected $config_arr = [];
 
     /**
@@ -85,7 +84,7 @@ class Setup extends Command
                 break;
         }
         \App::setLocale($language);
-        $this->execShell('clear');
+        $this->info("\e[H\e[J");
         return $this;
     }
 
@@ -111,10 +110,11 @@ class Setup extends Command
      */
     public function ask_choice()
     {
-        $choice = $this->choice(trans('setup.choice', ['name' => trans('setup.choice_tips')]), array_keys($this->action), 0);
+        $options = $this->make_options($this->action);
+        $choice = $this->choice(trans('setup.choice', ['name' => trans('setup.choice_tips')]), $options, array_keys($options)[0]);
         $max_step = isset($this->action_step[$choice]) ? $this->action_step[$choice] : -1;
         $this->start_progress($max_step);
-        call_user_func([$this, 'act_' . $choice]);
+        call_user_func([$this, 'act_' . $this->get_option_key($choice, $options)]);
         $this->finish_progress();
         return $this;
     }
@@ -126,17 +126,29 @@ class Setup extends Command
 
     protected function act_switch()
     {
-        //
+        if (!file_exists($this->env_path())) {
+            $this->error(trans('setup.file_not_found', ['name' => '.env']));
+            exit;
+        }
+        $env_file = file_get_contents($this->env_path());
+        if ($env_file === false) {
+            $this->error(trans('setup.file_not_found', ['name' => '.env']));
+            exit;
+        }
+        $this->ask_environment();
+        $this->set_env($this->config_arr, $env_file);
+        $this->optimize();
     }
 
     protected function act_install()
     {
-        if (file_exists($this->laravel->environmentFilePath())) {
+        if (file_exists($this->env_path())) {
             $this->error(PHP_EOL . trans('setup.already_installed') . PHP_EOL);
             $this->finish_progress();
             exit;
         }
         $this->ask_app_info()
+            ->ask_environment()
             ->ask_db_config()
             ->create_config_file()
             ->do_migration()
@@ -157,8 +169,28 @@ class Setup extends Command
      */
     protected function ask_app_info()
     {
-        $this->app_url = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
-        $this->app_env = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.app_env')]), ['production' => trans('setup.choices.production'), 'local' => trans('setup.choices.local')], 'production');
+        while (true) {
+            $this->config_arr['APP_URL'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.app_url')]), 'http://localhost');
+            $validator = Validator::make($this->config_arr, [
+                'APP_URL' => 'required|url',
+            ]);
+            if (!$validator->fails()) {
+                break;
+            }
+            $this->error($validator->errors()->first());
+        }
+        return $this;
+    }
+
+    /**
+     * Choice app environment
+     * @return $this
+     */
+    protected function ask_environment()
+    {
+        $options = $this->make_options(['production' => trans('setup.choices.production'), 'local' => trans('setup.choices.local')]);
+        $choice = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.app_env')]), $options, 'p');
+        $this->config_arr['APP_ENV'] = $this->get_option_key($choice, $options);
         return $this;
     }
 
@@ -169,22 +201,26 @@ class Setup extends Command
     protected function ask_db_config()
     {
         $this->progress(1, true);
+        $config_arr = [];
         while (true) {
             $this->info(trans('setup.ask.db_info'));
-            $config_arr = [];
-            $config_arr['DB_CONNECTION'] = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.db_driver')]), ['mysql', 'pgsql', 'sqlite', 'sqlsrv'], 0);
+            $choice_arr = [1 => 'mysql', 2 => 'pgsql', 3 => 'sqlite', 4 => 'sqlsrv'];
+            $config_arr['DB_CONNECTION'] = $this->choice(trans('setup.choice', ['name' => trans('setup.ask.db_driver')]), $choice_arr, 1);
             if ($config_arr['DB_CONNECTION'] == 'sqlite') {
                 $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), database_path('database.sqlite'));
             } else {
                 $config_arr['DB_HOST'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_host')]), 'localhost');
                 $config_arr['DB_PORT'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_port')]), '3306');
-                $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]), '');
-                $config_arr['DB_USERNAME'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_username')]), '');
-                $config_arr['DB_PASSWORD'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_pwd')]), '');
+                $config_arr['DB_DATABASE'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_name')]));
+                $config_arr['DB_USERNAME'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_username')]));
+                $config_arr['DB_PASSWORD'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.db_pwd')]));
             }
-            $this->config_arr = $config_arr;
-            if ($this->test_connection($this->config_arr) === true) break;
+            if ($this->test_connection($config_arr) === true) break;
+            $config_arr = [];
             $this->warn(trans('setup.db_wrong'));
+        }
+        foreach ($config_arr as $key => $value) {
+            $this->config_arr[$key] = $value;
         }
         return $this;
     }
@@ -195,10 +231,8 @@ class Setup extends Command
      */
     protected function create_config_file()
     {
-        $this->config_arr['APP_URL'] = $this->app_url;
-        $this->config_arr['APP_ENV'] = $this->app_env;
-        $this->create_env_file($this->config_arr);
-        $this->execShell('php artisan config:cache');
+        $this->create_env_file();
+        $this->call('config:cache');
         return $this;
     }
 
@@ -209,9 +243,9 @@ class Setup extends Command
     protected function do_migration()
     {
         $this->progress(1, true);
-        $this->execShell('php artisan migrate:install');
+        $this->call('migrate:install');
         $this->info(trans('setup.create_table'));
-        $this->execShell('php artisan migrate --force');
+        $this->call('migrate', ['--force' => null]);
         return $this;
     }
 
@@ -227,7 +261,7 @@ class Setup extends Command
             $user['username'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.username')]), 'admin');
             $user['password'] = $this->secret(trans('setup.input', ['name' => trans('setup.ask.password')]));
             $user['password_confirmation'] = $this->secret(trans('setup.ask.password_confirmation'));
-            $user['email'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.email')]), '');
+            $user['email'] = $this->ask(trans('setup.input', ['name' => trans('setup.ask.email')]));
             //validate
             $validator = Validator::make($user, [
                 'username' => 'required',
@@ -261,7 +295,7 @@ class Setup extends Command
     {
         $this->progress(1, false);
         $this->info(trans('setup.create_admin_role'));
-        $this->execShell('php artisan db:seed --force --class=SetupRBAC');
+        $this->call('db:seed', ['--force' => null, '--class' => 'SetupRBAC']);
         $owner = Role::where(['name' => 'owner'])->first();
         $admin->assignRole($owner->id);
         return $this;
@@ -275,14 +309,22 @@ class Setup extends Command
     {
         $this->progress(1, false);
         $this->info(trans('setup.create_default_seed'));
-        $this->execShell('php artisan db:seed --force --class=SetupSeeder');
+        $this->call('db:seed', ['--force' => null, '--class' => 'SetupSeeder']);
         return $this;
     }
 
     protected function optimize()
     {
-        $this->execShell('php artisan route:cache');
-        $this->execShell('php artisan optimize');
+        if ($this->config_arr['APP_ENV'] == 'production') {
+            $this->call('config:cache');
+            $this->call('route:cache');
+            $this->call('optimize');
+        } else {
+            $this->call('cache:clear');
+            $this->call('config:clear');
+            $this->call('route:clear');
+            $this->call('optimize');
+        }
         return $this;
     }
 
@@ -299,7 +341,7 @@ class Setup extends Command
     private function progress($step = 1, $clear = false)
     {
         if ($clear) {
-            $this->line(shell_exec('clear'));
+            $this->info("\e[H\e[J");
         }
         if ($this->bar !== null) {
             $this->bar->advance($step);
@@ -316,37 +358,37 @@ class Setup extends Command
         $this->info(trans('setup.finished'));
     }
 
-    private function execShell($command)
+    private function env_path()
     {
-        $this->line('---');
-        $this->info($command);
-        $output = shell_exec($command);
-        $this->line($output);
-        $this->line('---');
+        return $this->laravel->environmentFilePath();
     }
 
-    private function create_env_file($config_arr)
+    private function create_env_file()
     {
-        $this->execShell('cp .env.example .env');
-        foreach ($config_arr as $key => $val) {
-            $this->setEnv($key, $val);
+        if (!file_exists($this->env_path() . '.example')) {
+            $this->error(trans('setup.file_not_found', ['name' => '.env.example']));
+            exit;
         }
-        $this->execShell('php artisan key:generate');
+        $env_example = file_get_contents($this->env_path() . '.example');
+        if ($env_example === false) {
+            $this->error(trans('setup.file_not_found', ['name' => '.env.example']));
+            exit;
+        }
+        $this->config_arr['APP_KEY'] = $this->generateRandomKey();
+        $this->set_env($this->config_arr, $env_example);
     }
 
-    private function setEnv($key, $value)
+    private function set_env($config_arr, $env_data)
     {
-        file_put_contents($this->laravel->environmentFilePath(), preg_replace(
-            '/^' . $key . '=.*$/m',
-            $key . '=' . $value,
-            file_get_contents($this->laravel->environmentFilePath())
-        ));
-
+        foreach ($config_arr as $key => $val) {
+            $env_data = preg_replace('/^' . $key . '=.*$/m', $key . '=' . $val, $env_data);
+        }
+        file_put_contents($this->env_path(), $env_data);
     }
 
     private function test_connection($config_arr)
     {
-        $capsule = app(\Illuminate\Database\Capsule\Manager::class);
+        $capsule = app(Manager::class);
         $connect_arr = [];
         switch ($config_arr['DB_CONNECTION']) {
             case 'sqlite':
@@ -399,4 +441,24 @@ class Setup extends Command
         return true;
     }
 
+    private function make_options($choice_arr)
+    {
+        $return_arr = [];
+        array_walk($choice_arr, function ($value, $key) use (&$return_arr) {
+            $return_arr[strtolower($key[0])] = $key . ': ' . trans($value);
+        });
+        return $return_arr;
+    }
+
+    private function get_option_key($choice, $option_arr)
+    {
+        return explode(': ', $option_arr[$choice])[0];
+    }
+
+    private function generateRandomKey()
+    {
+        return 'base64:' . base64_encode(random_bytes(
+                $this->laravel['config']['app.cipher'] == 'AES-128-CBC' ? 16 : 32
+            ));
+    }
 }
