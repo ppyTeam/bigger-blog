@@ -151,7 +151,26 @@ class Dev extends Command
 
     public function act_seed()
     {
-
+        $askArr = [
+            0 => "【以下全部】\t All the seeders",
+            1 => "【生成10篇文章】\t Create 10 posts",
+            2 => "【生成3个分类】\t Create 3 categories",
+            3 => "【生成5个标签】\t Create 5 tags",
+            4 => "【设置分类标签】\t Add some tags and categories to latest 10 posts",
+            5 => "【生成2个导航栏】\t Create 2 nav",
+        ];
+        $actionArr = [
+            0 => 'DatabaseSeeder',
+            1 => 'PostSeeder',
+            2 => 'CategorySeeder',
+            3 => 'TagSeeder',
+            4 => 'PostTagCategorySeeder',
+            5 => 'NavSeeder',
+        ];
+        $choice = $this->choice('【请选择想要执行的随机数据生成器】Which seeder would you run?', $askArr, 0);
+        $this->call('db:seed', ['--class' => $actionArr[array_search($choice, $askArr)]]);
+        $this->info('【数据生成完毕!】Seed success！');
+        return $this;
     }
 
 
