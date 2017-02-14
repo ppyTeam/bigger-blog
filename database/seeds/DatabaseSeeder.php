@@ -10,7 +10,8 @@ class DatabaseSeeder extends Seeder
         PostSeeder::class,
         CategorySeeder::class,
         TagSeeder::class,
-        PostTagseeder::class,
+        PostTagCategorySeeder::class,
+        NavSeeder::class,
     ];
 
     /**
