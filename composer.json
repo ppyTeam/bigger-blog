@@ -58,6 +58,9 @@
       "php artisan ide-helper:models",
       "php artisan optimize"
     ],
+    "blog-optimize": [
+      "php artisan blog:optimize"
+    ],
     "db-i": [
       "php artisan migrate:install"
     ],
@@ -68,12 +71,12 @@
       "php artisan db:seed"
     ],
     "npm-i": [
-      "sudo npm i -g cross-env webpack@^2.2.0 --registry=https://registry.npm.taobao.org/",
+      "sudo env PATH=$PATH npm i -g cross-env webpack@^2.2.0 --registry=https://registry.npm.taobao.org/",
       "SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass npm i node-sass --no-bin-links --registry=https://registry.npm.taobao.org/",
       "npm i --no-bin-links --registry=https://registry.npm.taobao.org/"
     ],
     "npm-up": [
-      "sudo npm up -g webpack --registry=https://registry.npm.taobao.org/",
+      "sudo env PATH=$PATH npm up -g webpack --registry=https://registry.npm.taobao.org/",
       "SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass npm up node-sass --no-bin-links --registry=https://registry.npm.taobao.org/",
       "for package in $(npm outdated --parseable --depth=0 --registry=https://registry.npm.taobao.org/ | cut -d: -f2) \n do \n npm i \"$package\" --no-bin-links --registry=https://registry.npm.taobao.org/ \n done"
     ],

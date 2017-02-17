@@ -122,7 +122,7 @@ class Dev extends Command
         $this->progress();
         if ($this->confirm('update npm module? [Y|n]', true)) {
             $no_bin_links = $this->confirm('use no-bin-links?(Might helpful in virtual environment) [Y|n]', true) ? ' --no-bin-links ' : ' ';
-            $this->execShell("sudo npm up -g webpack --registry=https://registry.npm.taobao.org/");
+            $this->execShell("sudo env PATH=$PATH npm up -g webpack --registry=https://registry.npm.taobao.org/");
             $this->execShell("SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass npm up node-sass" . $no_bin_links . "--registry=https://registry.npm.taobao.org/");
             $this->execShell("for package in $(npm outdated --parseable --depth=0 --registry=https://registry.npm.taobao.org/ | cut -d: -f2) \n do \n npm i  " . '"$package"' . $no_bin_links . " --registry=https://registry.npm.taobao.org/ \n done");
         }

@@ -7,7 +7,7 @@ php artisan migrate
 
 # check arg
 if [[ $1 == '--no-bin-links' ]]; then
-    su - root -c "npm up -g cross-env webpack --registry=https://registry.npm.taobao.org/"
+    sudo env PATH=$PATH npm up -g cross-env webpack --registry=https://registry.npm.taobao.org/
     SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass npm up node-sass --no-bin-links --registry=https://registry.npm.taobao.org/
 
     for package in $(npm outdated --parseable --depth=0 --registry=https://registry.npm.taobao.org/ | cut -d: -f2)
@@ -15,7 +15,7 @@ if [[ $1 == '--no-bin-links' ]]; then
         npm i "$package" --no-bin-links --registry=https://registry.npm.taobao.org/
     done
 else
-    su - root -c "npm up -g webpack --registry=https://registry.npm.taobao.org/"
+    sudo env PATH=$PATH npm up -g webpack --registry=https://registry.npm.taobao.org/
     SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass npm up node-sass --registry=https://registry.npm.taobao.org/
 
     for package in $(npm outdated --parseable --depth=0 --registry=https://registry.npm.taobao.org/ | cut -d: -f2)

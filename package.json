@@ -3,8 +3,10 @@
   "scripts": {
     "prod": "cross-env NODE_ENV='production' webpack",
     "dev": "webpack --watch",
-    "dev-install": "sh ./tools/install.sh",
-    "dev-update": "sh ./tools/update.sh"
+    "setup": "sh ./tools/setup.sh",
+    "dev-update": "sh ./tools/update.sh",
+    "generator": "sh ./tools/generator.sh",
+    "blog-optimize": "php artisan blog:optimize"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.0",
