@@ -13,6 +13,6 @@ class PostSeeder extends Seeder
     {
         //
 
-        factory(App\Post::class, 9)->create();
+        factory(App\Post::class, 10)->create();
     }
 }

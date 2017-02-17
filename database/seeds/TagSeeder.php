@@ -11,14 +11,6 @@ class TagSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Tag::class)->create([
-            'tag_name' => 'tag1',
-        ]);
-        factory(App\Tag::class)->create([
-            'tag_name' => 'tag2',
-        ]);
-        factory(App\Tag::class)->create([
-            'tag_name' => 'tag3',
-        ]);
+        factory(App\Tag::class,5)->create();
     }
 }
