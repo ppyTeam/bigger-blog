@@ -3,9 +3,7 @@
   "scripts": {
     "prod": "cross-env NODE_ENV='production' webpack",
     "dev": "webpack --watch",
-    "setup": "sh ./tools/setup.sh",
-    "dev-update": "sh ./tools/update.sh",
-    "generator": "sh ./tools/generator.sh",
+    "setup": "php artisan setup",
     "blog-optimize": "php artisan blog:optimize"
   },
   "devDependencies": {
