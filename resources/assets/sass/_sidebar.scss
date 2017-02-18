@@ -6,15 +6,12 @@
   overflow-y: auto;                   // mobile => hidden
 }
 
-.header-sidebar {
+.header-sidebar {                     // mobile => background-color: #21233a
+  left: 0; // for transition
   height: 100%;
   width: $sidebar-header-width;       // mobile => 100%
-  background: {                       // mobile => background-color: #21233a
-    image: $sidebar-header-bg-image;  // mobile => none
-    repeat: no-repeat;
-    size: cover;
-  }
   word-break: break-all;
+  transition: all .5s ease-out;
 
 
   // Hidden scrollbar
@@ -25,8 +22,8 @@
 }
 
 .header-sidebar-panel {
-  display: table;                     // mobile => block
-  height: 100%;
+  position: absolute;
+  min-height: 100%;
   width: 100%;
-  background-image: $sidebar-header-bg-cover;
+  background-color: $sidebar-header-panel-bg-color;
 }

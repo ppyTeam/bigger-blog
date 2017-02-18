@@ -2,8 +2,16 @@
 
 
 .header-sidebar-panel {
-  .logo {
-    margin-bottom: 0;
+
+  // 快速导航
+  .header-fast-nav {
+    margin-top: 25px;
+  }
+
+
+  // 全部 header 中的 ul 的定义，为了性能考虑加上类
+  .nav-ul {
+    font-size: 1.125rem;
   }
 
 
@@ -15,4 +23,7 @@
   .header-socially {
     margin-top: 0;
   }
+
+
+
 }

@@ -3,34 +3,22 @@
 
 .header-sidebar-panel {
   .header-panel {
-    display: table-cell;                    // mobile => block
-    padding: 0 30px;                        // mobile => 15px 15px 0
+    margin-top: 200px;
+    padding: 60px 30px 0;                    // mobile => 15px 15px 0
     text-align: center;
     color: $header-font-color;
-    vertical-align: middle;
     // word-break: break-all; // 强制换行
-  }
-
-
-  .logo {
-    height: 112px;                          // mobile => 84px
-    width: 112px;                           // mobile => 84px
-    margin-bottom: 25px;                    // narrow => 0, mobile => 0
-    border: 5px solid $header-logo-border-color;  // mobile => 3px #fff
-    border-radius: $header-logo-border-radius;
-    background-color: #fff;
-
-    &:hover {
-      box-shadow: 0 0 1rem $header-logo-hover-border-color;
-      border-color: $header-logo-hover-border-color;
-    }
   }
 
 
   // 大标题和副标题
   .header-title {                           // mobile => h1, h4
-    margin: 1.125rem 0; // ~18px            // mobile => .875rem 0 // ~14px
+    margin: .3rem 0 1rem; // ~4.8px 16px    // mobile => .875rem 0 // ~14px
     font-family: $header-title-font-family;
+  }
+
+  h4.header-title {
+    color: #696969;
   }
 
 
@@ -44,17 +32,41 @@
   }
 
 
-  hr {                                      // mobile => display: none
-    width: 40%;
-    border: 0;
-    border-top: 1px rgba(255, 255, 255, 0.3) solid;
+  // 快速导航
+  .header-fast-nav {
+    display: table;
+    margin: 50px auto 0; // narrow => 25px auto 0
+
+    .header-fast-nav-item {
+      display: table-cell;
+      cursor: pointer;
+
+      p {
+        margin: 0;
+        padding: 0 15px;
+        font-size: 14px;
+        line-height: 26px;
+      }
+    }
+
+
+    .header-fast-nav-center {
+      border: 1px solid #ccc;
+      border-top: none;
+      border-bottom: none;
+    }
+
+
+    &::after {
+      @include clearfix;
+    }
   }
 
 
   // 全部 header 中的 ul 的定义，为了性能考虑加上类
   .nav-ul {
     padding: 0;
-    font-size: 1.25rem;
+    font-size: 1.25rem; // narrow => 1.125rem
   }
 
 
@@ -62,6 +74,7 @@
   .header-nav {
     display: flex;
     min-height: 250px; // narrow => 0
+    margin-top: 16px;
     flex-direction: column;
     justify-content: center;
 
@@ -77,5 +90,57 @@
       display: inline-block;
       padding: 6px 8px;
     }
+  }
+}
+
+
+.header-sidebar-overlay {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  height: 205px;
+  width: calc(100% + 5px);
+  background: {
+    color: #222;
+    repeat: no-repeat;
+    size: cover;
+    position-y: 40%;
+  };
+  overflow: hidden;
+  filter: blur(3px);
+}
+
+
+.logo {
+  position: absolute;
+  top: 144px;                                       // 200 - 112 / 2 = 144
+  left: calc(#{$layout-left-width} / 2 - 112 / 2);  // width / 2 - 112 / 2
+  height: 112px;                          // mobile => 84px
+  width: 112px;                           // mobile => 84px
+  border: 5px solid #fff;                 // mobile => 3px #fff
+  border-radius: $header-logo-border-radius;
+  background-color: #fff;
+
+  &:hover {
+    box-shadow: 0 0 1rem $header-logo-hover-border-color;
+    border-color: $header-logo-hover-border-color;
+  }
+}
+
+
+
+.test {
+  .header-sidebar {
+    left: -300px;
+    // width: 50px;
+  }
+
+  .content-box {
+    left: 50px;
+  }
+
+  .header-sidebar-overlay {
+    background-image: none !important;
+    filter: blur(0);
   }
 }
