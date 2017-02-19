@@ -1,7 +1,7 @@
 <template>
     <div class="header-sidebar-panel" v-once>
         <div class="header-slide-btn">
-            <span class="header-slide-span">く</span>
+            <span class="header-slide-span" @click="slideIn">く</span>
         </div>
 
         <div class="header-overlay"
@@ -66,6 +66,20 @@
 </template>
 <script>
     export default {
+        data () {
+            return {
+                sidebarOut: true
+            }
+        },
+
+        methods: {
+            slideIn () {
+                this.$store.commit('setNavHeaderState', {
+                    isOut: false
+                })
+            }
+        },
+
         computed: {
             navData () {
                 return this.$store.state.navData; // 此为浅拷贝，注意不可更改内容

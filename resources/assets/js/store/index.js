@@ -11,6 +11,7 @@ import * as getters from './getters';
 
 
 const state = {
+    navHeaderState: true, // 展开为 true，收缩为 false
     navData: { },
     data: { }, // 所有缓存的数据保存在此
     blogContent: ''

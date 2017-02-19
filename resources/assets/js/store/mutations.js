@@ -43,3 +43,17 @@ export const removeCachedData = (state, path) => {
 
     delete state.data[path];
 };
+
+
+
+// 初始化导航栏状态
+export const initNavHeaderState = state => {
+    state.navHeaderState = localStorage.getItem('nav-header-state') === 'false' ?
+        false :
+        true;
+};
+
+export const setNavHeaderState = (state, { isOut }) => {
+    state.navHeaderState = isOut;
+    localStorage.setItem('nav-header-state', isOut);
+};

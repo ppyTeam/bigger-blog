@@ -166,7 +166,7 @@
     transform: translateX(-300px);
   }
 }
-.test {
+.header-in {
   .header-sidebar {
     left: -300px;
     //animation: test-in .3s ease-out;
@@ -178,6 +178,7 @@
     left: 50px;
     //animation: test-in .2s ease-out .3s;
     //animation-fill-mode: forwards;
+    //transform: translateX(-150px);
   }
 
   .header-sidebar-overlay {
