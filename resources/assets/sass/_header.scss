@@ -98,7 +98,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 10px;
+  width: $sidebar-header-slide-btn-width; // 10px
   height: 100%;
   z-index: 3;
 
@@ -106,10 +106,10 @@
     position: absolute;
     top: 40%;
     left: 0;
-    width: 20px;
-    height: 60px;
+    width: $sidebar-header-slide-span-width;   // 20px
+    height: $sidebar-header-slide-span-height; // 60px
     line-height: 60px;
-    background-color: #ccc;
+    background-color: $sidebar-header-slide-span-bg-color; // #ccc
     border-top-right-radius: 140px;
     border-bottom-right-radius: 140px;
     cursor: pointer;
@@ -119,6 +119,10 @@
 
   &:hover .header-slide-span {
     opacity: 1;
+
+    &:hover {
+      background-color: $sidebar-header-slide-span-hover-bg-color;
+    }
   }
 }
 
