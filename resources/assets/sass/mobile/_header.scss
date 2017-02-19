@@ -9,14 +9,6 @@
   }
 
 
-  .logo {
-    height: 84px;
-    width: 84px;
-    border-color: #fff;
-    border-width: 3px;
-  }
-
-
   // 大标题和副标题
   .header-title {
     margin: .875rem 0; // ~14px
@@ -60,4 +52,11 @@
       font-size: 1rem;
     }
   }
+}
+
+
+.logo {
+  height: 84px;
+  width: 84px;
+  border-color: #fff;
 }

@@ -1,6 +1,10 @@
 <template>
     <div class="header-sidebar-panel" v-once>
-        <div class="header-sidebar-overlay"
+        <div class="header-slide-btn">
+            <span class="header-slide-span">く</span>
+        </div>
+
+        <div class="header-overlay"
              :style="{'backgroundImage': 'url(' + bannerUrl + ')' }"
         ></div>
         <router-link :to="navData.main_link">

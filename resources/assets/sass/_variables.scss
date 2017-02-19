@@ -293,7 +293,7 @@ $header-font-color:                      #444 !default; // Custom
 $header-hover-font-color:                darken($header-font-color, 20%) !default; // Custom
 
 $header-logo-border-radius:              $border-radius-round !default;
-// $header-logo-border-color:            #ddd !default;
+$header-logo-border-color:               #ddd !default; // Custom
 $header-logo-hover-border-color:         #88acdb !default;
 
 $header-title-font-family:               Roboto, serif !default;
