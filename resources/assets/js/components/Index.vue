@@ -1,5 +1,5 @@
 <template>
-    <div class="container" :class="{'header-in': navHeaderState }">
+    <div class="container" :class="{ 'header-in': navHeaderState }">
         <div class="sidebar header-sidebar">
             <b-header></b-header>
         </div>
@@ -17,7 +17,7 @@
 
         computed: {
             navHeaderState () {
-                return !this.$store.state.navHeaderState;
+                return ! this.$store.state.navHeaderState;
             }
         }
     }

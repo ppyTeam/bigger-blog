@@ -2,7 +2,68 @@
 // 名为头部的边栏，外层容器见 sidebar.scss
 
 .header-sidebar-panel {
-  .header-panel {
+
+  // 所有的 link，可后台自定义
+  .h-link {
+    color: $header-font-color;
+
+    &:hover {
+      color: $header-hover-font-color;
+    }
+  }
+
+
+  // 收缩按钮
+  .h-slide-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $sidebar-header-slide-btn-width; // 10px
+    height: 100%;
+    z-index: 3;
+
+    .h-slide-span {
+      position: absolute;
+      top: 40%;
+      left: 0;
+      width: $sidebar-header-slide-span-width;   // 20px
+      height: $sidebar-header-slide-span-height; // 60px
+      line-height: 60px;
+      background-color: $sidebar-header-slide-span-bg-color; // #ccc
+      border-top-right-radius: 140px;
+      border-bottom-right-radius: 140px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity .3s ease-out;
+    }
+
+    &:hover .h-slide-span {
+      opacity: 1;
+
+      &:hover {
+        background-color: $sidebar-header-slide-span-hover-bg-color;
+      }
+    }
+  }
+
+
+  // 头像
+  .h-overlay {
+    position: absolute;
+    height: 200px;
+    width: 100%;
+    background: {
+      color: #222;
+      repeat: no-repeat;
+      size: cover;
+      position-y: 40%;
+    };
+    overflow: hidden;
+    filter: blur(3px); // TODO 用js实现
+  }
+
+
+  .h-panel {
     margin-top: 200px;
     padding: 60px 30px 0;                    // mobile => 15px 15px 0
     text-align: center;
@@ -12,32 +73,22 @@
 
 
   // 大标题和副标题
-  .header-title {                           // mobile => h1, h4
+  .h-title {                                // mobile => h1, h4
     margin: .3rem 0 1rem; // ~4.8px 16px    // mobile => .875rem 0 // ~14px
     font-family: $header-title-font-family;
   }
 
-  h4.header-title {
+  h4.h-title {
     color: #696969;
   }
 
 
-  // 所有的 link，可后台自定义
-  .header-link {
-    color: $header-font-color;
-
-    &:hover {
-      color: $header-hover-font-color;
-    }
-  }
-
-
   // 快速导航
-  .header-fast-nav {
+  .h-fast-nav {
     display: table;
     margin: 50px auto 0; // narrow => 25px auto 0
 
-    .header-fast-nav-item {
+    .h-fast-nav-item {
       display: table-cell;
       cursor: pointer;
 
@@ -49,98 +100,42 @@
       }
     }
 
-
-    .header-fast-nav-center {
+    .h-fast-nav-center {
       border: 1px solid #ccc;
       border-top: none;
       border-bottom: none;
-    }
-
-
-    &::after {
-      @include clearfix;
     }
   }
 
 
   // 全部 header 中的 ul 的定义，为了性能考虑加上类
-  .nav-ul {
+  .h-nav-ul {
     padding: 0;
     font-size: 1.25rem; // narrow => 1.125rem
   }
 
 
   // 站内链接和站外链接的导航
-  .header-nav {
+  .h-nav {
     display: flex;
     min-height: 250px; // narrow => 0
     margin-top: 16px;
     flex-direction: column;
     justify-content: center;
 
-    .nav-item {
+    .h-nav-item {
       margin: 8px 0;
     }
   }
 
-  .header-socially {
+  .h-socially {
     margin-top: 60px; // narrow => 0
 
-    .socially-item {
+    .h-socially-item {
       display: inline-block;
       padding: 6px 8px;
     }
   }
-}
-
-
-.header-slide-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: $sidebar-header-slide-btn-width; // 10px
-  height: 100%;
-  z-index: 3;
-
-  .header-slide-span {
-    position: absolute;
-    top: 40%;
-    left: 0;
-    width: $sidebar-header-slide-span-width;   // 20px
-    height: $sidebar-header-slide-span-height; // 60px
-    line-height: 60px;
-    background-color: $sidebar-header-slide-span-bg-color; // #ccc
-    border-top-right-radius: 140px;
-    border-bottom-right-radius: 140px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity .3s ease-out;
-  }
-
-  &:hover .header-slide-span {
-    opacity: 1;
-
-    &:hover {
-      background-color: $sidebar-header-slide-span-hover-bg-color;
-    }
-  }
-}
-
-
-.header-overlay {
-  position: absolute;
-  top: -5px;
-  left: -5px;
-  height: 205px;
-  width: calc(100% + 5px);
-  background: {
-    color: #222;
-    repeat: no-repeat;
-    size: cover;
-    position-y: 40%;
-  };
-  overflow: hidden;
-  filter: blur(3px);
 }
 
 
@@ -161,28 +156,21 @@
 }
 
 
-@keyframes test-in {
-  to {
-    transform: translateX(-300px);
-  }
-}
+
 .header-in {
-  .header-sidebar {
-    left: -300px;
-    //animation: test-in .3s ease-out;
-    //animation-fill-mode: forwards;
-    // width: 50px;
+  .h-slide-btn,
+  .h-overlay,
+  .logo,
+  .h-panel {
+    display: none;
+  }
+
+  .header-sidebar-panel {
+    width: 70px;
+    background-color: #222;
   }
 
   .content-box {
-    left: 50px;
-    //animation: test-in .2s ease-out .3s;
-    //animation-fill-mode: forwards;
-    //transform: translateX(-150px);
-  }
-
-  .header-sidebar-overlay {
-    background-image: none !important;
-    filter: blur(0);
+    left: 90px;
   }
 }
