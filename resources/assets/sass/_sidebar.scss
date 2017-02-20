@@ -2,14 +2,13 @@
 // 边栏，针对 header 等
 
 .sidebar {
-  position: fixed;                    // mobile => static
-  overflow-y: auto;                   // mobile => hidden
+  position: fixed;                                  // mobile
+  overflow-y: auto;                                 // mobile
 }
 
-.header-sidebar {                     // mobile => background-color: #21233a
-  left: 0; // for transition
+.header-sidebar {                                   // mobile => background-color
   height: 100%;
-  width: $sidebar-header-width;       // mobile => 100%
+  width: $sidebar-header-width;                     // mobile
   word-break: break-all;
 
 
@@ -20,9 +19,9 @@
   }
 }
 
-.header-sidebar-panel { // in => text-align: center;
+.header-sidebar-panel {                             // in => text-align
   position: absolute;
   min-height: 100%;
-  width: 100%; // in => 70px
-  background-color: $sidebar-header-panel-bg-color; // in => #222
+  width: 100%;                                      // in
+  background-color: $sidebar-header-panel-bg-color; // in
 }

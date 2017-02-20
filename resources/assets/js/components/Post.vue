@@ -28,7 +28,7 @@
                         <footer class="post-footer">
                             <span class="post-footer-item fa fa-user">{{ postData.user_id }}</span><!--
 
-                            --><span class="post-footer-item fa fa-navicon">
+                            --><span class="post-footer-item fa fa-list">
                                 <router-link :to="'/category/' + postData.category_name">{{ postData.category_name }}</router-link>
                             </span><!--
 

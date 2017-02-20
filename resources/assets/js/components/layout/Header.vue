@@ -5,6 +5,9 @@
             <span class="h-in-span" @click="slide(false)">く</span>
         </div>
 
+        <!-- 展开按钮 -->
+        <i class="h-out-btn fa fa-sign-out fa-lg" @click="slide(true)"></i>
+
         <!-- 头像背景 -->
         <div class="h-overlay"
              :style="{'backgroundImage': 'url(' + bannerUrl + ')' }"
@@ -14,9 +17,6 @@
         </router-link>
 
         <header class="h-panel">
-            <!-- 展开按钮 -->
-            <i class="h-out-btn fa fa-sign-out fa-lg" @click="slide(true)"></i>
-
             <h1 class="h-title">
                 <router-link class="h-link" :to="navData.main_link">{{ navData.title }}</router-link>
             </h1>
@@ -24,29 +24,32 @@
                 {{ navData.subtitle }}
             </h4>
 
-            <div class="h-fast-nav">
+            <nav class="h-fast-nav">
                 <router-link class="h-fast-nav-item"
                              to="/archives"
                              tag="div"
                 >
-                    <p>{{ navData.posts_count }}</p>
+                    <i class="fa fa-map-signs fa-lg"></i>
+                    <p class="h-fast-nav-num">{{ navData.posts_count }}</p>
                     <p>归档</p>
                 </router-link>
-                <router-link class="h-fast-nav-item h-fast-nav-center"
+                <router-link class="h-fast-nav-item"
                              to="/categories"
                              tag="div"
                 >
-                    <p>{{ navData.categories_count }}</p>
+                    <i class="fa fa-list fa-lg"></i>
+                    <p class="h-fast-nav-num">{{ navData.categories_count }}</p>
                     <p>分类</p>
                 </router-link>
                 <router-link class="h-fast-nav-item"
                              to="/tags"
                              tag="div"
                 >
-                    <p>{{ navData.tags_count }}</p>
+                    <i class="fa fa-tags fa-lg"></i>
+                    <p class="h-fast-nav-num">{{ navData.tags_count }}</p>
                     <p>标签</p>
                 </router-link>
-            </div>
+            </nav>
 
             <nav class="h-nav">
                 <ul class="h-nav-ul">

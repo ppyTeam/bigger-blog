@@ -285,7 +285,7 @@ $sidebar-header-panel-bg-color:          #fff !default;
 // Header
 
 $header-font-color:                      #444 !default; // Custom
-$header-hover-font-color:                darken($header-font-color, 20%) !default; // Custom
+$header-hover-font-color:                darken($header-font-color, 40%) !default; // Custom
 
 // Logo && Overlay
 
@@ -334,6 +334,10 @@ $header-logo-in-border-color:            #fff !default;
 $header-logo-in-bg-color:                $sidebar-header-panel-in-bg-color !default;
 
 $header-in-font-color:                   #e0e0e0 !default;
+$header-in-hover-font-color:             lighten($header-in-font-color, 40%) !default;
+
+$header-in-fast-nav-border-top-color:    #1b1b1b !default;
+$header-in-fast-nav-border-bottom-color: #323232 !default;
 
 
 // Article

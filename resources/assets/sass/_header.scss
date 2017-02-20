@@ -50,12 +50,6 @@
   // 展开按钮
   .h-out-btn {
     display: none;                                  // in
-    color: $sidebar-header-out-color; // #666
-    cursor: pointer;
-
-    &:hover {
-      color: $sidebar-header-out-hover-color;
-    }
   }
 
 
@@ -97,26 +91,29 @@
 
 
   // 快速导航
-  .h-fast-nav {
-    display: table;
+  .h-fast-nav {                                     // in => padding
+    display: table;                                 // in
     margin: 50px auto 0;                            // narrow
     font-size: $header-fast-nav-font-size; // ~14px
     line-height: $header-fast-nav-line-height; // ~26px
 
-    .h-fast-nav-item {
-      display: table-cell;
-      cursor: pointer;
+    .fa {
+      display: none;
+    }
+  }
 
-      p {
-        margin: 0;
-        padding: 0 15px;
-      }
+  .h-fast-nav-item {                                // in => padding
+    display: table-cell;                            // in
+    cursor: pointer;
+    border-right: 1px solid $header-fast-nav-border-color; // in
+
+    &:hover {
+      color: $header-hover-font-color;              // in
     }
 
-    .h-fast-nav-center {
-      border: 1px solid $header-fast-nav-border-color;
-      border-top: 0;
-      border-bottom: 0;
+    p {
+      margin: 0;
+      padding: 0 15px;                              // in
     }
   }
 
@@ -154,7 +151,7 @@
 }
 
 
-.logo {                                             // in
+.logo {                                             // in => margin-top
   position: absolute;                               // in
   top: calc(#{$header-panel-margin-top} - 112 / 2); // 200 - 112 / 2 = 144
   left: calc(#{$layout-left-width} / 2 - 112 / 2);  // width / 2 - 112 / 2
@@ -171,76 +168,6 @@
 }
 
 
-
-.header-in {
-  .h-in-btn,       // 收缩按钮
-  .h-overlay,      // 头像背景
-  .h-title,        // 大标题和副标题
-  .h-nav {         // 站内链接和站外链接的导航
-    display: none;
-  }
-
-  // 展开按钮
-  .h-out-btn {
-    display: inline-block;
-  }
-
-  .header-sidebar-panel {
-    width: $sidebar-header-panel-in-width; // 70px
-    text-align: center;
-    background-color: $sidebar-header-panel-in-bg-color; // #222
-  }
-
-  .logo {
-    position: static;
-    height: 56px;
-    width: 56px;
-    margin-top: 10px;
-    border-color: $header-logo-in-border-color; // #fff
-    background-color: $header-logo-in-bg-color; // #222
-  }
-
-  .h-panel {
-    margin-top: 10px;
-    padding: 0;
-    color: $header-in-font-color; // e0e0e0
-  }
-
-  // 快速导航
-  .h-fast-nav {
-    display: block;
-    margin: 10px 0 0 0;
-    padding: 0 8px;
-
-    .h-fast-nav-item {
-      display: block;
-      padding: 5px 0;
-
-      p {
-        padding: 0;
-        line-height: 22px;
-      }
-    }
-
-    .h-fast-nav-center {
-      border: 0;
-      border-top: 1px solid #555;
-      border-bottom: 1px solid #555;
-    }
-  }
-
-  .h-socially {
-    margin-top: 20px !important;
-  }
-
-
-
-  .content-box {
-    left: 90px;
-  }
-}
-
 // TODO
-// 700px 时会出错，比如mac
 // 是否添加快速导航栏，如关于
-// 是否添加面包屑
+// 添加面包屑，展开后是TOC
