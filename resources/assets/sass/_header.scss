@@ -131,7 +131,7 @@
   // 站内链接和站外链接的导航
   .h-nav {
     display: flex;
-    min-height: $header-nav-min-height; // 230px    // narrow
+    min-height: $header-nav-min-height; // 140px
     margin-top: 16px;
     flex-direction: column;
     justify-content: flex-end;
@@ -140,6 +140,7 @@
       margin: 8px 0;
     }
   }
+
 
   // 社交按钮
   .h-socially {

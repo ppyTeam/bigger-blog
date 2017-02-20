@@ -1,3 +1,4 @@
+// Header
 // 窄屏
 
 
@@ -11,19 +12,12 @@
 
   // 全部 header 中的 ul 的定义，为了性能考虑加上类
   .h-nav-ul {
-    font-size: 1.125rem;
+    font-size: $header-nav-narrow-ul-font-size; // ~18px
   }
 
 
-  .h-nav {
-    min-height: 0;
-  }
-
-
+  // 社交按钮
   .h-socially {
     margin-top: 0;
   }
-
-
-
 }
