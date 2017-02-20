@@ -172,13 +172,13 @@
 // 导航数据
 window.navData = {
     main_link: '/blog',
-    title: '我要搞一个大标题',
-    subtitle: '副标题的长度最大是十四个汉字',
-    logo_url: 'http://www.ciyuanjie.cn/wp-content/uploads/2016/12/%E3%80%90%E5%A4%B4%E5%83%8F%E3%80%91%E5%8F%88%E6%98%AF%E5%A5%97%E8%B7%AF-%E8%B6%85%E5%A4%9A%E5%8F%AF%E8%BE%BE%E9%B8%AD%E5%A4%B4%E5%83%8F%E8%87%AA%E9%80%89-4.jpg',
-    banner_url: null, // 'http://tva3.sinaimg.cn/crop.702.310.825.825.180/ed454aefgw1ecovuunw9pj21kw16o7wh.jpg',
-    posts_count: 110,
-    categories_count: 8,
-    tags_count: 68,
+    title: 'Bigger Blog', // '我要搞一个大标题',
+    subtitle: 'BY ppyTeam', //'副标题的长度最大是十八个汉字',
+    logo_url: 'http://i0.kym-cdn.com/entries/icons/facebook/000/013/564/aP2dv.jpg',
+    banner_url: null,
+    posts_count: 233333,
+    categories_count: 66,
+    tags_count: 233,
     nav: [ // flag 为 true 时为站内链接，使用 SPA，否则为站外链接
         @foreach($nav['nav'] as $eachNav)
         { url: '{{ $eachNav['url'] }}', name: '{{ $eachNav['name'] }}', flag: {{ $eachNav['flag'] }}  },

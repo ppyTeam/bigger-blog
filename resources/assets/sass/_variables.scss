@@ -279,30 +279,60 @@ $layout-left-width:                      350px !default;
 
 // Header sidebar
 
-// del $sidebar-header-bg-image:         url('http://ww2.sinaimg.cn/mw690/873fc752gw1fbpdxzjixpj20fo0mrwgy.jpg') !default;  // Custom
-                                         // url('http://o9evx54l5.bkt.clouddn.com/background-cover.jpg') !default;
-// del $sidebar-header-bg-cover:         linear-gradient(140deg,rgba(73, 50, 82, 0.4) 80%, rgba(17, 11, 19, 0.8)) !default; // Custom
-                                         // linear-gradient(140deg,rgba(119, 31, 18, 0.6) 20%, rgba(30, 8, 5, 0.8))
-
 $sidebar-header-width:                   $layout-left-width !default;
 $sidebar-header-panel-bg-color:          #fff !default;
 
-$sidebar-header-slide-btn-width:         10px !default;
-$sidebar-header-slide-span-width:        20px !default;
-$sidebar-header-slide-span-height:       60px !default;
-$sidebar-header-slide-span-bg-color:     #ccc !default;
-$sidebar-header-slide-span-hover-bg-color: #bbb !default;
-
-// Header && Logo
+// Header
 
 $header-font-color:                      #444 !default; // Custom
 $header-hover-font-color:                darken($header-font-color, 20%) !default; // Custom
+
+// Logo && Overlay
 
 $header-logo-border-radius:              $border-radius-round !default;
 $header-logo-border-color:               #ddd !default; // Custom
 $header-logo-hover-border-color:         #88acdb !default;
 
+$header-overlay-bg-color:                #222 !default;
+$header-overlay-height:                  200px !default;
+
+// Header in / out button
+
+$sidebar-header-in-btn-width:            10px !default;
+$sidebar-header-in-span-width:           15px !default;
+$sidebar-header-in-span-height:          60px !default;
+$sidebar-header-in-span-line-height:     $sidebar-header-in-span-height !default;
+$sidebar-header-in-span-bg-color:        #ccc !default;
+$sidebar-header-in-span-hover-bg-color:  darken($sidebar-header-in-span-bg-color, 15%) !default;
+
+$sidebar-header-out-color:               #666 !default;
+$sidebar-header-out-hover-color:         lighten($sidebar-header-out-color, 15%) !default;
+
+// Header panel
+
+$header-panel-margin-top:                $header-overlay-height !default;
+
 $header-title-font-family:               Roboto, serif !default;
+$header-title-subtitle-font-size:        .9375rem !default; // ~15px
+$header-title-subtitle-color:            #696969 !default;
+
+$header-fast-nav-font-size:              .875rem !default; // ~14px
+$header-fast-nav-line-height:            1.625rem !default; // ~26px
+$header-fast-nav-border-color:           #ccc !default;
+
+$header-nav-ul-font-size:                1.25rem !default; // ~20px
+
+$header-nav-min-height:                  230px !default;
+
+// Header-in
+
+$sidebar-header-panel-in-width:          70px !default;
+$sidebar-header-panel-in-bg-color:       $header-overlay-bg-color !default;
+
+$header-logo-in-border-color:            #fff !default;
+$header-logo-in-bg-color:                $sidebar-header-panel-in-bg-color !default;
+
+$header-in-font-color:                   #e0e0e0 !default;
 
 
 // Article

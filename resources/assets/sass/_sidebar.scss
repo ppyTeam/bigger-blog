@@ -20,9 +20,9 @@
   }
 }
 
-.header-sidebar-panel {
+.header-sidebar-panel { // in => text-align: center;
   position: absolute;
   min-height: 100%;
-  width: 100%;
-  background-color: $sidebar-header-panel-bg-color;
+  width: 100%; // in => 70px
+  background-color: $sidebar-header-panel-bg-color; // in => #222
 }

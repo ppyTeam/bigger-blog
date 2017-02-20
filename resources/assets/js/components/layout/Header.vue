@@ -1,17 +1,22 @@
 <template>
     <div class="header-sidebar-panel" v-once>
-        <div class="h-slide-btn">
-            <span class="h-slide-span" @click="slideIn">く</span>
+        <!-- 收缩按钮 -->
+        <div class="h-in-btn">
+            <span class="h-in-span" @click="slide(false)">く</span>
         </div>
 
+        <!-- 头像背景 -->
         <div class="h-overlay"
              :style="{'backgroundImage': 'url(' + bannerUrl + ')' }"
         ></div>
         <router-link :to="navData.main_link">
-            <img class="logo" :src="navData.logo_url" :alt="navData.title" />
+            <img class="logo" :src="navData.logo_url" :title="navData.title" />
         </router-link>
 
         <header class="h-panel">
+            <!-- 展开按钮 -->
+            <i class="h-out-btn fa fa-sign-out fa-lg" @click="slide(true)"></i>
+
             <h1 class="h-title">
                 <router-link class="h-link" :to="navData.main_link">{{ navData.title }}</router-link>
             </h1>
@@ -25,7 +30,7 @@
                              tag="div"
                 >
                     <p>{{ navData.posts_count }}</p>
-                    <p>日志</p>
+                    <p>归档</p>
                 </router-link>
                 <router-link class="h-fast-nav-item h-fast-nav-center"
                              to="/categories"
@@ -73,9 +78,9 @@
         },
 
         methods: {
-            slideIn () {
+            slide (state) {
                 this.$store.commit('setNavHeaderState', {
-                    isOut: false
+                    isOut: state
                 })
             }
         },
