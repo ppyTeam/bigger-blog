@@ -40,7 +40,7 @@
                             <footer class="post-footer">
                                 <span class="post-footer-item fa fa-user">{{ post.user_id }}</span><!--
 
-                                --><span class="post-footer-item fa fa-navicon">
+                                --><span class="post-footer-item fa fa-list">
                                     <router-link :to="'/category/' + post.category_name">{{ post.category_name }}</router-link>
                                 </span><!--
 

@@ -172,9 +172,13 @@
 // 导航数据
 window.navData = {
     main_link: '/blog',
-    title: '我要搞一个大标题',
-    subtitle: '副标题的最佳体验是十五个中国字',
-    logo_url: 'http://ttionya.qiniudn.com/LOGO.gif',
+    title: 'Bigger Blog', // '我要搞一个大标题',
+    subtitle: 'BY ppyTeam', //'副标题的长度最大是十八个汉字',
+    logo_url: 'http://i0.kym-cdn.com/entries/icons/facebook/000/013/564/aP2dv.jpg',
+    banner_url: null,
+    posts_count: 233333,
+    categories_count: 66,
+    tags_count: 233,
     nav: [ // flag 为 true 时为站内链接，使用 SPA，否则为站外链接
         @foreach($nav['nav'] as $eachNav)
         { url: '{{ $eachNav['url'] }}', name: '{{ $eachNav['name'] }}', flag: {{ $eachNav['flag'] }}  },

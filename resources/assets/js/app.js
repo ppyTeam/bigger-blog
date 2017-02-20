@@ -54,5 +54,6 @@ new Vue({
     created () {
         this.$store.commit('initNavData'); // 初始化导航数据
         this.$store.commit('initBlogContent'); // 初始化文章正文
+        this.$store.commit('initNavHeaderState'); // 初始化导航栏状态
     }
 });
