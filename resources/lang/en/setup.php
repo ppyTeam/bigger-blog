@@ -3,6 +3,7 @@
 return [
     'input' => 'Please enter:name',
     'choice' => 'Please choose :name',
+    'file_not_found' => 'Could not find file :name !',
     'choices' => [
         'production' => 'production environment',
         'local' => 'local develop environment',
@@ -17,7 +18,7 @@ return [
         'install' => 'Install and initialize',
         'change_env' => 'Switch the development environment/production environment',
     ],
-    'already_installed' => 'You had already installed!',
+    'already_installed' => 'You had already installed!(if you want to ReInstall,please delete .env file and drop database)',
     'finished' => 'Setup finished!',
     'ask' => [
         'app_url' => 'blog site url(domain or ip,default:http://localhost)',

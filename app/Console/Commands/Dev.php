@@ -53,7 +53,9 @@ class Dev extends Command
     public function handle()
     {
         $this->show_help();
-        $choice = $this->choice('Please choose the number what you want to do,or press Enter to', array_keys($this->action), 0);
+        $options = $this->make_options($this->action);
+        $choice = $this->choice('Please choose the number what you want to do,or press Enter to exit', $options, array_keys($options)[0]);
+        $choice = $this->get_option_key($choice, $options);
         $max_step = isset($this->action_step[$choice]) ? $this->action_step[$choice] : -1;
         $this->start($max_step);
         call_user_func([$this, 'act_' . $choice]);
@@ -63,6 +65,7 @@ class Dev extends Command
 
     public function show_help()
     {
+        $this->info("\e[H\e[J");
         $this->table(['【开发者工具】Development Tools'], []);
         foreach ($this->action as $name => $description) {
             $this->warn('- ' . $name . ":");
@@ -119,7 +122,7 @@ class Dev extends Command
         $this->progress();
         if ($this->confirm('update npm module? [Y|n]', true)) {
             $no_bin_links = $this->confirm('use no-bin-links?(Might helpful in virtual environment) [Y|n]', true) ? ' --no-bin-links ' : ' ';
-            $this->execShell("sudo npm up -g webpack --registry=https://registry.npm.taobao.org/");
+            $this->execShell("sudo env PATH=$PATH npm up -g webpack --registry=https://registry.npm.taobao.org/");
             $this->execShell("SASS_BINARY_SITE=http://npm.taobao.org/mirrors/node-sass npm up node-sass" . $no_bin_links . "--registry=https://registry.npm.taobao.org/");
             $this->execShell("for package in $(npm outdated --parseable --depth=0 --registry=https://registry.npm.taobao.org/ | cut -d: -f2) \n do \n npm i  " . '"$package"' . $no_bin_links . " --registry=https://registry.npm.taobao.org/ \n done");
         }
@@ -148,8 +151,41 @@ class Dev extends Command
 
     public function act_seed()
     {
-
+        $askArr = [
+            0 => "【以下全部】\t All the seeders",
+            1 => "【生成10篇文章】\t Create 10 posts",
+            2 => "【生成3个分类】\t Create 3 categories",
+            3 => "【生成5个标签】\t Create 5 tags",
+            4 => "【设置分类标签】\t Add some tags and categories to latest 10 posts",
+            5 => "【生成2个导航栏】\t Create 2 nav",
+        ];
+        $actionArr = [
+            0 => 'DatabaseSeeder',
+            1 => 'PostSeeder',
+            2 => 'CategorySeeder',
+            3 => 'TagSeeder',
+            4 => 'PostTagCategorySeeder',
+            5 => 'NavSeeder',
+        ];
+        $choice = $this->choice('【请选择想要执行的随机数据生成器】Which seeder would you run?', $askArr, 0);
+        $this->call('db:seed', ['--class' => $actionArr[array_search($choice, $askArr)]]);
+        $this->info('【数据生成完毕!】Seed success！');
+        return $this;
     }
 
+
+    private function make_options($choice_arr)
+    {
+        $return_arr = [];
+        array_walk($choice_arr, function ($value, $key) use (&$return_arr) {
+            $return_arr[strtolower($key[0])] = $key . ": \t" . trans($value);
+        });
+        return $return_arr;
+    }
+
+    private function get_option_key($choice, $option_arr)
+    {
+        return explode(': ', $option_arr[$choice])[0];
+    }
 
 }

@@ -3,6 +3,7 @@
 return [
     'input' => '请填写:name',
     'choice' => '请选择:name',
+    'file_not_found' => '找不到文件 :name !',
     'choices' => [
         'production' => '线上正式环境',
         'local' => '本地开发环境',
@@ -17,7 +18,7 @@ return [
         'install' => '首次安装并初始化',
         'change_env' => '切换开发环境/生产环境',
     ],
-    'already_installed' => '您已经进行过初始化安装了!请勿重复安装',
+    'already_installed' => '您已经进行过初始化安装了!请勿重复安装(重新安装请手动删除.env文件及清空数据库)',
     'finished' => '安装已结束!',
     'ask' => [
         'app_url' => '博客的站点地址(url或者ip,默认:http://localhost)',

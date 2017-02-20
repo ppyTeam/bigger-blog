@@ -1,0 +1,106 @@
+// With 'header-in' class
+
+
+.header-in {
+  .h-in-btn,       // 收缩按钮
+  .h-overlay,      // 头像背景
+  .h-title,        // 大标题和副标题
+  .h-nav,          // 站内链接和站外链接的导航
+  .h-socially {    // 社交按钮
+    display: none;
+  }
+
+
+  // 所有的 link，可后台自定义
+  //.h-link {
+  //  color: $header-in-font-color;
+  //
+  //  &:hover {
+  //    color: $header-in-hover-font-color;
+  //  }
+  //}
+
+
+  .header-sidebar {
+    width: $sidebar-header-panel-in-width; // 70px
+  }
+
+
+  .header-sidebar-panel {
+    width: $sidebar-header-panel-in-width; // 70px
+    text-align: center;
+    background-color: $sidebar-header-panel-in-bg-color; // #222
+  }
+
+
+  .logo {
+    position: static;
+    height: 56px;
+    width: 56px;
+    margin-top: 10px;
+    border-color: $header-logo-in-border-color; // #fff
+    background-color: $header-logo-in-bg-color; // #222
+  }
+
+
+  .h-panel {
+    margin-top: 30px;
+    padding: 0;
+    color: $header-in-font-color; // #e0e0e0
+
+    &:hover {
+      color: $header-in-hover-font-color;
+    }
+  }
+
+
+  // 快速导航
+  .h-fast-nav {
+    display: block;
+
+    .h-fast-nav-num {
+      display: none;
+    }
+
+    .fa {
+      display: inline-block;
+    }
+  }
+
+  %header-in-h-fast-nav-item {
+    display: block;
+    padding: 14px 0;
+    border: 0;
+    border-top: 1px solid $header-in-fast-nav-border-top-color;
+    border-bottom: 1px solid $header-in-fast-nav-border-bottom-color;
+
+    &:hover {
+      color: $header-in-hover-font-color;
+      background-color: $header-in-fast-nav-border-bottom-color;
+    }
+
+    p {
+      padding: 0;
+    }
+  }
+
+  .h-fast-nav-item {
+    @extend %header-in-h-fast-nav-item;
+  }
+
+
+  // 展开按钮
+  .h-out-btn {
+    @extend %header-in-h-fast-nav-item;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    color: $header-in-font-color;
+    cursor: pointer;
+  }
+
+
+  .content-box {
+    left: 90px;
+  }
+}

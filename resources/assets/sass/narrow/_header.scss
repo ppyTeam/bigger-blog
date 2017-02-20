@@ -1,18 +1,23 @@
+// Header
 // 窄屏
 
 
 .header-sidebar-panel {
-  .logo {
-    margin-bottom: 0;
+
+  // 快速导航
+  .h-fast-nav {
+    margin-top: 25px;
   }
 
 
-  .header-nav {
-    min-height: 0;
+  // 全部 header 中的 ul 的定义，为了性能考虑加上类
+  .h-nav-ul {
+    font-size: $header-nav-narrow-ul-font-size; // ~18px
   }
 
 
-  .header-socially {
+  // 社交按钮
+  .h-socially {
     margin-top: 0;
   }
 }
